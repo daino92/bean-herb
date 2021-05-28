@@ -1,0 +1,65 @@
+/**
+ * Pagination in archive-product
+ */
+
+ .woocommerce-pagination {
+    font-size: 1em;
+	text-align: center;
+	margin: 4em;
+
+    .page-numbers {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+}
+
+.paginator {
+	position: relative;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+
+    .nav-next, 
+    .nav-prev {
+        position: relative;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    a, 
+    a * {
+        color: #333333;
+    }
+
+    .page-numbers, 
+    .page-numbers.current {
+        position: relative;
+        padding: 1px 8px;
+        margin: 0 6px;
+        text-decoration: none;
+
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            opacity: 0;
+            width: 100%;
+            background: #FF5100;
+            transition: opacity .3s ease;
+        }
+
+        &.disabled {
+            opacity: 0;
+        }
+    }
+
+    .page-numbers:hover:after,
+    .page-numbers.current:after {
+        opacity: 1;
+    }
+}
