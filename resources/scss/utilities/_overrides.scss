@@ -5,7 +5,7 @@ $max__width: 1140px;
 
 @font-face {
     font-family: 'beanherbregula';
-    src: url("assets/fonts/Bean_Herb-Regular.ttf");
+    src: url("../../dist/fonts/Bean_Herb-Regular.ttf");
     font-weight: bold;
 }
 
@@ -322,7 +322,7 @@ textarea:focus {
 
 .site-footer {
     background-color: rgba(221, 221, 221, 0);
-    background-image: url("assets/images/shared/footer.png");
+    background-image: url("../../dist/images/shared/footer.png");
     background-size: cover;
     padding-top: 4em;
 
@@ -429,7 +429,7 @@ textarea:focus {
 .woocommerce-products-header {
     display: flex;
     position: relative;
-    background-image: url("assets/images/shop-banner.png");
+    background-image: url("../../dist/images/shop-banner.png");
 	background-position: center;
 	background-size: cover;
     min-height: 316px;
