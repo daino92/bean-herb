@@ -27,7 +27,7 @@ function wpb_hook_javascript() {
 	 
 		var scriptOrder = [
 			"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
-			"<?php echo get_template_directory_uri() . '/assets/scripts/custom.js'?>",
+			"<?php echo get_template_directory_uri() . '/dist/scripts/custom.js'?>",
 	   	]; 
 	
 		function loadScript() {      
