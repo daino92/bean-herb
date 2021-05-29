@@ -43,7 +43,7 @@ add_action('after_setup_theme', 'bean_herb_woocommerce_setup');
  * @return void
  */
 function bean_herb_woocommerce_scripts() {
-	wp_enqueue_style('bean-herb-woocommerce-style', get_template_directory_uri() . '/dist/styles/woocommerce.css', array(), _S_VERSION);
+	wp_enqueue_style('bean-herb-woocommerce-style', get_template_directory_uri() . '/woocommerce.css', array(), _S_VERSION);
 
 	$font_path   = WC()->plugin_url() . '/assets/fonts/';
 	$inline_font = '@font-face {
@@ -164,7 +164,7 @@ if (!function_exists('bean_herb_woocommerce_cart_link_fragment')) {
 	function bean_herb_woocommerce_cart_link_fragment($fragments) {
 		ob_start();
 		bean_herb_woocommerce_cart_link();
-		$fragments['a.cart-contents'] = ob_get_clean();
+		$fragments['div.cart--contents'] = ob_get_clean();
 		return $fragments;
 	}
 }
@@ -179,16 +179,38 @@ if (!function_exists('bean_herb_woocommerce_cart_link')) {
 	 * @return void
 	 */
 	function bean_herb_woocommerce_cart_link() { ?>
-		<a class="cart-contents" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php esc_attr_e('View your shopping cart', 'bean-herb'); ?>">
-			<svg>
-				<use xlink:href="#cart"></use>
+		<div class="cart--contents" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php esc_attr_e('View your shopping cart', 'bean-herb'); ?>">
+			<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+				<path d="M704 1536q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm896 0q0 52-38 90t-90 38-90-38-38-90 38-90 90-38 90 38 38 90zm128-1088v512q0 24-16.5 42.5t-40.5 21.5l-1044 122q13 60 13 70 0 16-24 64h920q26 0 45 19t19 45-19 45-45 19h-1024q-26 0-45-19t-19-45q0-11 8-31.5t16-36 21.5-40 15.5-29.5l-177-823h-204q-26 0-45-19t-19-45 19-45 45-19h256q16 0 28.5 6.5t19.5 15.5 13 24.5 8 26 5.5 29.5 4.5 26h1201q26 0 45 19t19 45z" fill="#fff"/>
 			</svg>
 			<span class="count">
-				<?php echo esc_html(WC()->cart->get_cart_contents_count()); ?>
+				<?php echo esc_html(count(WC()->cart->get_cart())); ?>
 			</span>
-		</a>
+		</div>
+			<?php
+				$item_count_text = sprintf(
+				/* translators: number of items in the mini cart. */
+				_n('%d item', '%d items', WC()->cart->get_cart_contents_count(), 'bean-herb'),
+				WC()->cart->get_cart_contents_count()); ?>
+			<!-- <span class="amount"> -->
+			<?php //echo wp_kses_data(WC()->cart->get_cart_subtotal());  ?>
+				<!-- </span>  -->
 		<?php
 	}
+}
+
+// Get clean cart quantity number
+function get_cart_quantity() {
+	// foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+	// 	if ($cart_item['quantity'] == "" || $cart_item['quantity'] == null || $cart_item['quantity'] == 0) {
+	// 		echo  "lala";
+	// 		return 0;
+	// 	} else {
+	// 		return $quantity = $cart_item['quantity'];
+	// 	}
+	// };
+
+	return count(WC()->cart->get_cart());
 }
 
 if (!function_exists('bean_herb_woocommerce_header_cart')) {
@@ -204,19 +226,23 @@ if (!function_exists('bean_herb_woocommerce_header_cart')) {
 			$class = '';
 		} ?>
 		<div id="site-header-cart" class="site-header-cart">
-			<li class="<?php echo esc_attr($class); ?>">
-				<?php bean_herb_woocommerce_cart_link(); ?>
-			</li>
-			<li>
-				<?php
+			<!-- <div class="<?php echo esc_attr($class); ?>"> -->
+				<?php bean_herb_woocommerce_cart_link(); 
 					$instance = array(
 						'title' => '',
 					);
 
-					the_widget('WC_Widget_Cart', $instance); 
-				?>
-			</li>
-		</li>
+					the_widget('WC_Widget_Cart', $instance); ?>
+			<!-- </div> -->
+			<!-- <li> -->
+				<?php
+				// $instance = array(
+				// 	'title' => '',
+				// );
+
+				//the_widget('WC_Widget_Cart', $instance); ?>
+			<!-- </li> -->
+		</div>
 		<?php
 	}
 }
@@ -235,31 +261,31 @@ function remove_shop_breadcrumbs() {
 }
 add_action('template_redirect', 'remove_shop_breadcrumbs');
 
-function add_percentage_to_sale_badge($html, $post, $product) {
-    if ($product->is_type('variable')) {
-        $percentages = array();
+// function add_percentage_to_sale_badge($html, $post, $product) {
+//     if ($product->is_type('variable')) {
+//         $percentages = array();
 
-        // Get all variation prices
-        $prices = $product->get_variation_prices();
+//         // Get all variation prices
+//         $prices = $product->get_variation_prices();
 
-        // Loop through variation prices
-        foreach ($prices['price'] as $key => $price) {
-            // Only on sale variations
-            if ($prices['regular_price'][$key] !== $price) {
-                // Calculate and set in the array the percentage for each variation on sale
-                $percentages[] = round(100 - ($prices['sale_price'][$key] / $prices['regular_price'][$key] * 100));
-            }
-        }
-        $percentage = max($percentages) . '%';
-    } else {
-        $regular_price = (float) $product->get_regular_price();
-        $sale_price    = (float) $product->get_sale_price();
+//         // Loop through variation prices
+//         foreach ($prices['price'] as $key => $price) {
+//             // Only on sale variations
+//             if ($prices['regular_price'][$key] !== $price) {
+//                 // Calculate and set in the array the percentage for each variation on sale
+//                 $percentages[] = round(100 - ($prices['sale_price'][$key] / $prices['regular_price'][$key] * 100));
+//             }
+//         }
+//         $percentage = max($percentages) . '%';
+//     } else {
+//         $regular_price = (float) $product->get_regular_price();
+//         $sale_price    = (float) $product->get_sale_price();
 
-        $percentage    = round(100 - ($sale_price / $regular_price * 100)) . '%';
-    }
-    return '<span class="dis">' . esc_html__('', 'woocommerce') . ' ' . $percentage . '</span>';
-}
-add_filter('woocommerce_sale_flash', 'add_percentage_to_sale_badge', 20, 3);
+//         $percentage    = round(100 - ($sale_price / $regular_price * 100)) . '%';
+//     }
+//     return '<span class="dis">' . esc_html__( '', 'woocommerce' ) . ' ' . $percentage . '</span>';
+// }
+// add_filter('woocommerce_sale_flash', 'add_percentage_to_sale_badge', 20, 3);
 
 
 function woocommerce_custom_single_add_to_cart_text() {
