@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'beanherbregula';
+    src: url("../../dist/fonts/Bean_Herb-Regular.ttf");
+    font-weight: bold;
+}
+
 body,
 button,
 input,
@@ -9,6 +15,28 @@ textarea {
 	font-size: 1rem;
 	line-height: $font__line-height-body;
 }
+
+body,
+button,
+table,
+input,
+select, 
+optgroup, 
+textarea {
+    font-family: 'beanherbregula', sans-serif;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+$max__width: 1140px;
 
 @import "headings";
 @import "copy";

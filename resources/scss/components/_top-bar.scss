@@ -1,0 +1,66 @@
+// Top orange bar
+
+.top-bar {
+    display: none;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-top: 0;
+    padding: .5em 2.8em .5em 2.8em;
+    background-color: $primary;
+
+    .top-bar--section {
+        display: flex;
+        align-items: center;
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        flex-flow: row wrap;
+
+        a:hover {
+            opacity: .7;
+        }
+
+        &.partners {
+            > a {
+                border-left: 1px solid #FFF;
+                padding: 0 10px;
+            }
+
+            span {
+                padding: 0 10px;
+                border-left: 1px solid #FFF;
+                border-right: 1px solid #FFF;
+            }
+        }
+
+        &.socials {
+            justify-content: flex-end;
+
+            svg {
+                width: 31px;
+                height: 21px;
+                padding: 2px;
+                fill: currentColor;
+            }
+
+            a {
+                height: 20px;
+            }
+        }  
+        
+    }
+}
+
+.top-bar--section.partners span,
+.top-bar .top-bar--section a {
+    color: #FFF;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+@media all and (min-width: 640px) {
+    .top-bar {
+        display: flex;
+    }
+}

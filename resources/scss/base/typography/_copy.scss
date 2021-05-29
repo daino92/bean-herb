@@ -17,14 +17,26 @@ address {
 	margin: 0 0 1.5em;
 }
 
+// pre {
+// 	background: $color__background-pre;
+// 	font-family: $font__pre;
+// 	line-height: $font__line-height-pre;
+// 	margin-bottom: 1.6em;
+// 	max-width: 100%;
+// 	overflow: auto;
+// 	padding: 1.6em;
+// }
+
 pre {
-	background: $color__background-pre;
-	font-family: $font__pre;
-	line-height: $font__line-height-pre;
-	margin-bottom: 1.6em;
-	max-width: 100%;
-	overflow: auto;
-	padding: 1.6em;
+	font-family: monospace, monospace;
+	font-size: 1em;
+	margin: 1em;
+	padding: 2em;
+	border: 1px solid red;
+	display: inline-block;
+	color: #FFF;
+	background: #000;
+	white-space: pre-wrap;
 }
 
 code,
