@@ -5,7 +5,7 @@ $max__width: 1140px;
 
 @font-face {
     font-family: 'beanherbregula';
-    src: url("../../dist/fonts/Bean_Herb-Regular.ttf");
+    src: url("assets/fonts/Bean_Herb-Regular.ttf");
     font-weight: bold;
 }
 
@@ -121,7 +121,9 @@ textarea:focus {
     padding: 0 30px;
 	// max-width: $max__width;
 	margin: 0 auto;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, .07);
+    //box-shadow: 0 0 15px 1px rgba(0, 0, 0, 7%);
+    //box-shadow: 0 0 15px 1px rgb(0, 0, 0, 10%);
+    //box-shadow: 0 0 15px 1px rgb(0 0 0 / 7%);
 
     .site-branding {
         text-align: center;
@@ -159,15 +161,18 @@ textarea:focus {
 
 // Mini cart
 
-.cart-contents {
-	display: flex !important;
+.cart--contents {
+	display: flex;
 	align-items: center;
 	justify-content: center;
     cursor: pointer;
-    color: #888 !important;
 
     &:hover {
-        color: #000 !important;
+        svg {
+            path {
+                fill: #000;
+            }
+        }
 
         .count {
             background-color: $primary__alt;
@@ -177,7 +182,10 @@ textarea:focus {
     svg {
         width: 20px;
         height: 20px;
-        fill: currentColor;
+    
+        path {
+            fill: #888;
+        }
     }
 
     .count {
@@ -195,9 +203,6 @@ textarea:focus {
 }
 
 .site-header-cart {
-    li {
-        list-style: none;
-    }
     .widget_shopping_cart {
         visibility: hidden;
         opacity: 0;
@@ -218,15 +223,9 @@ textarea:focus {
         justify-content: center;
         align-items: flex-start;
         margin-bottom: 1.5em;
-        position: relative;
         
         > span {
             margin-left: 10px;
-        }
-
-        .woocommerce-thumbnail,
-        .woocommerce-title {
-            flex: 1 0 50%;
         }
 
         a.remove {
@@ -238,8 +237,7 @@ textarea:focus {
             width: 14px;
             text-align: center;
             line-height: 1;
-            left: 0;
-            top: 0;
+            left: 1em;
 
             &:hover {
                 color: #FFF;
@@ -252,14 +250,13 @@ textarea:focus {
             margin-top: 5px;
             display: block;
             text-align: center;
-            font-size: 14px;
         }
 
         .widget-product-title {
             color: #000;
             font-size: 1em;
             line-height: 1.25;
-            text-align: center;
+            text-align: left;
 
             &:hover {
                 color: $primary;
@@ -322,7 +319,7 @@ textarea:focus {
 
 .site-footer {
     background-color: rgba(221, 221, 221, 0);
-    background-image: url("../../dist/images/shared/footer.png");
+    background-image: url("assets/images/shared/footer.png");
     background-size: cover;
     padding-top: 4em;
 
@@ -429,7 +426,7 @@ textarea:focus {
 .woocommerce-products-header {
     display: flex;
     position: relative;
-    background-image: url("../../dist/images/shop-banner.png");
+    background-image: url("assets/images/shop-banner.png");
 	background-position: center;
 	background-size: cover;
     min-height: 316px;
@@ -457,12 +454,9 @@ textarea:focus {
 
             &.filters--active {
                 transform: translateX(0);
-                justify-content: center;
 
                 .product__categories {
-                    overflow-y: auto;
-                    padding-left: 2.5em;
-                    padding-right: 2.5em;
+                    justify-content: center;
                 }
             }
 
@@ -776,12 +770,6 @@ textarea:focus {
                 }
             }
         }
-    }
-}
-
-.yith-quick-view-content {
-    .product {
-        margin: 0;
     }
 }
 
@@ -1645,34 +1633,27 @@ textarea:focus {
 }
 
 .product__search {
-    padding: 1em 2.5em;
+    display: flex;
+    padding: 3em;
 
-    form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
+    input[name='search-input'] {
+        width: 10em;
+        padding: 5px 12px;
+    }
 
-        input[name='search-input'] {
-            width: 11em;
-            padding: 5px 12px;
-        }
-    
-        input[type='submit'] {
-            font-size: 1.1em;
-            line-height: 1.1;
-            color: #FFF;
-            padding: 8px 16px;
-            border-radius: 3px;
-            outline: none;
-            text-decoration: none;
-            background-color: $primary;
-            cursor: pointer;
-            margin-top: .5em;
-    
-            &:hover {
-                background-color: $primary__alt;
-            }
+    input[type='submit'] {
+        font-size: 1.1em;
+        line-height: 1.1;
+        color: #FFF;
+        padding: 8px 16px;
+        border-radius: 3px;
+        outline: none;
+        text-decoration: none;
+        background-color: $primary;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $primary__alt;
         }
     }
 }
@@ -1681,20 +1662,6 @@ textarea:focus {
     .product__categories {
         &__sidebar--toggle {
             display: none;
-        }
-    }
-
-    .product__search {
-        padding: 1em 3em;
-    
-        form {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: flex-start;
-    
-            input[type='submit'] {
-                margin-top: 0;
-            }
         }
     }
 }

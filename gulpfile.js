@@ -27,7 +27,7 @@ const path = {
         dest: 'dist/scripts'
     },
     svg: {
-        src: 'resources/svg/*.svg',
+        src: 'assets/svg/*.svg',
         dest: 'dist/svg'
     },
     fonts: {
@@ -36,8 +36,7 @@ const path = {
     },
     img: {
         //src: '../../uploads/**/**/*.{jpg,png}',
-        //src: 'resources/images/*.{jpg,png}/*.{jpg,png}',
-        src: 'resources/images/**/*',
+        src: 'resources/images/*.{jpg,png}',
         dest: 'dist/images'
     }
 }
@@ -205,26 +204,19 @@ function copyFonts() {
         .pipe(dest(path.fonts.dest))
 }
 
-function copyImages() {
-    return src(path.img.src)
-        .pipe(dest(path.img.dest))
-}
-
 exports.clean = clean;
 exports.css = styles;
 exports.js = scripts;
 exports.img = responsiveImages;
 exports.svg = svg;
 exports.fonts = copyFonts;
-exports.images = copyImages;
 exports.watcher = watcher;
 
 exports.default = series(
-    clean,
-    parallel(styles, scripts), 
-    copyFonts,
-    copyImages,
-    //responsiveImages,
+    // clean,
+    // parallel(styles, scripts), 
+    // copyFonts,
+    // responsiveImages,
     svg,
     //watcher
 );
