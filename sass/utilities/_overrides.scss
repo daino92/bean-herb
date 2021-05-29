@@ -121,9 +121,7 @@ textarea:focus {
     padding: 0 30px;
 	// max-width: $max__width;
 	margin: 0 auto;
-    //box-shadow: 0 0 15px 1px rgba(0, 0, 0, 7%);
-    //box-shadow: 0 0 15px 1px rgb(0, 0, 0, 10%);
-    //box-shadow: 0 0 15px 1px rgb(0 0 0 / 7%);
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, .07);
 
     .site-branding {
         text-align: center;
@@ -161,18 +159,15 @@ textarea:focus {
 
 // Mini cart
 
-.cart--contents {
-	display: flex;
+.cart-contents {
+	display: flex !important;
 	align-items: center;
 	justify-content: center;
     cursor: pointer;
+    color: #888 !important;
 
     &:hover {
-        svg {
-            path {
-                fill: #000;
-            }
-        }
+        color: #000 !important;
 
         .count {
             background-color: $primary__alt;
@@ -182,10 +177,7 @@ textarea:focus {
     svg {
         width: 20px;
         height: 20px;
-    
-        path {
-            fill: #888;
-        }
+        fill: currentColor;
     }
 
     .count {
@@ -203,6 +195,9 @@ textarea:focus {
 }
 
 .site-header-cart {
+    li {
+        list-style: none;
+    }
     .widget_shopping_cart {
         visibility: hidden;
         opacity: 0;
@@ -223,9 +218,15 @@ textarea:focus {
         justify-content: center;
         align-items: flex-start;
         margin-bottom: 1.5em;
+        position: relative;
         
         > span {
             margin-left: 10px;
+        }
+
+        .woocommerce-thumbnail,
+        .woocommerce-title {
+            flex: 1 0 50%;
         }
 
         a.remove {
@@ -237,7 +238,8 @@ textarea:focus {
             width: 14px;
             text-align: center;
             line-height: 1;
-            left: 1em;
+            left: 0;
+            top: 0;
 
             &:hover {
                 color: #FFF;
@@ -250,13 +252,14 @@ textarea:focus {
             margin-top: 5px;
             display: block;
             text-align: center;
+            font-size: 14px;
         }
 
         .widget-product-title {
             color: #000;
             font-size: 1em;
             line-height: 1.25;
-            text-align: left;
+            text-align: center;
 
             &:hover {
                 color: $primary;
@@ -454,9 +457,12 @@ textarea:focus {
 
             &.filters--active {
                 transform: translateX(0);
+                justify-content: center;
 
                 .product__categories {
-                    justify-content: center;
+                    overflow-y: auto;
+                    padding-left: 2.5em;
+                    padding-right: 2.5em;
                 }
             }
 
@@ -770,6 +776,12 @@ textarea:focus {
                 }
             }
         }
+    }
+}
+
+.yith-quick-view-content {
+    .product {
+        margin: 0;
     }
 }
 
@@ -1633,27 +1645,34 @@ textarea:focus {
 }
 
 .product__search {
-    display: flex;
-    padding: 3em;
+    padding: 1em 2.5em;
 
-    input[name='search-input'] {
-        width: 10em;
-        padding: 5px 12px;
-    }
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
 
-    input[type='submit'] {
-        font-size: 1.1em;
-        line-height: 1.1;
-        color: #FFF;
-        padding: 8px 16px;
-        border-radius: 3px;
-        outline: none;
-        text-decoration: none;
-        background-color: $primary;
-        cursor: pointer;
-
-        &:hover {
-            background-color: $primary__alt;
+        input[name='search-input'] {
+            width: 11em;
+            padding: 5px 12px;
+        }
+    
+        input[type='submit'] {
+            font-size: 1.1em;
+            line-height: 1.1;
+            color: #FFF;
+            padding: 8px 16px;
+            border-radius: 3px;
+            outline: none;
+            text-decoration: none;
+            background-color: $primary;
+            cursor: pointer;
+            margin-top: .5em;
+    
+            &:hover {
+                background-color: $primary__alt;
+            }
         }
     }
 }
@@ -1662,6 +1681,20 @@ textarea:focus {
     .product__categories {
         &__sidebar--toggle {
             display: none;
+        }
+    }
+
+    .product__search {
+        padding: 1em 3em;
+    
+        form {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+    
+            input[type='submit'] {
+                margin-top: 0;
+            }
         }
     }
 }
