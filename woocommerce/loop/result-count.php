@@ -17,7 +17,13 @@
  * @version     3.7.0
  */
 
-if (!defined('ABSPATH')) exit; ?>
+if (!defined('ABSPATH')) exit; 
+
+if (isset($args['data'])) {
+    $total = $args['data']['total'];
+    $per_page = $args['data']['per_page'];
+    $current = $args['data']['current'];
+} ?>
 
 <div class="products__ordering"> <?php /* Opening tag of products__ordering. See orderby.php for the closing tag. */ ?>
     <p class="woocommerce-result-count">

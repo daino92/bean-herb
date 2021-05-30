@@ -4,8 +4,23 @@ defined('ABSPATH') || exit;
 
 $searchField = (!empty($_GET['search-input'])) ? sanitize_text_field($_GET['search-input']) : '';
 
+$per_page = 9;
+$current = 1;
+$orderBy = "menu-order";
+
+$catalog_orderby_options = apply_filters('woocommerce_catalog_orderby', array( 
+    'menu_order' => __('Default sorting', 'woocommerce'),  
+    'popularity' => __('Sort by popularity', 'woocommerce'),  
+    'rating' => __('Sort by average rating', 'woocommerce'),  
+    'date' => __('Sort by newness', 'woocommerce'),  
+    'price' => __('Sort by price: low to high', 'woocommerce'),  
+    'price-desc' => __('Sort by price: high to low', 'woocommerce'),  
+)); 
+
 $args = array(
-    'post_type' =>  'product', 
+    'post_type' =>  'product',
+	'post_status' => 'publish',
+	'posts_per_page' => $per_page,
     's' =>  $searchField
 );
 
@@ -59,10 +74,27 @@ do_action('woocommerce_before_main_content'); ?>
 			 * @hooked woocommerce_result_count - 20
 			 * @hooked woocommerce_catalog_ordering - 30
 			 */
+			
+			//do_action( 'woocommerce_before_shop_loop' );
+		 	
+			get_template_part(
+				'woocommerce/loop/result-count', 
+				null, 
+				array('data'  => array(
+					'total' => $total,
+					'per_page' => $per_page,
+					'current' => $current
+				))
+			);
 
-			do_action( 'woocommerce_before_shop_loop' );
-
-			woocommerce_product_loop_start();
+			get_template_part('woocommerce/loop/orderby', null, 
+				array('data'  => array(
+					'catalog' => $catalog_orderby_options,
+					'orderBy' => $orderBy
+				))
+			); ?>
+		
+			<?php woocommerce_product_loop_start();
             
             if ($loop->have_posts()) :
                 while ($loop->have_posts()) : 
