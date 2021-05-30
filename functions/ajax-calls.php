@@ -292,7 +292,7 @@ function ajax__pagination_cb() {
 
     $offset = ($catnum * $catpage) - $catnum;
 
-    if ($slug == "") {
+    if ($slug == "" || $slug == "undefined") {
         $productCount = totalProducts();
     }
 
@@ -375,7 +375,7 @@ function ajax__οrderΒy_cb() {
 
     $offset = ($catnum * $catpage) - $catnum;
 
-    if ($slug == "") {
+    if ($slug == "" || $slug == "undefined") {
         $productCount = totalProducts();
     }
 
