@@ -453,7 +453,7 @@ function ajax__searchField_cb() {
     $searchField = (!empty($_POST['searchField'])) ? sanitize_text_field($_POST['searchField']) : '';
     $orderby = (!empty($_POST['orderby'])) ? sanitize_text_field($_POST['orderby']) : '';
 
-    $catpage = get_query_var('paged') ? get_query_var('paged') : 1;;
+    $catpage = get_query_var('paged') ? get_query_var('paged') : 1;
 
     //products per page
     $catnum = absint($wooCatalogColumns) * absint($wooCatalogRows);

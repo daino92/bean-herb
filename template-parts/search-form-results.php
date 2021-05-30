@@ -4,8 +4,9 @@ defined('ABSPATH') || exit;
 
 $searchField = (!empty($_GET['search-input'])) ? sanitize_text_field($_GET['search-input']) : '';
 
-$per_page = 9;
-$current = 1;
+$catpage = get_query_var('paged') ? get_query_var('paged') : 1;
+$catnum = 9;
+$offset = ($catnum * $catpage) - $catnum;
 $orderBy = "menu-order";
 
 $catalog_orderby_options = apply_filters('woocommerce_catalog_orderby', array( 
@@ -20,13 +21,23 @@ $catalog_orderby_options = apply_filters('woocommerce_catalog_orderby', array(
 $args = array(
     'post_type' =>  'product',
 	'post_status' => 'publish',
-	'posts_per_page' => $per_page,
-    's' =>  $searchField
+	'posts_per_page' => $catnum,
+    's' =>  $searchField,
+	'number' => $catnum,
+	'offset' => $offset,
+	'paged' => $catpage
 );
 
 $loop = new WP_Query($args);
 
-$total = $loop->found_posts;
+$productCount = $loop->found_posts;
+
+//total pages
+$pages = $productCount / $catnum;
+
+ // Pagination params
+ $total_pages = ceil($pages);
+ $current = max(1, $catpage);
 
 if (get_locale() == "en_GB") : 
 	$noProductsMessage = "Sorry, no products matched your search criteria";
@@ -81,9 +92,9 @@ do_action('woocommerce_before_main_content'); ?>
 				'woocommerce/loop/result-count', 
 				null, 
 				array('data'  => array(
-					'total' => $total,
-					'per_page' => $per_page,
-					'current' => $current
+					'total' => $productCount,
+					'per_page' => $catnum,
+					'current' => $catpage
 				))
 			);
 
@@ -110,15 +121,22 @@ do_action('woocommerce_before_main_content'); ?>
             wp_reset_postdata();
             
             woocommerce_product_loop_end();
-			
+
+			get_template_part('woocommerce/loop/pagination', null, 
+				array('data'  => array(
+					'total_pages' => $total_pages,
+					'current' => $catpage
+				))
+			);
+		
 			/**
 			 * Hook: woocommerce_after_shop_loop.
 			 *
 			 * @hooked woocommerce_pagination - 10
 			 */
-			do_action( 'woocommerce_after_shop_loop' );
-		
+			//do_action( 'woocommerce_after_shop_loop' );
 
+			
 		/**
 		 * Hook: woocommerce_after_main_content.
 		 *
