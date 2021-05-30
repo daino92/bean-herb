@@ -113,6 +113,8 @@ $('.cat-item .cats').on('click', function() {
     });
 });
 
+const email_regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
 const escapeRegExp = function(strToEscape) {
     // Escape special characters for use in a regular expression
     return strToEscape.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
@@ -143,6 +145,24 @@ $(".cat-item .cats").each(function(){
         $(this).addClass('current-cat')
     }
 });
+
+$('.filters__area__sidebar--toggle').on('click', function() {
+    $('.filters__area').toggleClass("filters--active");
+});
+
+// $('.woocommerce').on('change', 'input.qty', function(){
+//     $("[name='update_cart']").trigger("click");
+// });
+
+// var timeout;
+
+// $('.woocommerce').on('change', 'input.qty', function(){
+//     if (timeout !== undefined) clearTimeout(timeout);
+
+//     timeout = setTimeout(function() {
+//         $("[name='update_cart']").trigger("click");
+//     }, 500);
+// });
 
 $(window).on('load', function() {
 
@@ -194,23 +214,3 @@ $(window).on('load', function() {
 	    window.addEventListener("orientationChange", lazyload, {passive: true});
   	}
 })
-
-
-$('.filters__area__sidebar--toggle').on('click', function() {
-    //$(this).toggleClass("sidebar--active");
-    $('.filters__area').toggleClass("filters--active");
-});
-
-// $('.woocommerce').on('change', 'input.qty', function(){
-//     $("[name='update_cart']").trigger("click");
-// });
-
-// var timeout;
-
-// $('.woocommerce').on('change', 'input.qty', function(){
-//     if (timeout !== undefined) clearTimeout(timeout);
-
-//     timeout = setTimeout(function() {
-//         $("[name='update_cart']").trigger("click");
-//     }, 500);
-// });
