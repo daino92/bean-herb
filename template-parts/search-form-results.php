@@ -2,21 +2,18 @@
 
 defined('ABSPATH') || exit;
 
+global $wooCatalogColumns, $wooCatalogRows, $catalog_orderby_options;
+
 $searchField = (!empty($_GET['search-input'])) ? sanitize_text_field($_GET['search-input']) : '';
 
 $catpage = get_query_var('paged') ? get_query_var('paged') : 1;
-$catnum = 9;
-$offset = ($catnum * $catpage) - $catnum;
-$orderBy = "menu-order";
 
-$catalog_orderby_options = apply_filters('woocommerce_catalog_orderby', array( 
-    'menu_order' => __('Default sorting', 'woocommerce'),  
-    'popularity' => __('Sort by popularity', 'woocommerce'),  
-    'rating' => __('Sort by average rating', 'woocommerce'),  
-    'date' => __('Sort by newness', 'woocommerce'),  
-    'price' => __('Sort by price: low to high', 'woocommerce'),  
-    'price-desc' => __('Sort by price: high to low', 'woocommerce'),  
-)); 
+//products per page
+$catnum = absint($wooCatalogColumns) * absint($wooCatalogRows);
+
+$offset = ($catnum * $catpage) - $catnum;
+
+$orderBy = "menu-order";
 
 $args = array(
     'post_type' =>  'product',
@@ -44,11 +41,6 @@ if (get_locale() == "en_GB") :
 else :
 	$noProductsMessage = "Δυστυχώς, κανένα προϊόν δεν βρέθηκε, βάσει της αναζήτησής σας";
 endif;
-
-// echo "<pre>"; 
-// var_dump($args);
-// echo "</pre>";
-//wc_get_template_part('archive', 'product');
 
 get_header('shop');
 
@@ -78,71 +70,81 @@ do_action('woocommerce_before_main_content'); ?>
 	<div class="products__area">
 		<?php
 			
-			/**
-			 * Hook: woocommerce_before_shop_loop.
-			 *
-			 * @hooked woocommerce_output_all_notices - 10
-			 * @hooked woocommerce_result_count - 20
-			 * @hooked woocommerce_catalog_ordering - 30
-			 */
+			if ($productCount > 0) {
+				/**
+				 * Hook: woocommerce_before_shop_loop.
+				 *
+				 * @hooked woocommerce_output_all_notices - 10
+				 * @hooked woocommerce_result_count - 20
+				 * @hooked woocommerce_catalog_ordering - 30
+				 */
+				
+				//do_action( 'woocommerce_before_shop_loop' );
+				
+				get_template_part(
+					'woocommerce/loop/result-count', 
+					null, 
+					array('data'  => array(
+						'total' => $productCount,
+						'per_page' => $catnum,
+						'current' => $catpage
+					))
+				);
+
+				get_template_part('woocommerce/loop/orderby', null, 
+					array('data'  => array(
+						'catalog' => $catalog_orderby_options,
+						'orderBy' => $orderBy
+					))
+				);
 			
-			//do_action( 'woocommerce_before_shop_loop' );
-		 	
-			get_template_part(
-				'woocommerce/loop/result-count', 
-				null, 
-				array('data'  => array(
-					'total' => $productCount,
-					'per_page' => $catnum,
-					'current' => $catpage
-				))
-			);
+				woocommerce_product_loop_start();
+				
+				if ($loop->have_posts()) :
+					while ($loop->have_posts()) : 
+						$loop->the_post();
+						do_action('woocommerce_shop_loop');
+						remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+						wc_get_template_part('content', 'product');
+					endwhile;
+				else :
+					echo __(`<div class="no-products">${noProductsMessage}</div>`);
+				endif;
 
-			get_template_part('woocommerce/loop/orderby', null, 
-				array('data'  => array(
-					'catalog' => $catalog_orderby_options,
-					'orderBy' => $orderBy
-				))
-			); ?>
-		
-			<?php woocommerce_product_loop_start();
-            
-            if ($loop->have_posts()) :
-                while ($loop->have_posts()) : 
-                    $loop->the_post();
-                    do_action( 'woocommerce_shop_loop' );
-                    remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
-                    wc_get_template_part('content', 'product');
-                endwhile;
-            else :
-                echo __(`<div class="no-products">${noProductsMessage}</div>`);
-            endif;
+				wp_reset_postdata();
+				
+				woocommerce_product_loop_end();
 
-            wp_reset_postdata();
-            
-            woocommerce_product_loop_end();
-
-			get_template_part('woocommerce/loop/pagination', null, 
-				array('data'  => array(
-					'total_pages' => $total_pages,
-					'current' => $catpage
-				))
-			);
-		
-			/**
-			 * Hook: woocommerce_after_shop_loop.
-			 *
-			 * @hooked woocommerce_pagination - 10
-			 */
-			//do_action( 'woocommerce_after_shop_loop' );
-
+				get_template_part('woocommerce/loop/pagination', null, 
+					array('data'  => array(
+						'total_pages' => $total_pages,
+						'current' => $catpage
+					))
+				);
 			
-		/**
-		 * Hook: woocommerce_after_main_content.
-		 *
-		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-		 */
-		do_action( 'woocommerce_after_main_content' ); ?>
+				/**
+				 * Hook: woocommerce_after_shop_loop.
+				 *
+				 * @hooked woocommerce_pagination - 10
+				 */
+				//do_action( 'woocommerce_after_shop_loop' );
+			} else {
+				/**
+				 * Hook: woocommerce_no_products_found.
+				 *
+				 * @hooked wc_no_products_found - 10
+				 */
+				do_action('woocommerce_no_products_found');
+			}
+
+				
+			/**
+			 * Hook: woocommerce_after_main_content.
+			 *
+			 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+			 */
+			do_action('woocommerce_after_main_content'); 
+		?>
 	</div>
 </div>
 
@@ -152,6 +154,6 @@ do_action('woocommerce_before_main_content'); ?>
  *
  * @hooked woocommerce_get_sidebar - 10
  */
-do_action( 'woocommerce_sidebar' );
+do_action('woocommerce_sidebar');
 
-get_footer( 'shop' );
+get_footer('shop');
