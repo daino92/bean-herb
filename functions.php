@@ -208,33 +208,10 @@ require get_template_directory() . '/functions/ajax-calls.php';
  */
 require get_template_directory() . '/functions/load-assets.php';
 
-// Remove unwanted HTML margin top 32px.
-function my_filter_head() {
-	remove_action('wp_head', '_admin_bar_bump_cb');
-} 
-add_action('get_header', 'my_filter_head');
-
-// Use custom logo in login screen
-function custom_login_logo() {
-    if (has_custom_logo()) : $image = wp_get_attachment_image_src(get_theme_mod('custom_logo'), 'full'); ?>
-        <style type="text/css">
-            .login h1 a {
-                background-image: url(<?php echo esc_url($image[0]); ?>);
-                background-size: auto;
-				width: 100%;
-            }
-        </style>
-    <?php endif;
-}
-add_action('login_head', 'custom_login_logo', 100);
-
-// Add SVG and webP support functionality
-function mime_types($mimes) {
-	$mimes['svg'] = 'image/svg';
-	$mimes['webp'] = 'image/webp';
-  	return $mimes;
-}
-add_filter('upload_mimes', 'mime_types');
+/**
+ * Core enhancements
+ */
+require get_template_directory() . '/functions/core-enhancements.php';
 
 function custom_search_field(){
     if (isset($_REQUEST['search']) == 'search-products') {
