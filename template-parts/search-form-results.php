@@ -5,15 +5,16 @@ defined('ABSPATH') || exit;
 global $wooCatalogColumns, $wooCatalogRows, $catalog_orderby_options;
 
 $searchField = (!empty($_GET['search-input'])) ? sanitize_text_field($_GET['search-input']) : '';
+$orderby = (!empty($_GET['orderby'])) ? sanitize_text_field($_GET['orderby']) : '';
+$pageNumber = (!empty($_GET['paged'])) ? sanitize_text_field($_GET['paged']) : ''; 
 
-$catpage = get_query_var('paged') ? get_query_var('paged') : 1;
+//$catpage = get_query_var('paged') ? get_query_var('paged') : 1;
+$catpage = $pageNumber;
 
 //products per page
 $catnum = absint($wooCatalogColumns) * absint($wooCatalogRows);
 
-$offset = ($catnum * $catpage) - $catnum;
-
-$orderBy = "menu-order";
+$offset = ($catnum * absint($catpage)) - $catnum;
 
 $args = array(
     'post_type' =>  'product',
@@ -24,6 +25,10 @@ $args = array(
 	'offset' => $offset,
 	'paged' => $catpage
 );
+
+if (isset($orderby) && $orderby != "undefined" && $orderby != "") :
+	$args = array_merge($args, archiveOrderbyArgs($orderby));
+endif;
 
 $loop = new WP_Query($args);
 
@@ -94,7 +99,7 @@ do_action('woocommerce_before_main_content'); ?>
 				get_template_part('woocommerce/loop/orderby', null, 
 					array('data'  => array(
 						'catalog' => $catalog_orderby_options,
-						'orderBy' => $orderBy
+						'orderBy' => $orderby
 					))
 				);
 			
