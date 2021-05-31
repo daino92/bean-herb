@@ -341,13 +341,6 @@ function ajax__pagination_cb() {
         $args = array_merge($args, archiveOrderbyArgs($orderby));
     endif;
 
-    $wrapperUpperContent = getUpperContent($productCount, $catnum, $pageNumber, $orderby, $catpage);
-
-    getProductLinkURI($slug, $currentURL);
-
-    // Overwrite the REQUEST_URI variable
-    $_SERVER['REQUEST_URI'] = $productLinkURI;
-
     $loop = new WP_Query($args);
 
     if ($isSearchURL) :
@@ -360,6 +353,13 @@ function ajax__pagination_cb() {
         $total = ceil($pages);
         $current = max(1, $catpage);
     endif;
+
+    $wrapperUpperContent = getUpperContent($productCount, $catnum, $pageNumber, $orderby, $catpage);
+
+    getProductLinkURI($slug, $currentURL);
+
+    // Overwrite the REQUEST_URI variable
+    $_SERVER['REQUEST_URI'] = $productLinkURI;
 
     if ($loop->have_posts()) :
         while ($loop->have_posts()) : 
@@ -445,13 +445,6 @@ function ajax__οrderΒy_cb() {
         $args = array_merge($args, archiveOrderbyArgs($orderby));
     endif;
 
-    $wrapperUpperContent = getUpperContent($productCount, $catnum, $pageNumber, $orderby, $catpage);
-
-    getProductLinkURI($slug, $currentURL);
-
-    // Overwrite the REQUEST_URI variable
-    $_SERVER['REQUEST_URI'] = $productLinkURI;
-
     $loop = new WP_Query($args);
 
     if ($isSearchURL) :
@@ -464,6 +457,13 @@ function ajax__οrderΒy_cb() {
         $total = ceil($pages);
         $current = max(1, $catpage);
     endif;
+
+    $wrapperUpperContent = getUpperContent($productCount, $catnum, $pageNumber, $orderby, $catpage);
+
+    getProductLinkURI($slug, $currentURL);
+
+    // Overwrite the REQUEST_URI variable
+    $_SERVER['REQUEST_URI'] = $productLinkURI;
 
     if ($loop->have_posts()) :
         while ($loop->have_posts()) : 
@@ -519,11 +519,6 @@ function ajax__searchField_cb() {
     if (isset($orderby) && $orderby != "undefined" && $orderby != "") {
         $args = array_merge($args, archiveOrderbyArgs($orderby));
     }
-            
-    // getProductLinkURI($slug, $currentURL);
-    
-    // Overwrite the REQUEST_URI variable
-    $_SERVER['REQUEST_URI'] = $productLinkURI;
     
     $loop = new WP_Query($args);
     
@@ -541,6 +536,11 @@ function ajax__searchField_cb() {
     // echo "</pre>";
     
     $wrapperUpperContent = getUpperContent($productCount, $catnum, $catpage, $orderby, $catpage);
+
+    // getProductLinkURI($slug, $currentURL);
+
+    // Overwrite the REQUEST_URI variable
+    $_SERVER['REQUEST_URI'] = $productLinkURI;
 
     if ($loop->have_posts()) :
         while ($loop->have_posts()) : 
