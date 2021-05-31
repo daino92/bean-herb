@@ -73,8 +73,7 @@ jQuery('document').ready(function($) {
         var searchField = $('#search__form input[name="search-input"]').val();
         var currentNumber = parseInt($('.page-numbers.current').text());
         var pageNumber = parseInt($(this).text());
-
-        console.log("searchField: ", searchField)
+        var currentURL = window.location.pathname + window.location.search;
 
         if (link === "undefined") link = "";
 
@@ -95,7 +94,8 @@ jQuery('document').ready(function($) {
                 pageNumber,
                 productCount,
                 orderby,
-                searchField
+                searchField,
+                currentURL
             },
             beforeSend: function() {
                $(".lds-ellipsis").css("display", "block");
@@ -120,7 +120,7 @@ jQuery('document').ready(function($) {
             $('.yith-wcqv-button').css("display", "inline-block");
             
             if (searchField) {
-                window.history.pushState("", "", link + `?search=search-products&search-input=${searchField}&paged=${pageNumber}`);
+                window.history.pushState("", "", link + `?paged=${pageNumber}&search=search-products&search-input=${searchField}`);
             } else {
                 window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}`);
             }
@@ -136,6 +136,8 @@ jQuery('document').ready(function($) {
         var link = decodeURIComponent($('.cats.current-cat').attr('href'));
         var productCount = $('.cats.current-cat').data('product-count');
         var pageNumber = $('.woocommerce-ordering input[name="paged"]').val();
+        var searchField = $('#search__form input[name="search-input"]').val();
+        var currentURL = window.location.pathname + window.location.search;
 
         if (link === "undefined") link = "";
 
@@ -147,7 +149,8 @@ jQuery('document').ready(function($) {
                 slug,
                 productCount,
                 orderby,
-                pageNumber
+                pageNumber,
+                currentURL
             },
             beforeSend: function() {
                $(".lds-ellipsis").css("display", "block");
@@ -172,7 +175,11 @@ jQuery('document').ready(function($) {
             $(".lds-ellipsis").css("display", "none");
             $('.yith-wcqv-button').css("display", "inline-block");
             
-            window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}`);
+            if (searchField) {
+                window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
+            } else {
+                window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}`);
+            }
         }).fail(function(data) {
             console.log(data.responseText);
             console.log('Request failed: ' + data.statusText);
@@ -183,6 +190,7 @@ jQuery('document').ready(function($) {
         var searchField = $('#search__form input[name="search-input"]').val();
         var orderby = $('.orderby').find(":selected").val();
         var link = decodeURIComponent($('.cats.current-cat').attr('href'));
+        var pageNumber = 1;
 
         if (link === "undefined") link = "";
 
@@ -217,7 +225,7 @@ jQuery('document').ready(function($) {
             $(".lds-ellipsis").css("display", "none");
             $('.yith-wcqv-button').css("display", "inline-block");
             
-            window.history.pushState("", "", link + `?search=search-products&search-input=${searchField}`);
+            window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
         }).fail(function(data) {
             console.log(data.responseText);
             console.log('Request failed: ' + data.statusText);
