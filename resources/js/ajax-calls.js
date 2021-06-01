@@ -73,9 +73,13 @@ jQuery('document').ready(function($) {
         var searchField = $('#search__form input[name="search-input"]').val();
         var currentNumber = parseInt($('.page-numbers.current').text());
         var pageNumber = parseInt($(this).text());
-        var currentURL = window.location.pathname + window.location.search;
+        var currentURL = decodeURIComponent(window.location.pathname + window.location.search);
 
         if (link === "undefined") link = "";
+
+        if (searchField === "") {
+            searchField = window.location.search.split('search-input=')[1];
+        }
 
         if ($(this).hasClass('next')) {
             pageNumber = currentNumber + 1;
@@ -120,7 +124,7 @@ jQuery('document').ready(function($) {
             $('.yith-wcqv-button').css("display", "inline-block");
             
             if (searchField) {
-                window.history.pushState("", "", link + `?paged=${pageNumber}&search=search-products&search-input=${searchField}`);
+                window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
             } else {
                 window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}`);
             }
@@ -137,9 +141,13 @@ jQuery('document').ready(function($) {
         var productCount = $('.cats.current-cat').data('product-count');
         var pageNumber = $('.woocommerce-ordering input[name="paged"]').val();
         var searchField = $('#search__form input[name="search-input"]').val();
-        var currentURL = window.location.pathname + window.location.search;
+        var currentURL = decodeURIComponent(window.location.pathname + window.location.search);
 
         if (link === "undefined") link = "";
+
+        if (searchField === "") {
+            searchField = window.location.search.split('search-input=')[1];
+        }
 
         $.ajax({
             url,
@@ -155,8 +163,7 @@ jQuery('document').ready(function($) {
             beforeSend: function() {
                $(".lds-ellipsis").css("display", "block");
             },
-        }).then(function(data) {
-            //console.log("data: ", data);    
+        }).then(function(data) {  
             $('html, body').animate({
                 scrollTop: $('.products__main-page').offset().top
             }, 1000);
@@ -205,8 +212,7 @@ jQuery('document').ready(function($) {
             beforeSend: function() {
                $(".lds-ellipsis").css("display", "block");
             },
-        }).then(function(data) {
-            //console.log("data: ", data);    
+        }).then(function(data) {  
             $('html, body').animate({
                 scrollTop: $('.products__main-page').offset().top
             }, 1000);

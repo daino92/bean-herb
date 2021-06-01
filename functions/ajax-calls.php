@@ -197,7 +197,6 @@ function getProductLinkURI($slug, $currentURL = "") {
         endif;
     endif;
 
-    echo $productLinkURI;
     return $productLinkURI;
 }
 
