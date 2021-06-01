@@ -15,7 +15,12 @@
  * @version     3.6.0
  */
 
-if (!defined('ABSPATH')) exit; ?>
+if (!defined('ABSPATH')) exit; 
+
+if (isset($args['data'])) {
+    $catalog_orderby_options = $args['data']['catalog'];
+    $orderby = $args['data']['orderBy'];
+} ?>
 
     <form class="woocommerce-ordering" method="get">
         <select name="orderby" class="orderby" aria-label="<?php esc_attr_e('Shop order', 'woocommerce'); ?>">
