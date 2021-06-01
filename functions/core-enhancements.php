@@ -55,7 +55,7 @@ function lazyload_post_thumbnail_attr($attr, $attachment, $size) {
            //unset($attr['src']);
            $attr['src'] = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
     }
-    $attr['class'] .= ' lazyload';
+    $attr['class'] .= ' lazyload blur-up';
     return $attr;
 }
 add_filter('wp_get_attachment_image_attributes', 'lazyload_post_thumbnail_attr', 20, 3);
