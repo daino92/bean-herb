@@ -1,0 +1,12 @@
+.lazyload {
+	opacity: 0;
+}
+
+.lazyloading {
+	background: url("../../dist/images/shared/ajax-loader.gif") no-repeat center;
+}
+
+.lazyloaded {
+	opacity: 1;
+	transition: opacity 300ms;
+}

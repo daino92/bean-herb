@@ -101,6 +101,10 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------- */
 @import "utilities/alignments";
 
+/* Lazyload
+--------------------------------------------- */
+@import "utilities/lazyload";
+
 // NEW
 
 @import "utilities/overrides.scss";
