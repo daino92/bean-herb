@@ -113,7 +113,7 @@ $catalog_orderby_options = apply_filters('woocommerce_catalog_orderby', array(
     'rating' => __('Sort by average rating', 'woocommerce'),  
     'date' => __('Sort by newness', 'woocommerce'),  
     'price' => __('Sort by price: low to high', 'woocommerce'),  
-    'price-desc' => __('Sort by price: high to low', 'woocommerce')
+    'price-desc' => __('Sort by price: high to low', 'woocommerce'),  
 )); 
 
 // Product ordering section construct
@@ -165,35 +165,19 @@ function getPagination($total, $current) {
         );
         $pagination .= "</nav>";
     }
+
     return $pagination;
 }
 
-function getCurrentURL() {
-    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-        $url = "https://";   
-    } else {
-        $url = "http://";   
-    }  
-     
-    $url.= $_SERVER['HTTP_HOST'];
-    $url.= $_SERVER['REQUEST_URI'];    
-    
-    return $url;
-}
-
 // product link URI
-function getProductLinkURI($slug, $currentURL = "") {
-    if (strpos($currentURL, 'search') !== false) :
-        $productLinkURI = $currentURL;
+function getProductLinkURI($slug) {
+    if (isset($slug) && $slug != "" && $slug != "undefined") :
+        $productLinkURI .= 'product-category/' . $slug . '/';
     else :
-        if (isset($slug) && $slug != "" && $slug != "undefined") :
-            $productLinkURI .= 'product-category/' . $slug . '/';
-        else :
-            if (get_locale() == "en_GB") : 
-                $productLinkURI = '/en/shop/';
-            else : 
-                $productLinkURI = '/κατάστημα';
-            endif;
+        if (get_locale() == "en_GB") : 
+            $productLinkURI = '/en/shop/';
+        else : 
+            $productLinkURI = '/κατάστημα';
         endif;
     endif;
 
@@ -213,6 +197,7 @@ function totalProducts(){
 function filter__categories_ajax_cb() {
     global $wooCatalogColumns, $wooCatalogRows, $catalog_orderby_options;
 
+    $original_REQUEST_URI = $_SERVER['REQUEST_URI'];
     $slug = (!empty($_POST['slug'])) ? sanitize_text_field($_POST['slug']) : '';
     $productCount = (!empty($_POST['productCount'])) ? absint($_POST['productCount']) : '';
     $orderby = (!empty($_POST['orderby'])) ? sanitize_text_field($_POST['orderby']) : '';
@@ -252,7 +237,12 @@ function filter__categories_ajax_cb() {
         $args['product_cat'] = $slug;
     }
 
+    getProductLinkURI($slug);
+
     $wrapperUpperContent = getUpperContent($productCount, $catnum, 1, $orderby, $catpage);
+
+    // Overwrite the REQUEST_URI variable
+    $_SERVER['REQUEST_URI'] = $productLinkURI;
 
     $loop = new WP_Query($args);
 
@@ -269,6 +259,9 @@ function filter__categories_ajax_cb() {
     wp_reset_postdata();
     
     $pagination = getPagination($total, $current);
+
+    // Restore the original REQUEST_URI 
+    $_SERVER['REQUEST_URI'] = $original_REQUEST_URI;
 
     $response = $products . $pagination . $wrapperUpperContent;
 
@@ -291,121 +284,8 @@ function ajax__pagination_cb() {
     $productCount = (!empty($_POST['productCount'])) ? absint($_POST['productCount']) : '';
     $pageNumber = (!empty($_POST['pageNumber'])) ? absint($_POST['pageNumber']) : '';
     $orderby = (!empty($_POST['orderby'])) ? sanitize_text_field($_POST['orderby']) : '';
-    $currentURL = (!empty($_POST['currentURL'])) ? sanitize_text_field($_POST['currentURL']) : '';
-    
-    // check if we came from "search"
-    $isSearchURL = strpos($currentURL, 'search') !== false;
-    
-    $catpage = $pageNumber;
-
-    if ($isSearchURL) :
-        $pieces = explode("=", $currentURL);
-        $searchField = end($pieces);
-    endif;
-
-    //products per page
-    $catnum = absint($wooCatalogColumns) * absint($wooCatalogRows);
-
-    $offset = ($catnum * $catpage) - $catnum;
-
-    if ($slug == "" || $slug == "undefined") :
-        $productCount = totalProducts();
-    endif;
-
-    //total pages
-    $pages = $productCount / $catnum;
-
-    // Pagination params
-    $total = ceil($pages);
-    $current = max(1, $catpage);
-
-    $args = array(
-        'post_type' => 'product',
-        'post_status' => 'publish',
-        'posts_per_page' => $catnum,
-        'number' => $catnum,
-        'offset' => $offset,
-        'paged' => $catpage
-    );
-
-    if ($isSearchURL) :
-        $args['s'] = $searchField;
-    else :
-        if (isset($slug) && $slug != "undefined") :
-            $args['product_cat'] = $slug;
-        endif;
-    endif;
-
-    if (isset($orderby) && $orderby != "undefined" && $orderby != "") :
-        $args = array_merge($args, archiveOrderbyArgs($orderby));
-    endif;
-
-    $loop = new WP_Query($args);
-
-    if ($isSearchURL) :
-        $productCount = $loop->found_posts;
-
-        //total pages
-        $pages = $productCount / $catnum;
-    
-        // Pagination params
-        $total = ceil($pages);
-        $current = max(1, $catpage);
-    endif;
-
-    $wrapperUpperContent = getUpperContent($productCount, $catnum, $pageNumber, $orderby, $catpage);
-
-    getProductLinkURI($slug, $currentURL);
-
-    // Overwrite the REQUEST_URI variable
-    $_SERVER['REQUEST_URI'] = $productLinkURI;
-
-    if ($loop->have_posts()) :
-        while ($loop->have_posts()) : 
-            $loop->the_post();
-            remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
-            $products = wc_get_template_part('content', 'product');
-        endwhile;
-    else :
-        $products =  __('<div class="no-products">Sorry, no products matched your search criteria</div>');
-    endif;
-
-    wp_reset_postdata();
-    
-    $pagination = getPagination($total, $current);
-
-    $response = $products . $pagination . $wrapperUpperContent;
-
-    echo $response;
-
-    wp_die();
-}
-add_action('wp_ajax_nopriv_ajax__pagination', 'ajax__pagination_cb');
-add_action('wp_ajax_ajax__pagination', 'ajax__pagination_cb');
-
-/**
- * AJAX Callbacks
- * Ajax orderby in archive-page.php
- */
-function ajax__οrderΒy_cb() {
-    global $wooCatalogColumns, $wooCatalogRows, $catalog_orderby_options;
-
-    $original_REQUEST_URI = $_SERVER['REQUEST_URI'];
-    $slug = (!empty($_POST['slug'])) ? sanitize_text_field($_POST['slug']) : '';
-    $orderby = (!empty($_POST['orderby'])) ? sanitize_text_field($_POST['orderby']) : '';
-    $productCount = (!empty($_POST['productCount'])) ? absint($_POST['productCount']) : '';
-    $pageNumber = (!empty($_POST['pageNumber'])) ? absint($_POST['pageNumber']) : '';
-    $currentURL = (!empty($_POST['currentURL'])) ? sanitize_text_field($_POST['currentURL']) : '';
-
-    // check if we came from "search"
-    $isSearchURL = strpos($currentURL, 'search') !== false;
 
     $catpage = $pageNumber;
-
-    if ($isSearchURL) :
-        $pieces = explode("=", $currentURL);
-        $searchField = end($pieces);
-    endif;
 
     //products per page
     $catnum = absint($wooCatalogColumns) * absint($wooCatalogRows);
@@ -432,37 +312,109 @@ function ajax__οrderΒy_cb() {
         'paged' => $catpage
     );
  
-    if ($isSearchURL) :
-        $args['s'] = $searchField;
-    else :
-        if (isset($slug) && $slug != "undefined") :
-            $args['product_cat'] = $slug;
-        endif;
-    endif;
+    if (isset($slug) && $slug != "undefined") {
+        $args['product_cat'] = $slug;
+    }
 
-    if (isset($orderby) && $orderby != "undefined" && $orderby != "") :
+    if (isset($orderby) && $orderby != "undefined" && $orderby != "") {
         $args = array_merge($args, archiveOrderbyArgs($orderby));
-    endif;
+    }
 
-    $loop = new WP_Query($args);
-
-    if ($isSearchURL) :
-        $productCount = $loop->found_posts;
-
-        //total pages
-        $pages = $productCount / $catnum;
-    
-        // Pagination params
-        $total = ceil($pages);
-        $current = max(1, $catpage);
-    endif;
+    getProductLinkURI($slug);
 
     $wrapperUpperContent = getUpperContent($productCount, $catnum, $pageNumber, $orderby, $catpage);
 
-    getProductLinkURI($slug, $currentURL);
+    // Overwrite the REQUEST_URI variable
+    $_SERVER['REQUEST_URI'] = $productLinkURI;
+
+    $loop = new WP_Query($args);
+
+    if ($loop->have_posts()) :
+        while ($loop->have_posts()) : 
+            $loop->the_post();
+            remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+            $products = wc_get_template_part('content', 'product');
+        endwhile;
+    else :
+        $products =  __('<div class="no-products">Sorry, no products matched your search criteria</div>');
+    endif;
+
+    wp_reset_postdata();
+    
+    $pagination = getPagination($total, $current);
+
+    $response = $products . $pagination . $wrapperUpperContent;
+
+    echo $response;
+
+    // Restore the original REQUEST_URI 
+    $_SERVER['REQUEST_URI'] = $original_REQUEST_URI;
+
+    wp_die();
+}
+add_action('wp_ajax_nopriv_ajax__pagination', 'ajax__pagination_cb');
+add_action('wp_ajax_ajax__pagination', 'ajax__pagination_cb');
+
+/**
+ * AJAX Callbacks
+ * Ajax orderby in archive-page.php
+ */
+function ajax__οrderΒy_cb() {
+    global $wooCatalogColumns, $wooCatalogRows, $catalog_orderby_options;
+
+    $original_REQUEST_URI = $_SERVER['REQUEST_URI'];
+    $slug = (!empty($_POST['slug'])) ? sanitize_text_field($_POST['slug']) : '';
+    $orderby = (!empty($_POST['orderby'])) ? sanitize_text_field($_POST['orderby']) : '';
+    $productCount = (!empty($_POST['productCount'])) ? absint($_POST['productCount']) : '';
+    $pageNumber = (!empty($_POST['pageNumber'])) ? absint($_POST['pageNumber']) : '';
+
+    $catpage = $pageNumber;
+
+    //products per page
+    $catnum = absint($wooCatalogColumns) * absint($wooCatalogRows);
+
+    $offset = ($catnum * $catpage) - $catnum;
+
+    if ($slug == "" || $slug == "undefined") {
+        $productCount = totalProducts();
+    }
+
+    //total pages
+    $pages = $productCount / $catnum;
+
+    // Pagination params
+    $total = ceil($pages);
+    $current = max(1, $catpage);
+
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => $catnum,
+        'number' => $catnum,
+        'offset' => $offset,
+        'paged' => $catpage
+    );
+
+    // echo "<pre>"; 
+    // var_dump($args);
+    // echo "</pre>";
+ 
+    if (isset($slug) && $slug != "undefined") {
+        $args['product_cat'] = $slug;
+    }
+
+    if (isset($orderby) && $orderby != "undefined" && $orderby != "") {
+        $args = array_merge($args, archiveOrderbyArgs($orderby));
+    }
+
+    getProductLinkURI($slug);
+
+    $wrapperUpperContent = getUpperContent($productCount, $catnum, $pageNumber, $orderby, $catpage);
 
     // Overwrite the REQUEST_URI variable
     $_SERVER['REQUEST_URI'] = $productLinkURI;
+
+    $loop = new WP_Query($args);
 
     if ($loop->have_posts()) :
         while ($loop->have_posts()) : 
@@ -482,6 +434,9 @@ function ajax__οrderΒy_cb() {
 
     echo $response;
 
+    // Restore the original REQUEST_URI 
+    $_SERVER['REQUEST_URI'] = $original_REQUEST_URI;
+
     wp_die();
 }
 add_action('wp_ajax_nopriv_ajax__οrderΒy', 'ajax__οrderΒy_cb');
@@ -498,7 +453,7 @@ function ajax__searchField_cb() {
     $searchField = (!empty($_POST['searchField'])) ? sanitize_text_field($_POST['searchField']) : '';
     $orderby = (!empty($_POST['orderby'])) ? sanitize_text_field($_POST['orderby']) : '';
 
-    $catpage = get_query_var('paged') ? get_query_var('paged') : 1;
+    $catpage = get_query_var('paged') ? get_query_var('paged') : 1;;
 
     //products per page
     $catnum = absint($wooCatalogColumns) * absint($wooCatalogRows);
@@ -515,9 +470,20 @@ function ajax__searchField_cb() {
         'paged' => $catpage
     );
     
-    if (isset($orderby) && $orderby != "undefined" && $orderby != "") {
-        $args = array_merge($args, archiveOrderbyArgs($orderby));
-    }
+    // echo "<pre>"; 
+    // var_dump($args);
+    // echo "</pre>";
+
+        
+    // if (isset($orderby) && $orderby != "undefined" && $orderby != "") {
+        //     $args = array_merge($args, archiveOrderbyArgs($orderby));
+        // }
+            
+    //getProductLinkURI($slug);
+    
+    
+    // Overwrite the REQUEST_URI variable
+    $_SERVER['REQUEST_URI'] = $productLinkURI;
     
     $loop = new WP_Query($args);
     
@@ -529,17 +495,8 @@ function ajax__searchField_cb() {
     // Pagination params
     $total = ceil($pages);
     $current = max(1, $catpage);
-
-    // echo "<pre>"; 
-    // var_dump($args);
-    // echo "</pre>";
     
     $wrapperUpperContent = getUpperContent($productCount, $catnum, $catpage, $orderby, $catpage);
-
-    // getProductLinkURI($slug, $currentURL);
-
-    // Overwrite the REQUEST_URI variable
-    $_SERVER['REQUEST_URI'] = $productLinkURI;
 
     if ($loop->have_posts()) :
         while ($loop->have_posts()) : 
