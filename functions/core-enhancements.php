@@ -36,7 +36,7 @@ function custom_dashboard_widget() {
 add_action('wp_dashboard_setup', 'custom_dashboard_widget');
  
 function custom_dashboard_help() {
-	echo '<p>Welcome to Calisthenics Theme! Need help? <br>Contact the developer <a href="mailto:daino92@gmail.com">here</a>.</p>';
+	echo '<p>Welcome to Bean and Herb Theme! Need help? <br>Contact the developer <a href="mailto:daino92@gmail.com">here</a>.</p>';
 }
 
 // Modifying image attributes of gallery images and post thumbnails
