@@ -150,6 +150,18 @@ $('.filters__area__sidebar--toggle').on('click', function() {
     $('.filters__area').toggleClass("filters--active");
 });
 
+// quick view pop-up
+$(document).on('click', '.close', function () {
+    $('#QuickViewProductPopup').fadeOut();
+    $('body').removeClass('qvwp-no-scroll');
+});
+
+$(document).on('click', '#QuickViewProductPopup', function (e) {
+    if (e.target !== this) return;
+    $('#QuickViewProductPopup').fadeOut();
+    $('body').removeClass('qvwp-no-scroll');
+});
+
 // $('.woocommerce').on('change', 'input.qty', function(){
 //     $("[name='update_cart']").trigger("click");
 // });

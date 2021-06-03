@@ -237,4 +237,29 @@ jQuery('document').ready(function($) {
             console.log('Request failed: ' + data.statusText);
         });
     });
+
+    $(document).on('click', 'a.qvwp-open-single-product', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        if (id < 1) return;
+        
+        $.ajax({
+            type: 'POST',
+            url: $('#QuickViewProductPopup').data('url'),
+            data: {
+                action: 'QuickView__action',
+                id
+            },
+            beforeSend: function() {
+                $(".lds-ellipsis").css("display", "block");
+            }
+        }).done(function (result) {
+            $(".lds-ellipsis").css("display", "none");
+            $('#QuickViewProductPopup>.modal-content').html(result + '<span class="close">&times;</span>');
+            $('#QuickViewProductPopup').fadeIn();
+            $('body').addClass('qvwp-no-scroll');
+        });
+        return false;
+    });
 });

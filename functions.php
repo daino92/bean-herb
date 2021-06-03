@@ -213,6 +213,11 @@ require get_template_directory() . '/functions/load-assets.php';
  */
 require get_template_directory() . '/functions/core-enhancements.php';
 
+/**
+ * Quick view for archive page
+ */
+require get_template_directory() . '/functions/quick-view.php';
+
 function custom_search_field(){
     if (isset($_REQUEST['search']) == 'search-products') {
 		remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0);
