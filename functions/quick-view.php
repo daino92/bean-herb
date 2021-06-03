@@ -146,12 +146,14 @@ class QuickViewWooProduct {
         global $product; ?>
 
         <div class="quick-view__btn">
-            <a class="button qvwp-open-single-product" data-id="<?php echo $product->get_id(); ?>" href="#"><?php echo __('Quick view'); ?></a>
+            <a class="button quick-view__open-single-product" data-id="<?php echo $product->get_id(); ?>" href="#">
+                <?php echo __('Quick view'); ?>
+            </a>
         </div> 
     <?php }
 
     function QuickView__popup() { ?>
-        <div id="QuickViewProductPopup" class="modal popup" data-url="<?php echo admin_url('admin-ajax.php'); ?>">
+        <div id="productModal" class="modal popup" data-url="<?php echo admin_url('admin-ajax.php'); ?>">
             <div class="modal-content"></div>
         </div>
     <?php }

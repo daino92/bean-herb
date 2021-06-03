@@ -1,63 +1,62 @@
-// weight inits
-var initialPrice = $("#initial__price").val();
-var minimumWeight = parseInt($("input[name='minimum__weight']").val());
-var price = $("#weight_needed");
-var initialStep = parseInt(price.attr("data-step"));
-var currentStep = parseInt(price.attr("data-current-step"));
-var pricingUnit = $("input[name='pricingUnit']").val();
-var unit = $("input[name='unit']").val();
+document.addEventListener('click', function (event) {
+    // weight inits
+    var initialPrice = $("#initial__price").val();
+    var minimumWeight = parseInt($("input[name='minimum__weight']").val());
+    var price = $("#weight_needed");
+    var initialStep = parseInt(price.attr("data-step"));
+    var currentStep = parseInt(price.attr("data-current-step"));
+    var pricingUnit = $("input[name='pricingUnit']").val();
+    var unit = $("input[name='unit']").val();
 
-if (pricingUnit === "g") {
-    var denominator = initialStep;
-} else {
-    var denominator = 1000;
-}
-
-// pieces inits
-var quantity = $("#quantity-pieces");
-var minQuantity = quantity.attr("min");
-var step = quantity.attr("step");
-var value = quantity.attr("value");
-
-// weight funcs
-$("#minus").on("click", function() {
-    if (currentStep === minimumWeight) return;
-    
-    var stepper = currentStep - initialStep;
-    price.attr("data-current-step", stepper);
-    currentStep = parseInt(price.attr("data-current-step"));
-    var shownPrice = (initialPrice * stepper) / denominator;
-    shownPrice = shownPrice.toFixed(2);
-    $("input[name='weight_needed']").val(currentStep);
-    $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
-});
-
-$("#plus").on("click", function() {
-    var stepper = currentStep + initialStep;
-    price.attr("data-current-step", stepper);
-    currentStep = parseInt(price.attr("data-current-step"));
-    var shownPrice = (initialPrice * stepper) / denominator;
-    shownPrice = shownPrice.toFixed(2);
-    $("input[name='weight_needed']").val(currentStep);
-    $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
-});
-
-// pieces funcs
-$("#minus_pieces").on("click", function() {
-    if (value === minQuantity) {
-        return;
+    if (pricingUnit === "g") {
+        var denominator = initialStep;
     } else {
+        var denominator = 1000;
+    }
+
+    // pieces inits
+    var quantity = $("#quantity-pieces");
+    var minQuantity = quantity.attr("min");
+    var step = quantity.attr("step");
+    var value = quantity.attr("value");
+
+    // weight funcs
+    if (event.target.matches("#minus")) {
+        if (currentStep === minimumWeight) return;
+        
+        var stepper = currentStep - initialStep;
+        price.attr("data-current-step", stepper);
+        currentStep = parseInt(price.attr("data-current-step"));
+        var shownPrice = (initialPrice * stepper) / denominator;
+        shownPrice = shownPrice.toFixed(2);
+        $("input[name='weight_needed']").val(currentStep);
+        $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+    }
+
+    if (event.target.matches("#plus")) {
+        var stepper = currentStep + initialStep;
+        price.attr("data-current-step", stepper);
+        currentStep = parseInt(price.attr("data-current-step"));
+        var shownPrice = (initialPrice * stepper) / denominator;
+        shownPrice = shownPrice.toFixed(2);
+        $("input[name='weight_needed']").val(currentStep);
+        $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+    }
+
+	if (event.target.matches("#plus_pieces")) {
+		var nextVal = parseInt(value) + parseInt(step);
+        quantity.attr("value", nextVal);
+        value = quantity.attr("value");
+	}
+
+	if (event.target.matches("#minus_pieces")) {
+		if (value === minQuantity) return;
+        
         var nextVal = parseInt(value) - parseInt(step);
         quantity.attr("value", nextVal);
         value = quantity.attr("value");
-    }
-});
-
-$("#plus_pieces").on("click", function() {
-    var nextVal = parseInt(value) + parseInt(step);
-    quantity.attr("value", nextVal);
-    value = quantity.attr("value");
-});
+	}
+}, false);
 
 // Toggling child categories in product filters
 $('.cats-toggle').click(function() {
@@ -152,14 +151,14 @@ $('.filters__area__sidebar--toggle').on('click', function() {
 
 // quick view pop-up
 $(document).on('click', '.close', function () {
-    $('#QuickViewProductPopup').fadeOut();
-    $('body').removeClass('qvwp-no-scroll');
+    $('#productModal').fadeOut();
+    $('body').removeClass('quick-view__no-scroll');
 });
 
-$(document).on('click', '#QuickViewProductPopup', function (e) {
+$(document).on('click', '#productModal', function (e) {
     if (e.target !== this) return;
-    $('#QuickViewProductPopup').fadeOut();
-    $('body').removeClass('qvwp-no-scroll');
+    $('#productModal').fadeOut();
+    $('body').removeClass('quick-view__no-scroll');
 });
 
 // $('.woocommerce').on('change', 'input.qty', function(){

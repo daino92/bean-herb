@@ -238,7 +238,7 @@ jQuery('document').ready(function($) {
         });
     });
 
-    $(document).on('click', 'a.qvwp-open-single-product', function (e) {
+    $(document).on('click', '.quick-view__open-single-product', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
 
@@ -246,7 +246,7 @@ jQuery('document').ready(function($) {
         
         $.ajax({
             type: 'POST',
-            url: $('#QuickViewProductPopup').data('url'),
+            url: $('#productModal').data('url'),
             data: {
                 action: 'QuickView__action',
                 id
@@ -256,8 +256,8 @@ jQuery('document').ready(function($) {
             }
         }).done(function (result) {
             $(".lds-ellipsis").css("display", "none");
-            $('#QuickViewProductPopup>.modal-content').html(result + '<span class="close">&times;</span>');
-            $('#QuickViewProductPopup').fadeIn();
+            $('#productModal > .modal-content').html(result + '<span class="close">&times;</span>');
+            $('#productModal').fadeIn();
             $('body').addClass('qvwp-no-scroll');
         });
         return false;

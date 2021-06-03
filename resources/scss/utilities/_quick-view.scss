@@ -4,32 +4,37 @@
 	transition: all .3s ease;
 }
 
-.quick-view__btn {
-    position: absolute;
-	text-transform: uppercase;
-	opacity: 0;
-	transform: scale(0);
-	transition: all .3s ease;
-	text-align: center;
-	z-index: 10;
-    top: 30%;
-	right: 35%;
-
-    .button {
-        display: inline-block;
-        color: #FFF;
-        background-color: $primary;
-        padding: 5px 10px;
-        font-size: 13px;
-
-        &:hover {
-            background-color: $primary__alt;
+.quick-view {
+    &__btn {
+        position: absolute;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: scale(0);
+        transition: all .3s ease;
+        text-align: center;
+        z-index: 10;
+        top: 30%;
+        left: 0px;
+        right: 0px;
+        margin-left: auto;
+        margin-right: auto;
+    
+        .button {
+            display: inline-block;
+            color: #FFF;
+            background-color: $primary;
+            padding: 5px 10px;
+            font-size: 13px;
+    
+            &:hover {
+                background-color: $primary__alt;
+            }
         }
     }
-}
 
-.qvwp-no-scroll {
-    overflow: hidden;
+    &__no-scroll {
+        overflow: hidden;
+    }
 }
 
 .modal.popup {
@@ -41,15 +46,16 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, .7);
 
     .modal-content {
         position: relative;
-        background-color: #fff;
+        background-color: #FFF;
         padding: 20px;
         margin: 15vh auto;
         border: 1px solid #000;
-        width: 70%;
+        width: 65%;
+        box-shadow: 0 0 10px 0px #000;
 
         .woocommerce-product-gallery {
             opacity: 1 !important;
@@ -58,35 +64,17 @@
 
     .close {
         position: absolute;
-        background: #fff;
-        color: rgba(0,0,0,0.75);
-        font-size: 28px;
-        font-weight: bold;
-        top: 15px;
-        right: 15px;
-        line-height: 0.75em;
+        background: #FFF;
+        color: $primary;
+        font-size: 1.6em;
+        top: 1em;
+        right: 1em;
+        line-height: 1;
+        cursor: pointer;
 
         &:hover,
         &:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    }
-
-    .woocommerce-product-gallery__trigger {
-        display: none;
-    }
-
-    .woocommerce .product {
-        .images,
-        .summary,
-        .cart {
-            margin-bottom: 0;
-        }
-    
-        .product_title {
-            font-size: 1.5em;
+            color: $primary__alt;
         }
     }
 }
