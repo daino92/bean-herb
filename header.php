@@ -10,6 +10,21 @@
  */
 
 ?>
+
+<?php
+
+if (get_locale() == "en_GB") : 
+	$accountLoginURL = home_url() . '/my-account/';
+    $accountLoginTranslation = 'Login';
+	//$accountURL = ;
+	$accountTranslation = 'Account';   
+else :
+	$accountLoginURL = home_url() . '/λογαριασμός';
+    $accountLoginTranslation = 'Είσοδος';
+    //$accountURL = ;
+	$accountTranslation = 'Λογαριασμός';
+endif; ?>
+
 <!doctype html>
 
 <html <?php language_attributes(); ?>>
@@ -45,6 +60,12 @@
 		<nav id="site-navigation" class="main-navigation">
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e('Primary Menu', 'bean-herb'); ?></button>
 			<?php wp_nav_menu(array('theme_location' => 'menu-1', 'menu_id' => 'primary-menu', 'container_class' => 'main-menu')); ?>
+			<div class="account">
+				<?php if (is_user_logged_in()) echo "<a href='{$accountLoginURL}'>{$accountTranslation}</a>"; else echo "<a href='{$accountLoginURL}'>{$accountLoginTranslation}</a>"; ?>
+				<svg>
+					<use xlink:href="#user"></use>
+				</svg>
+			</div>
 			<?php if (function_exists('bean_herb_woocommerce_header_cart')) bean_herb_woocommerce_header_cart(); ?>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->

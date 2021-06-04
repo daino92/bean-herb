@@ -1,0 +1,69 @@
+.entry-title {
+    text-align: center;
+}
+
+#customer_login {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-start;
+    margin: 0 auto;
+    max-width: $max__width;
+
+    .u-columns {
+        .u-column1,
+        .u-column2 {
+            background-color: rgba(0, 0, 0, .04);
+        }
+    }
+
+    .woocommerce-form {
+        margin-top: 1em;
+
+        .input-text {
+            width: 100%;
+            margin-top: 1em;
+            padding: 6px 10px;
+	        font-size: 1em;
+        }
+
+        .woocommerce-form-login__rememberme {
+            margin-left: 1em;
+        }
+
+        .lost_password {
+            color: #ADAFB3;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.btn {
+    font-size: 1.1em;
+	line-height: 1.1;
+	color: #FFF;
+	padding: 9px 14px;
+	border-radius: 3px;
+	outline: none;
+	text-decoration: none;
+	background-color: $primary;
+	border: 0;
+	cursor: pointer;
+
+    &:hover {
+        background-color: $primary__alt;
+    }
+}

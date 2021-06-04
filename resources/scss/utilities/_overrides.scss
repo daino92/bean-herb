@@ -19,6 +19,30 @@
         align-items: center;
         flex-flow: row wrap;
 
+        .account {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            text-transform: uppercase;
+
+            a {
+                color: $secondary;
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+
+            svg {
+                width: 20px;
+                height: 20px;
+                margin-left: 5px;
+                margin-right: 5px;
+                fill: currentColor;
+            }
+        }
+
         .main-menu {
             text-transform: uppercase;
         }
