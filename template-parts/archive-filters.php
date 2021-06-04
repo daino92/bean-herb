@@ -34,7 +34,7 @@ $all_categories = get_categories($cat_args); ?>
 <ul id="filter" class="product__categories">
     <h4 class="product__categories--title"><?= $product_cat_title; ?></h4>
     <li class="cat-item">
-        <a class="cats" data-slug="" href="<?= wc_get_page_permalink('shop'); ?>"><?= $all_products; ?></a>
+        <a class="cats" data-slug="" href="<?= urldecode(wc_get_page_permalink('shop')); ?>"><?= $all_products; ?></a>
     </li>
     <?php
         foreach ($all_categories as $cat) :
@@ -87,6 +87,6 @@ $all_categories = get_categories($cat_args); ?>
     <?php get_template_part(
         'template-parts/search-form', 
         null, 
-        array('data'  => array('products_link' => wc_get_page_permalink('shop')))
+        array('data' => array('products_link' => urldecode(wc_get_page_permalink('shop'))))
     ); ?>
 </div>
