@@ -9,19 +9,9 @@
  * @package Bean_&_Herb
  */
 
-?>
-
-<?php
-
-if (get_locale() == "en_GB") : 
-	$accountLoginURL = home_url() . '/my-account/';
-    $accountLoginTranslation = 'Login';
-	//$accountURL = ;
+if (get_locale() == "en_GB") :
 	$accountTranslation = 'Account';   
 else :
-	$accountLoginURL = home_url() . '/λογαριασμός';
-    $accountLoginTranslation = 'Είσοδος';
-    //$accountURL = ;
 	$accountTranslation = 'Λογαριασμός';
 endif; ?>
 
@@ -49,19 +39,14 @@ endif; ?>
 	<?php get_template_part('template-parts/content-socials', get_post_type()); ?>
 	<header id="masthead" class="site-header">
 		<div class="site-branding">
-			<?php
-			if (function_exists('the_custom_logo')) the_custom_logo();
-			if (is_front_page() && is_home()) : ?>
-				<h1 class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></h1>
-			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></p>
-			<?php endif; ?>
+			<?php if (function_exists('the_custom_logo')) the_custom_logo(); ?>
+			<h1 class="site-title"><a href="<?= esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></h1>
 		</div><!-- .site-branding -->
 		<nav id="site-navigation" class="main-navigation">
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e('Primary Menu', 'bean-herb'); ?></button>
 			<?php wp_nav_menu(array('theme_location' => 'menu-1', 'menu_id' => 'primary-menu', 'container_class' => 'main-menu')); ?>
 			<div class="account">
-				<?php if (is_user_logged_in()) echo "<a href='{$accountLoginURL}'>{$accountTranslation}</a>"; else echo "<a href='{$accountLoginURL}'>{$accountLoginTranslation}</a>"; ?>
+				<a href="<?= urldecode(wc_get_page_permalink('myaccount')); ?>"><?= $accountTranslation ?> </a>
 				<svg>
 					<use xlink:href="#user"></use>
 				</svg>
