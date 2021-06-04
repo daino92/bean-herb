@@ -6,49 +6,130 @@
 	display: flex;
 	justify-content: space-evenly;
 	align-items: flex-start;
-    margin: 0 auto;
+    flex-direction: column;
+    margin: 0 auto 5em;
     max-width: $max__width;
+    padding-left: 1em;
+	padding-right: 1em;
+	width: 100%;
 
-    .u-columns {
-        .u-column1,
-        .u-column2 {
-            background-color: rgba(0, 0, 0, .04);
-        }
+    .u-column1,
+    .u-column2 {
+        background-color: rgba(0, 0, 0, .04);
+        width: 100%;
+        flex: 0 0 45%;
+	    padding: 2em;
+    }
+
+    .u-column2 {
+        margin-top: 1em;
     }
 
     .woocommerce-form {
         margin-top: 1em;
-
-        .input-text {
-            width: 100%;
-            margin-top: 1em;
-            padding: 6px 10px;
-	        font-size: 1em;
-        }
 
         .woocommerce-form-login__rememberme {
             margin-left: 1em;
         }
 
         .lost_password {
-            color: #ADAFB3;
+            margin-bottom: 1.1em;
+
+            a {
+                color: #ADAFB3;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }
 
+.lost_reset_password {
+	background-color: rgba(0, 0, 0, .04);
+	padding: 2em;
+	margin: 0 auto 5em;
+	width: 70%;
+	max-width: $max__width;
+}
 
+.woocommerce-form-row {
+    .input-text {
+        width: 100%;
+        margin-top: 1em;
+        padding: 6px 10px;
+        font-size: 1em;
+    }
+}
 
+.dashboard__my-account {
+    display: flex;
+	justify-content: space-evenly;
+	align-items: baseline;
+    flex-direction: column;
+	margin: 0 auto;
+	max-width: 1140px;
 
+    .woocommerce-MyAccount-content {
+        flex: 0 0 40%;
+        padding-left: 1em;
+        padding-right: 1em;
+        margin-top: 3em;
 
+        a {
+            color: $primary;
+            text-decoration: none;
 
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    
+    .woocommerce-MyAccount-navigation {
+        width: 100%;
+        flex: 0 0 40%;
+        padding-left: 1em;
+        padding-right: 1em;
+    
+        ul {
+            margin: 0;
+            
+            li {
+                background-color: rgba(0, 0, 0, .04);
+                padding: 1em;
+                list-style: none;
+                margin-top: .6em;
+        
+                a {
+                    color: #000;
+                    text-decoration: none;
+        
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+            }
+        }
+    }
+}
 
+@media all and (min-width: 768px) {
+    .dashboard__my-account,
+    #customer_login {
+        flex-direction: row;
 
+        .u-column2 {
+            margin-top: 0;
+        }
+    }
 
-
-
-
-
-
+    .woocommerce-MyAccount-content {
+        margin-top: 0;
+    }
+}
 
 
 .btn {
