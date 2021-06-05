@@ -10,11 +10,9 @@
 
 if (get_locale() == "en_GB") : 
 	$all_products = 'All products';
-    $products_link = home_url() . '/shop/';
     $product_cat_title = "Product Categories";
 else :
 	$all_products = 'Όλα τα προϊόντα';
-    $products_link = home_url() . '/κατάστημα/';
     $product_cat_title = "Κατηγορίες προϊόντων";
 endif; 
 
@@ -36,7 +34,7 @@ $all_categories = get_categories($cat_args); ?>
 <ul id="filter" class="product__categories">
     <h4 class="product__categories--title"><?= $product_cat_title; ?></h4>
     <li class="cat-item">
-        <a class="cats" data-slug="" href="<?= $products_link; ?>"><?= $all_products; ?></a>
+        <a class="cats" data-slug="" href="<?= urldecode(wc_get_page_permalink('shop')); ?>"><?= $all_products; ?></a>
     </li>
     <?php
         foreach ($all_categories as $cat) :
@@ -89,6 +87,6 @@ $all_categories = get_categories($cat_args); ?>
     <?php get_template_part(
         'template-parts/search-form', 
         null, 
-        array('data'  => array('products_link' => $products_link))
+        array('data' => array('products_link' => urldecode(wc_get_page_permalink('shop'))))
     ); ?>
 </div>

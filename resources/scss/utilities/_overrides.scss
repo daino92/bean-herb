@@ -19,6 +19,35 @@
         align-items: center;
         flex-flow: row wrap;
 
+        .account {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            text-transform: uppercase;
+
+            a {
+                display: flex;
+                color: $secondary;
+
+                &:hover {
+                    color: $primary;
+                }
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    fill: #888;
+
+                    &:hover {
+                        color: #000;
+                    }
+                }
+            }
+        }
+
         .main-menu {
             text-transform: uppercase;
         }
@@ -1357,6 +1386,7 @@
     }
 }
 
+.woocommerce-error,
 .woocommerce-message {
     display: flex;
 	flex-flow: column nowrap;
@@ -1377,6 +1407,7 @@
 	animation-delay: .4s, 9s;
 	animation-fill-mode: forwards;
 	animation-timing-function: ease;
+    list-style: none;
 
     a {
         color: #FFF;

@@ -189,11 +189,7 @@ function getProductLinkURI($slug, $currentURL = "") {
         if (isset($slug) && $slug != "" && $slug != "undefined") :
             $productLinkURI .= 'product-category/' . $slug . '/';
         else :
-            if (get_locale() == "en_GB") : 
-                $productLinkURI = '/en/shop/';
-            else : 
-                $productLinkURI = '/κατάστημα';
-            endif;
+            $productLinkURI = urldecode(wc_get_page_permalink('shop'));
         endif;
     endif;
 
