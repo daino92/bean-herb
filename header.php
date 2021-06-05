@@ -46,10 +46,13 @@ endif; ?>
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e('Primary Menu', 'bean-herb'); ?></button>
 			<?php wp_nav_menu(array('theme_location' => 'menu-1', 'menu_id' => 'primary-menu', 'container_class' => 'main-menu')); ?>
 			<div class="account">
-				<a href="<?= urldecode(wc_get_page_permalink('myaccount')); ?>"><?= $accountTranslation ?> </a>
-				<svg>
-					<use xlink:href="#user"></use>
-				</svg>
+				<a href="<?= urldecode(wc_get_page_permalink('myaccount')); ?>">
+					<svg>
+						<use xlink:href="#user"></use>
+					</svg>
+					<?= $accountTranslation ?> 
+				</a>
+				
 			</div>
 			<?php if (function_exists('bean_herb_woocommerce_header_cart')) bean_herb_woocommerce_header_cart(); ?>
 		</nav><!-- #site-navigation -->

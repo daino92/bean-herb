@@ -67,27 +67,11 @@
 .dashboard__my-account {
     display: flex;
 	justify-content: space-evenly;
-	align-items: baseline;
+	align-items: flex-start;
     flex-direction: column;
-	margin: 0 auto;
-	max-width: 1140px;
+    margin: 3em auto 5em;
+	max-width: $max__width;
 
-    .woocommerce-MyAccount-content {
-        flex: 0 0 40%;
-        padding-left: 1em;
-        padding-right: 1em;
-        margin-top: 3em;
-
-        a {
-            color: $primary;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-    
     .woocommerce-MyAccount-navigation {
         width: 100%;
         flex: 0 0 40%;
@@ -114,10 +98,51 @@
             }
         }
     }
+
+    .woocommerce-MyAccount-content {
+        flex: 0 0 46%;
+        padding-left: 1em;
+        padding-right: 1em;
+        margin-top: 3em;
+
+        a {
+            color: $primary;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .woocommerce-Addresses {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+
+            > div {
+                padding-left: 1em;
+                padding-right: 1em;
+
+                .woocommerce-Address-title {
+                    margin-bottom: 1em;
+                }
+            }
+        }
+
+        .customize--address {
+
+            h3 {
+                text-align: center;
+            }
+        
+            .woocommerce-address-fields {
+                margin-top: 1em;
+            }
+        }
+    }
 }
 
 @media all and (min-width: 768px) {
-    .dashboard__my-account,
     #customer_login {
         flex-direction: row;
 
@@ -126,8 +151,12 @@
         }
     }
 
-    .woocommerce-MyAccount-content {
-        margin-top: 0;
+    .dashboard__my-account {
+        flex-direction: row;
+
+        .woocommerce-MyAccount-content {
+            margin-top: 0;
+        }
     }
 }
 
