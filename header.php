@@ -9,7 +9,12 @@
  * @package Bean_&_Herb
  */
 
-?>
+if (get_locale() == "en_GB") :
+	$accountTranslation = 'Account';   
+else :
+	$accountTranslation = 'Λογαριασμός';
+endif; ?>
+
 <!doctype html>
 
 <html <?php language_attributes(); ?>>
@@ -34,17 +39,21 @@
 	<?php get_template_part('template-parts/content-socials', get_post_type()); ?>
 	<header id="masthead" class="site-header">
 		<div class="site-branding">
-			<?php
-			if (function_exists('the_custom_logo')) the_custom_logo();
-			if (is_front_page() && is_home()) : ?>
-				<h1 class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></h1>
-			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></p>
-			<?php endif; ?>
+			<?php if (function_exists('the_custom_logo')) the_custom_logo(); ?>
+			<h1 class="site-title"><a href="<?= esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></h1>
 		</div><!-- .site-branding -->
 		<nav id="site-navigation" class="main-navigation">
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e('Primary Menu', 'bean-herb'); ?></button>
 			<?php wp_nav_menu(array('theme_location' => 'menu-1', 'menu_id' => 'primary-menu', 'container_class' => 'main-menu')); ?>
+			<div class="account">
+				<a href="<?= urldecode(wc_get_page_permalink('myaccount')); ?>">
+					<svg>
+						<use xlink:href="#user"></use>
+					</svg>
+					<?= $accountTranslation ?> 
+				</a>
+				
+			</div>
 			<?php if (function_exists('bean_herb_woocommerce_header_cart')) bean_herb_woocommerce_header_cart(); ?>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
