@@ -190,21 +190,3 @@
         }
     }
 }
-
-
-.btn {
-    font-size: 1.1em;
-	line-height: 1.1;
-	color: #FFF;
-	padding: 9px 14px;
-	border-radius: 3px;
-	outline: none;
-	text-decoration: none;
-	background-color: $primary;
-	border: 0;
-	cursor: pointer;
-
-    &:hover {
-        background-color: $primary__alt;
-    }
-}
