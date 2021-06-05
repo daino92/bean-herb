@@ -55,12 +55,26 @@
 	max-width: $max__width;
 }
 
-.woocommerce-form-row {
-    .input-text {
-        width: 100%;
-        margin-top: 1em;
-        padding: 6px 10px;
-        font-size: 1em;
+.woocommerce-input-wrapper input,
+.woocommerce-input-wrapper select,
+.woocommerce-form-row .input-text {
+    width: 100%;
+    margin-top: 1em;
+    padding: 6px 10px;
+    font-size: 1em;
+    display: block;
+    border-radius: 4px;
+}
+
+.woocommerce-input-wrapper .select2-selection--single {
+    width: 100%;
+	margin-top: 1em;
+	font-size: 1em;
+	padding: 5px 10px;
+	height: 38px;
+
+    .select2-selection__arrow {
+        top: 1.3em;
     }
 }
 
@@ -101,6 +115,7 @@
 
     .woocommerce-MyAccount-content {
         flex: 0 0 46%;
+        width: 100%;
         padding-left: 1em;
         padding-right: 1em;
         margin-top: 3em;
