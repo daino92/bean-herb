@@ -129,6 +129,18 @@
             }
         }
 
+        .edit-account {
+            .helpful-text {
+                font-style: italic;
+                margin-top: 1em;
+            }
+
+            fieldset {
+                margin-bottom: 1em;
+            }
+        }
+        
+
         .woocommerce-Addresses {
             display: flex;
             justify-content: space-around;
@@ -140,6 +152,10 @@
 
                 .woocommerce-Address-title {
                     margin-bottom: 1em;
+                }
+
+                address {
+                    color: #8B8D94;
                 }
             }
         }
