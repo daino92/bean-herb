@@ -17,8 +17,7 @@
 
 defined('ABSPATH') || exit;
 
-global $product;
-global $wpdb;
+global $product, $wpdb;
 
 $productId = $product->get_id();
 $price = $product->get_price();
@@ -35,7 +34,7 @@ if ($resultsProduct) :
 	if ($pricingUnit == "g") :
 		$minPrice = $price;
 	else :
-		$minPrice = ($price * 50) / 1000;
+		$minPrice = ($price * $productΑttributes["min"]) / 1000;
 		$minPrice = number_format($minPrice, 2);
 	endif;
 endif;
