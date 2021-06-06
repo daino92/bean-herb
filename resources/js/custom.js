@@ -86,6 +86,8 @@ $('.cats-toggle').click(function() {
 });
 
 $('.cat-item .cats').on('click', function() {
+    if ($(".filters__area").hasClass("filters--active")) $(".filters__area").removeClass("filters--active");
+
     if ($(this).siblings('.children').hasClass('active')) {
         $(this).siblings('.children').removeClass('active');
         $(this).siblings('.children').slideUp(600);
