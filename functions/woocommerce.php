@@ -284,31 +284,10 @@ function woocommerce_created_customer_admin_notification($customer_id) {
 }
 add_action('woocommerce_created_customer', 'woocommerce_created_customer_admin_notification');
 
-// add_action('init', function() {
-//     remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
-//     add_action('woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
-// });
-
-// if ( ! function_exists('woocommerce_template_loop_product_thumbnail')) {
-//     function woocommerce_template_loop_product_thumbnail() {
-//         echo woocommerce_get_product_thumbnail();
-//     } 
-// }
-
-// if (!function_exists('woocommerce_get_product_thumbnail')) {   
-//     function woocommerce_get_product_thumbnail($size = 'shop_catalog') {
-//         global $post, $woocommerce;
-//         $output = '';
-// 		$upload_dir = wp_upload_dir();
-// 		$placeholder = $upload_dir['baseurl'] . '/woocommerce-placeholder-150x150.png';
-
-//         if (has_post_thumbnail()) {
-//             $src = get_the_post_thumbnail_url($post->ID, $size);
-//             $output .= '<img class="lazy" src="'.$placeholder.'" data-src="' . $src . '" data-srcset="' . $src . '" alt="Lazy loading image">';
-//         } else {
-//             $output .= wc_placeholder_img($size);
-//         }
-
-//         return $output;
-//     }
-// }
+// Make product title as an anchor link in archive-page.php
+function make_product_title_link() {
+	global $product;
+    echo '<a href="'. urldecode(get_permalink($product->get_id())) .'" class="woocommerce-loop-product__title">'. get_the_title() . '</a>';
+}
+remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10); 
+add_action('woocommerce_shop_loop_item_title', 'make_product_title_link', 10);
