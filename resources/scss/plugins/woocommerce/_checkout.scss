@@ -1,21 +1,177 @@
+.checkout.woocommerce-checkout {
+	display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: $max__width;
+	margin: 0 auto;
+
+	> div {
+		flex: 0 0 45%;
+		width: 100%;
+		padding: 1em;
+
+		h3 {
+			text-align: center;
+		}
+
+		#order_review,
+		#customer_details {
+			margin-top: 1em;
+		}
+
+		label {
+			color: $primary;
+		}
+	}
+
+	#customer_details {
+		.woocommerce-shipping-fields {
+			h3 {
+				text-align: left;
+			}
+		}
+
+		.woocommerce-additional-fields {
+			margin-top: 1em;
+		}
+
+		#order_comments_field {
+			span {
+
+				textarea {
+					margin-top: .5em;
+				}
+			}
+		}
+	}
+
+	.order-review-area {
+		background-color: rgba(0, 0, 0, .04);
+		flex: 0 0 30% !important;
+
+		ul {
+			margin: 1em 0;
+	
+			li {
+				list-style: none;
+
+				label {
+					margin-left: .5em;
+
+					.woocommerce-Price-amount {
+						color: #000;
+					}
+
+					.about_paypal {
+						color: #ADAFB3;
+						font-size: 13px;
+						margin-left: 1em;
+					}
+				}
+			}
+		}
+	}
+}
+.woocommerce-form-coupon-toggle,
+.woocommerce-form-login-toggle {
+	max-width: $max__width;
+	margin: 0 auto;
+	padding: 1em;
+
+	.woocommerce-info {
+		background-color: unset;
+
+		.showcoupon,
+		.showlogin {
+			color: $primary;
+			text-decoration: none;
+
+			&:hover {
+				color: $primary__alt;
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+.woocommerce-form-coupon,
+.login__return-customer {
+	max-width: 1140px;
+	margin: 0 auto;
+	padding: 1em;
+
+	form {
+		padding: 1em;
+		margin-bottom: 1em;
+		background-color: rgba(0, 0, 0, .04);
+
+		label {
+			color: $primary;
+		}
+
+		input:not(input[name='rememberme']) {
+			margin-top: 1em;
+			padding: 6px 10px;
+			font-size: 1em;
+			display: block;
+			border-radius: 4px;
+		}
+
+		.lost_password {
+			a {
+				color: #ADAFB3;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		button {
+			font-size: 1.1em;
+			line-height: 1.1;
+			color: #FFF;
+			padding: 9px 14px;
+			border-radius: 3px;
+			outline: none;
+			text-decoration: none;
+			background-color: $primary;
+			border: 0;
+			cursor: pointer;
+
+			&:hover {
+				background-color: $primary__alt;
+			}
+		}
+	}
+}
+
+.woocommerce-form-coupon {
+	background-color: rgba(0, 0, 0, .04);
+	margin-bottom: 1em;
+
+	button {
+		font-size: 1.1em;
+		line-height: 1.1;
+		color: #FFF;
+		padding: 9px 14px;
+		border-radius: 3px;
+		outline: none;
+		text-decoration: none;
+		background-color: $primary;
+		border: 0;
+		cursor: pointer;
+
+		&:hover {
+			background-color: $primary__alt;
+		}
+	}
+}
+
 @media screen and (min-width: 768px) {
-
-	.col2-set {
-
-		.form-row-first {
-			float: left;
-			margin-right: $columns__margin;
-		}
-
-		.form-row-last {
-			float: right;
-			margin-right: 0;
-		}
-
-		.form-row-first,
-		.form-row-last {
-
-			@include column-width(2);
-		}
+	.checkout.woocommerce-checkout {
+		flex-flow: row wrap;
 	}
 }
