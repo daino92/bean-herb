@@ -8,7 +8,9 @@
     margin: 0;
 
     &--title {
+        margin-left: 3em;
         margin-bottom: 1.5em;
+        font-size: 1em;
     }    
 
     li {
@@ -108,6 +110,10 @@
 
 .product__search {
     padding: 1em 2.5em;
+
+    h2 {
+        font-size: 1em;
+    }
 
     form {
         display: flex;

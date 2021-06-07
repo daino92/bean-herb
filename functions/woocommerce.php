@@ -203,7 +203,7 @@ if (!function_exists('bean_herb_woocommerce_header_cart')) {
 		} else {
 			$class = '';
 		} ?>
-		<div id="site-header-cart" class="site-header-cart">
+		<ul id="site-header-cart" class="site-header-cart">
 			<li class="<?php echo esc_attr($class); ?>">
 				<?php bean_herb_woocommerce_cart_link(); ?>
 			</li>
