@@ -16,14 +16,13 @@ else :
 endif; ?>
 
 <!doctype html>
-
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="Description" content="Bean & Herb">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-	<link rel="preload" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/fontsBean_Herb-Regular.ttf" as="font" type="font/ttf" crossorigin> 
+	<link rel="preload" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/fonts/Bean_Herb-Regular.ttf" as="font" type="font/ttf" crossorigin> 
 	<?php wp_head(); ?>
 </head>
 
