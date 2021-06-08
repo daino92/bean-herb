@@ -284,10 +284,31 @@ function woocommerce_created_customer_admin_notification($customer_id) {
 }
 add_action('woocommerce_created_customer', 'woocommerce_created_customer_admin_notification');
 
-// Make product title as an anchor link in archive-page.php
-function make_product_title_link() {
-	global $product;
-    echo '<a href="'. urldecode(get_permalink($product->get_id())) .'" class="woocommerce-loop-product__title">'. get_the_title() . '</a>';
+
+// Modify product link a tag with URL decode
+function product_link_open() {
+	echo '<a href="'. urldecode(get_the_permalink()) .'" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
 }
 remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10); 
-add_action('woocommerce_shop_loop_item_title', 'make_product_title_link', 10);
+remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
+add_action('woocommerce_before_shop_loop_item', 'product_link_open', 10);
+
+// Modify product thumbail, adding h2 title inside
+function woocommerce_get_product_thumbnail($size = 'shop_catalog') {
+	global $post, $woocommerce;
+	//$output = '<div class="col-lg-4">';
+
+	if (has_post_thumbnail()) {               
+		$output = get_the_post_thumbnail($post->ID, $size);
+	} else {
+		$output = wc_placeholder_img($size);
+	}  
+	$output .= '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';                     
+	//$output .= '</div>';
+	return $output;
+}
+
+add_action('init', function() {
+    remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_get_product_thumbnail', 10);
+    add_action('woocommerce_before_shop_loop_item_title', 'woocommerce_get_product_thumbnail', 10);
+});
