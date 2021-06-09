@@ -79,6 +79,7 @@
 			tr {
 				border-top: 1px solid rgba(0, 0, 0, .08);
 				padding: 10px 0;
+				display: block;
 		
 				&:first-of-type {
 					border: none;
@@ -89,6 +90,10 @@
 					color: #8B8D94;
 					font-size: 15px;
 				}
+			}
+
+			.cart-subtotal {
+				border-top: 1px solid rgba(0, 0, 0, .08) !important;
 			}
 
 			.cart__shipping {
