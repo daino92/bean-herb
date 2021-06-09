@@ -1268,6 +1268,8 @@
 
             .cart__subtotal {
                 padding: 10px 0;
+                display: flex;
+                flex-direction: column;
 
                 &--title {
                     font-size: 1em;
@@ -1296,7 +1298,7 @@
                 &--title {
                     font-size: 1em;
                     line-height: 1.4;
-                    color: #adafb3;
+                    color: #ADAFB3;
                 }
 
                 &--methods {
@@ -1311,6 +1313,18 @@
                             margin-right: 5px;
                         }
                     }
+                }
+            }
+
+            .fee {
+                display: flex;
+                flex-direction: column;
+                padding-bottom: .5em;
+
+                th {
+                    font-size: 1em;
+                    line-height: 1.4;
+                    color: #ADAFB3;
                 }
             }
 

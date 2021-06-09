@@ -90,6 +90,26 @@
 					font-size: 15px;
 				}
 			}
+
+			.cart__shipping {
+				&--totals {
+                    border-top: 1px solid rgba(0, 0, 0, 0.08);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: flex-start;
+                    padding-top: 1em;
+                    padding-bottom: .2em;
+
+					&--title {
+						font-size: 1em;
+						line-height: 1.4;
+						color: #ADAFB3;
+					}
+                }
+			}
+			
+			
 		}
 
 		.woocommerce-checkout-payment {
@@ -115,6 +135,23 @@
 
 				&:hover {
 					text-decoration: underline;
+				}
+			}
+
+			button[name='woocommerce_checkout_place_order'] {
+				font-size: 1.1em;
+				line-height: 1.1;
+				color: #FFF;
+				padding: 9px 14px;
+				border-radius: 3px;
+				outline: none;
+				text-decoration: none;
+				background-color: $primary;
+				border: 0;
+				cursor: pointer;
+
+				&:hover {
+					background-color: $primary__alt;
 				}
 			}
 		}
