@@ -1,0 +1,10 @@
+.woocommerce-order {
+	max-width: $max__width;
+	margin: 0 auto;
+	padding-left: 1em;
+	padding-right: 1em;
+
+    .woocommerce-notice.woocommerce-notice--success {
+        text-align: center;
+    }
+}
