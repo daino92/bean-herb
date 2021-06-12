@@ -44,6 +44,8 @@ jQuery('document').ready(function($) {
         }).then(function(data) {
             $('[class^="products columns-"]').html(data);
 
+            intersectionObjerver();
+
             // delete original pagination and append ajaxed one
             $('.products__area > .woocommerce-pagination').remove();
             $('.woocommerce-pagination').appendTo('.products__area');
@@ -52,9 +54,8 @@ jQuery('document').ready(function($) {
             $('.products__area > .products__ordering').remove();
             $('.products__ordering').prependTo('.products__area');
 
-            // hide ajax loading  + show quick view
+            // hide ajax loading
             $(".lds-ellipsis").css("display", "none");
-            $('.yith-wcqv-button').css("display", "inline-block");
 
             window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}`);
         }).fail(function(data) {
@@ -111,6 +112,8 @@ jQuery('document').ready(function($) {
 
             $('[class^="products columns-"]').html(data);
 
+            intersectionObjerver();
+
             // delete original pagination and append ajaxed one
             $('.products__area > .woocommerce-pagination').remove();
             $('.woocommerce-pagination').appendTo('.products__area');
@@ -119,9 +122,8 @@ jQuery('document').ready(function($) {
             $('.products__area > .products__ordering').remove();
             $('.products__ordering').prependTo('.products__area');
 
-            // hide ajax loading  + show quick view
+            // hide ajax loading
             $(".lds-ellipsis").css("display", "none");
-            $('.yith-wcqv-button').css("display", "inline-block");
             
             if (searchField) {
                 window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
@@ -170,6 +172,8 @@ jQuery('document').ready(function($) {
 
             $('[class^="products columns-"]').html(data);
 
+            intersectionObjerver();
+
             // delete original pagination and append ajaxed one
             $('.products__area > .woocommerce-pagination').remove();
             $('.woocommerce-pagination').appendTo('.products__area');
@@ -178,9 +182,8 @@ jQuery('document').ready(function($) {
             $('.products__area > .products__ordering').remove();
             $('.products__ordering').prependTo('.products__area');
 
-            // hide ajax loading  + show quick view
-            $(".lds-ellipsis").css("display", "none");
-            $('.yith-wcqv-button').css("display", "inline-block");
+            // hide ajax loading
+            $(".lds-ellipsis").css("display", "none");;
             
             if (searchField) {
                 window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
@@ -219,6 +222,8 @@ jQuery('document').ready(function($) {
 
             $('[class^="products columns-"]').html(data);
 
+            intersectionObjerver();
+
             // delete original pagination and append ajaxed one
             $('.products__area > .woocommerce-pagination').remove();
             $('.woocommerce-pagination').appendTo('.products__area');
@@ -227,9 +232,8 @@ jQuery('document').ready(function($) {
             $('.products__area > .products__ordering').remove();
             $('.products__ordering').prependTo('.products__area');
 
-            // hide ajax loading  + show quick view
+            // hide ajax loading
             $(".lds-ellipsis").css("display", "none");
-            $('.yith-wcqv-button').css("display", "inline-block");
             
             window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
         }).fail(function(data) {
@@ -261,5 +265,44 @@ jQuery('document').ready(function($) {
             $('body').addClass('qvwp-no-scroll');
         });
         return false;
+    });
+
+    $(document).on('click', '.modal-content .single_add_to_cart_button', function(e) {
+        e.preventDefault();
+
+        var $thisbutton = $(this),
+            $form = $thisbutton.closest('form.cart'),
+            id = $thisbutton.val(),
+            quantity = $form.find('input[name=quantity]').val() || 1,
+            productId = $form.find('input[name=product_id]').val() || id,
+            variationId = $form.find('input[name=variation_id]').val() || 0;
+
+        var data = {
+            action: 'QuickView__add_to_cart',
+            productId,
+            productSku: "",
+            quantity,
+            variationId,
+        };
+
+        $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
+
+        $.ajax({
+            url,
+            type: 'POST',
+            data,
+            beforeSend: function () {
+                $thisbutton.removeClass('added').addClass('loading');
+            },
+            complete: function () {
+                $thisbutton.addClass('added').removeClass('loading');
+            },
+        }).done(function (response) {
+            $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
+            $('#productModal').fadeOut();
+        }).fail(function(response) {
+            console.log(response.responseText);
+            console.log('Request failed: ' + response.statusText);
+        });
     });
 });
