@@ -87,7 +87,7 @@ add_action('template_redirect', 'remove_type_attribute');
 
 // Modify Gravatar image
 function modify_gravatar($attr) {
-    $attr = str_replace("class='avatar", "class='avatar lazyload", $attr);
+    $attr = str_replace("class='avatar", "class='avatar lazyload blur-up", $attr);
    	//$attr = str_replace('srcset', 'data-srcset', $attr);
     $attr = str_replace('src', 'data-src', $attr);
 

@@ -17,8 +17,7 @@
 
 defined('ABSPATH') || exit;
 
-global $product;
-global $wpdb;
+global $product, $wpdb;
 
 $productId = $product->get_id();
 $price = $product->get_price();
@@ -35,7 +34,7 @@ if ($resultsProduct) :
 	if ($pricingUnit == "g") :
 		$minPrice = $price;
 	else :
-		$minPrice = ($price * 50) / 1000;
+		$minPrice = ($price * $productΑttributes["min"]) / 1000;
 		$minPrice = number_format($minPrice, 2);
 	endif;
 endif;
@@ -75,7 +74,7 @@ if ($product->is_in_stock()) : ?>
 	</div>
 	<?php do_action('woocommerce_before_add_to_cart_form'); ?>
 
-	<form class="cart" action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>" method="post" enctype='multipart/form-data'>
+	<form class="cart" action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', urldecode($product->get_permalink()))); ?>" method="post" enctype='multipart/form-data'>
 		<?php 
 			if(isset($calculatorType) && $calculatorType != "") : ?>
 				<div id="price_calculator">

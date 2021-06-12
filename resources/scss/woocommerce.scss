@@ -33,6 +33,11 @@ $woocommerce__color-info: #3d9cd2;
 @import "plugins/woocommerce/checkout";
 
 /**
+ * Thank you
+ */
+ @import "plugins/woocommerce/thankyou";
+
+/**
  * General WooCommerce components
  */
 @import "plugins/woocommerce/components";
@@ -48,6 +53,11 @@ $woocommerce__color-info: #3d9cd2;
 @import "plugins/woocommerce/pagination";
 
 /**
- * WooCommerce account forms
+ * WooCommerce archive filters
+ */
+ @import "plugins/woocommerce/archive-filters";
+
+/**
+ * WooCommerce account section
  */
  @import "plugins/woocommerce/account";

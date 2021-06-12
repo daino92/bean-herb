@@ -203,7 +203,7 @@ if (!function_exists('bean_herb_woocommerce_header_cart')) {
 		} else {
 			$class = '';
 		} ?>
-		<div id="site-header-cart" class="site-header-cart">
+		<ul id="site-header-cart" class="site-header-cart">
 			<li class="<?php echo esc_attr($class); ?>">
 				<?php bean_herb_woocommerce_cart_link(); ?>
 			</li>
@@ -284,31 +284,37 @@ function woocommerce_created_customer_admin_notification($customer_id) {
 }
 add_action('woocommerce_created_customer', 'woocommerce_created_customer_admin_notification');
 
-// add_action('init', function() {
-//     remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
-//     add_action('woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
-// });
 
-// if ( ! function_exists('woocommerce_template_loop_product_thumbnail')) {
-//     function woocommerce_template_loop_product_thumbnail() {
-//         echo woocommerce_get_product_thumbnail();
-//     } 
-// }
+// Modify product link a tag with URL decode
+function product_link_open() {
+	echo '<a href="'. urldecode(get_the_permalink()) .'" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
+}
+remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10); 
+remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
+add_action('woocommerce_before_shop_loop_item', 'product_link_open', 10);
 
-// if (!function_exists('woocommerce_get_product_thumbnail')) {   
-//     function woocommerce_get_product_thumbnail($size = 'shop_catalog') {
-//         global $post, $woocommerce;
-//         $output = '';
-// 		$upload_dir = wp_upload_dir();
-// 		$placeholder = $upload_dir['baseurl'] . '/woocommerce-placeholder-150x150.png';
+// Modify product thumbail, adding h2 title inside
+function woocommerce_get_product_thumbnail($size = 'shop_catalog') {
+	global $post, $woocommerce;
+	//$output = '<div class="col-lg-4">';
 
-//         if (has_post_thumbnail()) {
-//             $src = get_the_post_thumbnail_url($post->ID, $size);
-//             $output .= '<img class="lazy" src="'.$placeholder.'" data-src="' . $src . '" data-srcset="' . $src . '" alt="Lazy loading image">';
-//         } else {
-//             $output .= wc_placeholder_img($size);
-//         }
+	if (has_post_thumbnail()) {               
+		$backgroundImageUrl = get_the_post_thumbnail_url($post->ID, $size); 
+		$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$backgroundImageUrl.')">';
+		//$output .= get_the_post_thumbnail($post->ID, $size);
+		$output .= '</div>';
+	} else {
+		$woocoomercePlaceholderUrl = wc_placeholder_img_src($size);
+		$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$woocoomercePlaceholderUrl.')">';
+		//$output = wc_placeholder_img($size);
+		$output .= '</div>';
+	}  
+	$output .= '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';                     
+	//$output .= '</div>';
+	return $output;
+}
 
-//         return $output;
-//     }
-// }
+add_action('init', function() {
+    remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_get_product_thumbnail', 10);
+    add_action('woocommerce_before_shop_loop_item_title', 'woocommerce_get_product_thumbnail', 10);
+});

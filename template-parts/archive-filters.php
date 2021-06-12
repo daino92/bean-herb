@@ -31,8 +31,8 @@ $all_categories = get_categories($cat_args); ?>
         <use xlink:href="#filter"></use>
     </svg>
 </div>
+<h2 class="product__categories--title"><?= $product_cat_title; ?></h2>
 <ul id="filter" class="product__categories">
-    <h4 class="product__categories--title"><?= $product_cat_title; ?></h4>
     <li class="cat-item">
         <a class="cats" data-slug="" href="<?= urldecode(wc_get_page_permalink('shop')); ?>"><?= $all_products; ?></a>
     </li>

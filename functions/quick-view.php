@@ -135,23 +135,23 @@ class QuickViewWooProduct {
         return '<div class="woocommerce">' . ob_get_clean()
             . "<script>
             jQuery('.woocommerce-product-gallery').each(function(){if(jQuery.isFunction(jQuery.fn.wc_product_gallery)){jQuery(this).wc_product_gallery();}});
-            jQuery(document).find('#productPopup').find('li#tab-title-description a').click();            
-            jQuery(document).find('#productPopup').find('.variations_form select').change();
-            if(jQuery.isFunction(jQuery.fn.wc_variation_form)){jQuery(document).find('#productPopup').find('.variations_form').wc_variation_form();};
+            jQuery(document).find('#productModal').find('li#tab-title-description a').click();            
+            jQuery(document).find('#productModal').find('.variations_form select').change();
+            if(jQuery.isFunction(jQuery.fn.wc_variation_form)){jQuery(document).find('#productModal').find('.variations_form').wc_variation_form();};
             </script>"
             . '</div>';
     }
 
-    function QuickView__add_btn(){
-        global $product; ?>
-
+    function QuickView__add_btn(){ ?>
         <div class="quick-view__btn">
-            <a class="button qvwp-open-single-product" data-id="<?php echo $product->get_id(); ?>" href="#"><?php echo __('Quick view'); ?></a>
+            <div class="button quick-view__open-single-product" data-id="<?php echo get_the_id(); ?>" href="#">
+                <?php echo __('Quick view'); ?>
+            </div>
         </div> 
     <?php }
 
     function QuickView__popup() { ?>
-        <div id="QuickViewProductPopup" class="modal popup" data-url="<?php echo admin_url('admin-ajax.php'); ?>">
+        <div id="productModal" class="modal popup" data-url="<?php echo admin_url('admin-ajax.php'); ?>">
             <div class="modal-content"></div>
         </div>
     <?php }
