@@ -299,9 +299,15 @@ function woocommerce_get_product_thumbnail($size = 'shop_catalog') {
 	//$output = '<div class="col-lg-4">';
 
 	if (has_post_thumbnail()) {               
-		$output = get_the_post_thumbnail($post->ID, $size);
+		$backgroundImageUrl = get_the_post_thumbnail_url($post->ID, $size); 
+		$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$backgroundImageUrl.')">';
+		//$output .= get_the_post_thumbnail($post->ID, $size);
+		$output .= '</div>';
 	} else {
-		$output = wc_placeholder_img($size);
+		$woocoomercePlaceholderUrl = wc_placeholder_img_src($size);
+		$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$woocoomercePlaceholderUrl.')">';
+		//$output = wc_placeholder_img($size);
+		$output .= '</div>';
 	}  
 	$output .= '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';                     
 	//$output .= '</div>';
