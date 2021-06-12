@@ -275,7 +275,24 @@ jQuery('document').ready(function($) {
             id = $thisbutton.val(),
             quantity = $form.find('input[name=quantity]').val() || 1,
             productId = $form.find('input[name=product_id]').val() || id,
-            variationId = $form.find('input[name=variation_id]').val() || 0;
+            variationId = $form.find('input[name=variation_id]').val() || 0,
+            carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
+            currentLang = $('html')[0].getAttribute('lang');
+            productName = $('#productModal .product_title').text();
+        
+        var displayCart, message; 
+
+        if (currentLang === "el") {
+            displayCart = "Προβολή καλαθιού";
+            message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
+        } else {
+            displayCart = "View basket";
+            message = `${productName} has been added to your basket.`;
+        }
+
+        var successMessage = `<div class="woocommerce-message" role="alert">`;
+            successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
+            successMessage += `${message}</div>`;
 
         var data = {
             action: 'QuickView__add_to_cart',
@@ -300,6 +317,7 @@ jQuery('document').ready(function($) {
         }).done(function (response) {
             $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
             $('#productModal').fadeOut();
+            $(successMessage).appendTo('.woocommerce-notices-wrapper');
         }).fail(function(response) {
             console.log(response.responseText);
             console.log('Request failed: ' + response.statusText);
