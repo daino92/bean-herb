@@ -109,9 +109,19 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------- */
 @import "utilities/lazyload";
 
-/* Quick view
+/*--------------------------------------------------------------
+# Core
+--------------------------------------------------------------*/
+
+/* Header
 --------------------------------------------- */
-@import "utilities/quick-view";
+@import "core/header";
+
+/* Footer
+--------------------------------------------- */
+@import "core/footer";
+
+
 
 // NEW
 
