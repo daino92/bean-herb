@@ -278,7 +278,7 @@ jQuery('document').ready(function($) {
             variationId = $form.find('input[name=variation_id]').val() || 0,
             carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
             currentLang = $('html')[0].getAttribute('lang');
-            productName = $('#productModal .product_title').text();
+            productName = $('.single-product__main-body .product_title').text();
         
         var displayCart, message; 
 
@@ -297,7 +297,60 @@ jQuery('document').ready(function($) {
             successMessage += `${message}</div></div>`;
 
         var data = {
-            action: 'QuickView__add_to_cart',
+            action: 'add_to_cart',
+            productId,
+            productSku: "",
+            quantity,
+            variationId,
+        };
+
+        $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
+
+        $.ajax({
+            url,
+            type: 'POST',
+            data,
+        }).done(function (response) {
+            $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
+            $('#productModal').fadeOut();
+            $(successMessage).appendTo('.woocommerce-notices-wrapper');
+        }).fail(function(response) {
+            console.log(response.responseText);
+            console.log('Request failed: ' + response.statusText);
+        });
+    });
+
+    $(document).on('click', '.single .single_add_to_cart_button', function(e) {
+        e.preventDefault();
+
+        var $thisbutton = $(this),
+            $form = $thisbutton.closest('form.cart'),
+            id = $thisbutton.val(),
+            quantity = $form.find('input[name=quantity]').val() || 1,
+            productId = $form.find('input[name=product_id]').val() || id,
+            variationId = $form.find('input[name=variation_id]').val() || 0,
+            carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
+            currentLang = $('html')[0].getAttribute('lang');
+            productName = $('.single-product__main-body .product_title').text();
+        
+        var displayCart, message; 
+
+        if (currentLang === "el") {
+            displayCart = "Προβολή καλαθιού";
+            message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
+        } else {
+            displayCart = "View basket";
+            message = `${productName} has been added to your basket.`;
+        }
+
+        var successMessage = `<div class="woocommerce-message" role="alert">`;
+            successMessage += `<svg><use xlink:href="#check"></use></svg>`;
+            successMessage += `<div class="woocommerce-message-text">`;
+            successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
+            successMessage += `${message}</div></div>`;
+
+        var data = {
+            action: 'add_to_cart',
             productId,
             productSku: "",
             quantity,
@@ -311,14 +364,11 @@ jQuery('document').ready(function($) {
             type: 'POST',
             data,
             beforeSend: function () {
-                $thisbutton.removeClass('added').addClass('loading');
-            },
-            complete: function () {
-                $thisbutton.addClass('added').removeClass('loading');
+                $(".lds-ellipsis").css("display", "block");
             },
         }).done(function (response) {
+            $(".lds-ellipsis").css("display", "none");
             $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
-            $('#productModal').fadeOut();
             $(successMessage).appendTo('.woocommerce-notices-wrapper');
         }).fail(function(response) {
             console.log(response.responseText);

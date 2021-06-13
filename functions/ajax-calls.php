@@ -591,5 +591,5 @@ function QuickView__add_to_cart_cb() {
 
     wp_die();
 }
-add_action('wp_ajax_QuickView__add_to_cart', 'QuickView__add_to_cart_cb');
-add_action('wp_ajax_nopriv_QuickView__add_to_cart', 'QuickView__add_to_cart_cb');
+add_action('wp_ajax_add_to_cart', 'QuickView__add_to_cart_cb');
+add_action('wp_ajax_nopriv_add_to_cart', 'QuickView__add_to_cart_cb');

@@ -450,6 +450,10 @@
 	flex-direction: row; 
 	justify-content: center;
     margin-top: 1em;
+
+    .added_to_cart.wc-forward {
+        display: none;
+    }
 }
 
 @media all and (max-width: 768px) {
