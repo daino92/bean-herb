@@ -5,6 +5,7 @@
     background-image: url("../../dist/images/shared/footer.png");
     background-size: cover;
     padding-top: 4em;
+    padding-bottom: 2em;
 
     a {
         color: $secondary !important;
@@ -15,47 +16,47 @@
             text-decoration: underline;
         }
     }
-}
 
-.footer-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    text-transform: uppercase;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.head-section {
-    display: flex;
-	flex-flow: column wrap;
-	justify-content: space-evenly;
-
-    .sub-sections {
-        flex: 1 0 25%;
-        padding: 0 10px;
-        margin-top: 1em;
-
-        &:first-child {
-            margin-top: 0;
+    .footer-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        text-transform: uppercase;
+        font-size: 14px;
+        line-height: 1.5;
+        
+        .sections {
+            display: flex;
+            flex-direction: row;
+            flex: 1 0 50%;
+    
+            > div {
+                flex: 1 0 50%;
+            }
+    
+            .col {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                
+                .sub-sections {
+                    padding: 0 10px;
+                    margin-top: 1em;
+    
+                    .section-title {
+                        color: $primary;
+                        font-size: 14px;
+                        text-align: left;
+                        margin-bottom: 10px;
+                    }
+                    
+                    .section-content {
+                        color: $secondary;
+                    }
+                }
+            }
         }
     }
-}
-
-.sections {
-    margin: 4px;
-    padding: 0 10px;
-}
-
-.section-title {
-    color: $primary;
-    font-size: 14px;
-    text-align: left;
-    margin-bottom: 10px;
-}
-
-.section-content {
-    color: $secondary;
 }
 
 .footer-navigation ul {
@@ -65,15 +66,15 @@
 }
 
 .col-full {
-    margin-left: 1.41575em;
-    margin-right: 1.41575em;
+    margin-left: 1.4em;
+    margin-right: 1.4em;
     padding: 0;
 }
 
 @media (min-width: 568px) {
     .col-full {
-        margin-left: 2.617924em;
-        margin-right: 2.617924em;
+        margin-left: 2.6em;
+        margin-right: 2.6em;
     }
 }
 
@@ -82,24 +83,12 @@
         max-width: $max__width;
         margin-left: auto;
         margin-right: auto;
-        padding: 0 2.617924em;
+        padding: 0 2.6em;
         box-sizing: content-box;
     }
 
     .site-footer {
         padding-top: 7em;
 	    padding-bottom: 3em;
-    }
-
-    .head-section {
-        flex-flow: row wrap;
-
-        .sub-sections {
-            margin-top: 0;
-
-            &:nth-child(n+4) {
-                margin-top: 2em;
-            }
-        }
     }
 }
