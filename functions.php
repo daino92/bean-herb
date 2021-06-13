@@ -52,6 +52,7 @@ if (!function_exists('bean_herb_setup')) :
 			array(
 				'menu-1' => esc_html__('Header', 'bean-herb'),
 				'menu-2' => esc_html__('Footer', 'bean-herb'),
+				'menu-3' => esc_html__('Categories', 'bean-herb')
 			)
 		);
 

@@ -21,17 +21,7 @@
 									<?php if (function_exists('pll_e')) printf(esc_html__ (pll_e('Products'))); ?>
 								</div>
 								<div class="section-content">
-									ΜΠΑΧΑΡΙΚΑ	<br>
-									ΒΟΤΑΝΑ	<br>
-									ΤΣΑΪ	<br>
-									ΞΗΡΟΙ ΚΑΡΠΟΙ	<br>
-									ΥΠΕΡΤΡΟΦΕΣ	<br>
-									ΤΡΟΦΙΜΑ	<br>
-									ΕΙΔΙΚΗ ΔΙΑΤΡΟΦΗ	<br>
-									ΚΑΒΑ	<br>
-									ΟΜΟΡΦΙΑ & ΠΕΡΙΠΟΙΗΣΗ	<br>
-									ΕΛΑΙΑ & ΒΟΥΤΥΡΑ	<br>
-									ΑΞΕΣΟΥΑΡ & ΕΙΔΗ ΔΩΡΟΥ	<br>
+									<?php wp_nav_menu(array('theme_location' => 'menu-3', 'container_class' => 'footer-navigation')); ?>
 								</div>
 							</div>
 						</div>
