@@ -1,18 +1,18 @@
 <?php
 
 function asset_version() {
-	global $asset_version;
+	global $assetVersion;
 
 	if (wp_get_environment_type() == "production") {
-		$asset_version = 'min.';
+		$assetVersion = 'min.';
 	} else {
-		$asset_version = '';
+		$assetVersion = '';
 	}
 }
 add_action('after_setup_theme', 'asset_version');
 
 function wpb_hook_javascript() {  
-	global $asset_version; ?>
+	global $assetVersion; ?>
 	
     <script>
 		//Load CSS/JS Files
@@ -28,7 +28,7 @@ function wpb_hook_javascript() {
 		var scriptOrder = [
 			"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
 			"<?php echo get_template_directory_uri() . '/resources/js/lazysizes.min.js'?>",
-			"<?php echo get_template_directory_uri() . '/dist/scripts/custom.js'?>"
+			"<?php echo get_template_directory_uri() . '/dist/scripts/custom${assetVersion}.js'?>"
 	   	]; 
 	
 		function loadScript() {      
@@ -77,22 +77,44 @@ function load_per_page() {
 	// var_dump($post); 
 	// echo "</pre>";
 
-	//if (!current_user_can('update_core')) {
-		//wp_deregister_script('jquery');
-		//wp_dequeue_style('wp-block-library');	// gutenberg plugin
-	//}
+	if (!current_user_can('update_core')) {
+		wp_dequeue_style('wp-block-library');	// gutenberg plugin
+		wp_dequeue_style('wc-block-style'); 	// woocommerce block style
+		wp_dequeue_style('wc-block-editor'); 	// wocoommerce block editor
+	}
 
-	// if (is_page_template('thank-you_template.php')) {
-	// 	wp_enqueue_style('thank-you', get_template_directory_uri() . "/dist/styles/thankyou.${asset_version}css?v=" . wp_get_theme()->get('Version'), array(), null);
-	// }
+	/** * Global dequeues / deregisters * **/
 
-	// if ((!is_null($post) && $post->post_type == "wpm-testimonial")	|| 
-	// 	(is_category() && !in_category(['vg','vg-el'])) || is_single()) {
-	// 	wp_enqueue_style('general-pages', get_template_directory_uri() . "/dist/styles/general-pages.${asset_version}css?v=" . wp_get_theme()->get('Version'), array(), null);
-	// }
+    // contact-form-7
+	wp_dequeue_style('contact-form-7');
+    wp_dequeue_script('contact-form-7');
 
-	//if (is_404()) {
-		//wp_enqueue_style('404-css', get_template_directory_uri() . "/dist/styles/404.${asset_version}css?v=" . wp_get_theme()->get('Version'), array(), null);
-	//}
+	// woo variation watches
+	wp_dequeue_style('woo-variation-swatches'); 
+	wp_dequeue_style('woo-variation-swatches-theme-override');   
+	wp_dequeue_style('woo-variation-swatches-tooltip');
+	wp_dequeue_script('woo-variation-swatches');
+
+	// YITH wishlist
+	wp_dequeue_style('jquery-selectBox');
+	wp_dequeue_style('yith-wcwl-font-awesome');
+	wp_dequeue_style('yith-wcwl-main');
+	wp_dequeue_style('yith-wcwl-theme');
+	wp_dequeue_script('jquery-selectBox');
+	wp_dequeue_script('jquery-yith-wcwl');
+
+	if (is_product() || yith_wcwl_is_wishlist_page()) {
+		wp_enqueue_style('jquery-selectBox');
+		wp_enqueue_style('yith-wcwl-font-awesome');
+		wp_enqueue_style('yith-wcwl-main');
+		wp_enqueue_style('yith-wcwl-theme');
+		wp_enqueue_style('jquery-selectBox');
+		wp_enqueue_style('jquery-yith-wcwl');
+	}
+
+	if (is_page_template('contactTemplate.php')) {
+		wp_enqueue_style('contact-form-7');		
+		wp_enqueue_script('contact-form-7');	
+	}
 }
-add_action('wp_enqueue_scripts', 'load_per_page');
+add_action('wp_enqueue_scripts', 'load_per_page', 16);

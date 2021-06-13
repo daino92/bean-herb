@@ -1,11 +1,11 @@
 <?php
 
 function ajaxCallJS() {
+    global $assetVersion;
     $ajaxUrl = admin_url('admin-ajax.php');
     $baseDir = get_template_directory_uri();
-    //global $asset_version;
 
-    wp_register_script('ajax-calls', get_template_directory_uri() . "/dist/scripts/ajax-calls.js");
+    wp_register_script('ajax-calls', get_template_directory_uri() . "/dist/scripts/ajax-calls${assetVersion}.js");
     wp_localize_script('ajax-calls', 'ajax', array(
         'ajaxUrl' => $ajaxUrl,
         'baseDir' => $baseDir
