@@ -27,7 +27,7 @@ class QuickViewWooProduct {
 
     public function init() {
         if (is_plugin_active('woocommerce/woocommerce.php')) {
-            add_action('wp_enqueue_scripts', [$this, 'QuickView_enqueues']);
+            //add_action('wp_enqueue_scripts', [$this, 'QuickView_enqueues']);
 
             add_action('wp_ajax_nopriv_QuickView__action', array($this,'QuickView__action_ajax_cb'));
             add_action('wp_ajax_QuickView__action', array($this, 'QuickView__action_ajax_cb'));
