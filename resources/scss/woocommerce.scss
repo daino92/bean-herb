@@ -13,6 +13,16 @@ $woocommerce__color-info: #3d9cd2;
 @import "abstracts/abstracts";
 
 /**
+ * General WooCommerce components
+ */
+ @import "plugins/woocommerce/components";
+
+/**
+ * WooCommerce widgets
+ */
+//@import "plugins/woocommerce/widgets";
+
+/**
  * Shop tables
  */
 @import "plugins/woocommerce/tables";
@@ -28,29 +38,14 @@ $woocommerce__color-info: #3d9cd2;
 @import "plugins/woocommerce/single-product";
 
 /**
- * Checkout
+ * Single product new
  */
-@import "plugins/woocommerce/checkout";
+ @import "plugins/woocommerce/single-product-new";
 
 /**
- * Thank you
+ * WooCommerce archive page
  */
- @import "plugins/woocommerce/thankyou";
-
-/**
- * General WooCommerce components
- */
-@import "plugins/woocommerce/components";
-
-/**
- * WooCommerce widgets
- */
-@import "plugins/woocommerce/widgets";
-
-/**
- * WooCommerce pagination
- */
-@import "plugins/woocommerce/pagination";
+ @import "plugins/woocommerce/archive-page";
 
 /**
  * WooCommerce archive filters
@@ -58,11 +53,36 @@ $woocommerce__color-info: #3d9cd2;
  @import "plugins/woocommerce/archive-filters";
 
 /**
- * WooCommerce account section
+ * WooCommerce pagination
  */
- @import "plugins/woocommerce/account";
+@import "plugins/woocommerce/pagination";
 
- /**
+/**
  * WooCommerce Quick view
  */
-@import "utilities/quick-view";
+@import "plugins/woocommerce/quick-view";
+
+/**
+ * WooCommerce Mini basket
+ */
+@import "plugins/woocommerce/mini-basket";
+
+/**
+ * WooCommerce Basket
+ */
+@import "plugins/woocommerce/basket";
+
+/**
+ * WooCommerce account section
+ */
+@import "plugins/woocommerce/account";
+
+/**
+ * Checkout
+ */
+ @import "plugins/woocommerce/checkout";
+
+ /**
+  * Thank you
+  */
+  @import "plugins/woocommerce/thankyou";
