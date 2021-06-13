@@ -291,8 +291,10 @@ jQuery('document').ready(function($) {
         }
 
         var successMessage = `<div class="woocommerce-message" role="alert">`;
+            successMessage += `<svg><use xlink:href="#check"></use></svg>`;
+            successMessage += `<div class="woocommerce-message-text">`;
             successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
-            successMessage += `${message}</div>`;
+            successMessage += `${message}</div></div>`;
 
         var data = {
             action: 'QuickView__add_to_cart',
