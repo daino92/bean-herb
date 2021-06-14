@@ -67,10 +67,10 @@
 									<?php if (function_exists('pll_e')) printf(esc_html__ (pll_e('Follow Us'))); ?>
 								</div>
 								<div class="section-content">
-									FACEBOOK<br>
-									INSTAGRAM<br>
-									TWITTER<br>
-									LINKED IN
+									<a href="<?php echo get_option('facebook'); ?>">Facebook</a><br>
+									<a href="<?php echo get_option('instagram'); ?>">Instagram</a><br>
+									<a href="<?php echo get_option('twitter'); ?>">Twitter</a><br>
+									<a href="<?php echo get_option('linkedin'); ?>">LinkedIn</a>
 								</div>
 							</div>
 							
@@ -81,7 +81,7 @@
 									<?php if (function_exists('pll_e')) printf(esc_html__ (pll_e('Shop'))); ?>
 								</div>
 								<div class="section-content">
-									Π. ΤΣΑΛΔΑΡΗ 104-106 184 50, ΝΙΚΑΙΑ ΑΘΗΝΑ	
+									<?php if (function_exists('pll_e')){ echo pll_e(get_theme_mod("Shop info"));} else { echo get_theme_mod("Shop info");} ?>
 								</div>
 							</div>
 							<div class="sub-sections">
@@ -89,12 +89,7 @@
 									<?php if (function_exists('pll_e')) printf(esc_html__ (pll_e('Working Times'))); ?>
 								</div>
 								<div class="section-content">
-									ΔΕΥ. - ΤΕΤ.:<br>
-									8:00ΠΜ - 19:00ΜΜ<br>
-									ΤΡΙ. - ΠΕΜ. - ΠΑΡ.:<br>
-									8:00ΠΜ - 14:30ΜΜ - 17:00ΜΜ - 21:00ΜΜ<br>
-									ΣΑΒ.:<br>
-									08:00ΠΜ - 16:00ΜΜ
+									<?php if (function_exists('pll_e')){ echo pll_e(get_theme_mod("Working Times info"));} else { echo get_theme_mod("Working Times info");} ?>
 								</div>
 							</div>
 						</div>

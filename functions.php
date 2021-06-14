@@ -210,9 +210,24 @@ require get_template_directory() . '/functions/ajax-calls.php';
 require get_template_directory() . '/functions/load-assets.php';
 
 /**
- * Core enhancements
+ * Load Core enhancements
  */
 require get_template_directory() . '/functions/core-enhancements.php';
+
+/**
+ * Load Polylang Translations
+ */
+require get_template_directory() . '/functions/polylang-translations.php';
+
+/**
+ * Load wp_customizer
+ */
+require get_template_directory() . '/functions/wp_customizer.php';
+
+/**
+ * Load social-links-settings
+ */
+require get_template_directory() . '/functions/social-links-settings.php';
 
 /**
  * Quick view for archive page
