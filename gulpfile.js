@@ -124,6 +124,7 @@ function minifyImages() {
         sharpResponsive({
             formats: [
                 {width: 768, format: "jpeg"},
+                {width: 1920, format: "png"},
                 {width: 768, format: "webp"},
             ]
         })
