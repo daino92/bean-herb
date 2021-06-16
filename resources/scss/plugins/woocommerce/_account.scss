@@ -44,6 +44,16 @@
                 }
             }
         }
+
+        .woocommerce-privacy-policy-link {
+            color: $primary;
+            text-decoration: none;
+
+            &:hover {
+                color: $primary__alt;
+                text-decoration: underline;
+            }
+        }
     }
 }
 
@@ -100,6 +110,13 @@
                 padding: 1em;
                 list-style: none;
                 margin-top: .6em;
+
+                &.is-active {
+                    a {
+                        color: $primary__alt;
+                        text-decoration: underline;
+                    }
+                }
         
                 a {
                     color: #000;
@@ -140,7 +157,6 @@
             }
         }
         
-
         .woocommerce-Addresses {
             display: flex;
             justify-content: space-around;
@@ -161,13 +177,28 @@
         }
 
         .customize--address {
-
             h3 {
                 text-align: center;
             }
         
             .woocommerce-address-fields {
                 margin-top: 1em;
+            }
+        }
+
+        &__section-downloads {
+            .woocommerce-info {
+                background-color: #FFF;
+                text-align: center;
+
+                > div {
+                    display: block;
+                    margin-bottom: 1em;
+                }
+
+                a {
+                    color: #FFF;
+                }
             }
         }
     }

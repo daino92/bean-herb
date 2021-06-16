@@ -36,6 +36,10 @@
 	animation-fill-mode: forwards;
 	animation-timing-function: ease;
 
+    li {
+        list-style-type: none;
+    }
+
     .woocommerce-message-text {
         margin-left: 1em;
     }
