@@ -22,14 +22,17 @@ const path = {
     styles: {
         src: 'resources/scss/*.scss',
         dest: 'dist/styles',
+        watch: 'resources/scss/**/**/**'
     },
     scripts: {
-        src: 'resources/js/**/*.js',
-        dest: 'dist/scripts'
+        src: 'resources/js/*.js',
+        dest: 'dist/scripts',
+        watch: 'resources/js/*.js'
     },
     svg: {
         src: 'resources/svg/*.svg',
-        dest: 'dist/svg'
+        dest: 'dist/svg',
+        watch: 'resources/svg/*.svg'
     },
     fonts: {
         src: 'resources/fonts/**/*',
@@ -143,17 +146,19 @@ function uncache(){
 
 function watcher(){
     watch([
-        files.scssPath, 
-        files.jsPath
+        path.styles.watch, 
+        path.scripts.watch,
+        path.svg.watch
     ],
     {
         interval: 1000, 
-        usePolling: true
+        usePolling: true,
+        ignoreInitial: false
     },
     series(
-        parallel(css, js),
-        //uncache
-    ));    
+        parallel(styles, scripts),
+        svg
+    ));
 }
 
 function clean() {
@@ -181,5 +186,5 @@ exports.default = series(
     copyFonts,
     minifyImages,
     svg,
-    //watcher
+    watcher
 );
