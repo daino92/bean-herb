@@ -1,10 +1,146 @@
-.woocommerce-order {
-	max-width: $max__width;
+.checkout-thankyou__wrapper {
+	display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: $max__width;
 	margin: 0 auto;
 	padding-left: 1em;
 	padding-right: 1em;
 
-    .woocommerce-notice.woocommerce-notice--success {
-        text-align: center;
-    }
+	&--order-details,
+	&--order-info {
+		width: 100%;
+		padding: 1em;
+	}
+
+	&--order-info {
+		flex: 0 0 35%;
+		background-color: rgba(0, 0 ,0, .04);
+		padding: 30px;
+
+		.woocommerce-notice.woocommerce-notice--success {
+			text-align: center;
+			line-height: 1.2;
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+
+		.woocommerce-thankyou-order-details {
+			list-style: none;
+			margin: 1em 1em 0;
+
+			li {
+				padding: 10px 0;
+				border-top: 1px solid rgba(0, 0, 0, .08);
+				color: #ADAFB3;
+				font-size: 15px;
+				line-height: 27px;
+
+				strong {
+					display: block;
+					color: #8B8D94;
+				}
+
+				.woocommerce-Price-amount {
+					color: #333;
+					font-size: 1.2em;
+				}
+
+				&:first-child {
+					border-top: none;
+				}
+			}
+		}
+	}
+
+	&--order-details {
+		flex: 0 0 55%;
+
+		.woocommerce-order-details__title {
+			margin-bottom: .5em;
+			text-align: center;
+		}
+		
+		.woocommerce-table--order-details {
+			thead {
+				display: none;
+			}
+
+			tbody {
+				// display: block;
+
+				tr {
+					display: flex;
+					align-items: center;
+					flex-flow: row wrap;
+					width: 50%;
+					padding: 10px 0;
+
+					.product-name {
+						justify-content: space-between;
+					}
+
+					.product-total {
+						justify-content: flex-end;
+					}
+
+					td {
+						border-color: rgba(0, 0, 0, .08);
+						font-size: 1em;
+						color: #333;
+						padding: 10px 0;
+					}
+				}
+			}
+		}
+
+		.woocommerce-customer-details {
+			.woocommerce-column__title {
+				margin-bottom: .5em;
+				text-align: center;
+			}
+
+			p {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin: 0;
+				padding: 10px 0;
+				color: #ADAFB3;
+				border-top: 1px solid rgba(0, 0, 0, .08);
+			}
+		}
+		
+		.woocommerce-bacs-bank-details {
+			.wc-bacs-bank-details-heading {
+				margin-bottom: .5em;
+				text-align: center;
+			}
+
+			.wc-bacs-bank-details-account-name {
+				font-size: 16px;
+			}
+
+			.wc-bacs-bank-details {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				list-style: none;
+				margin: 0 0 1em;
+				border-bottom: 1px solid rgba(0, 0, 0, .08);
+
+				li {
+					padding: 10px 0;
+					color: #ADAFB3;
+				}
+			}
+		}
+	}
+}
+
+@media all and (min-width: 768px) {
+	.checkout-thankyou__wrapper {
+		flex-flow: row wrap;
+	}
 }
