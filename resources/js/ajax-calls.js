@@ -204,42 +204,44 @@ jQuery('document').ready(function($) {
 
         if (link === "undefined") link = "";
 
-        $.ajax({
-            url,
-            type: 'POST',
-            data: {
-                action: 'ajax__searchField',
-                searchField,
-                orderby
-            },
-            beforeSend: function() {
-               $(".lds-ellipsis").css("display", "block");
-            },
-        }).then(function(data) {  
-            $('html, body').animate({
-                scrollTop: $('.products__main-page').offset().top
-            }, 1000);
+        if (searchField) {
+            $.ajax({
+                url,
+                type: 'POST',
+                data: {
+                    action: 'ajax__searchField',
+                    searchField,
+                    orderby
+                },
+                beforeSend: function() {
+                $(".lds-ellipsis").css("display", "block");
+                },
+            }).then(function(data) {  
+                $('html, body').animate({
+                    scrollTop: $('.products__main-page').offset().top
+                }, 1000);
 
-            $('[class^="products columns-"]').html(data);
+                $('[class^="products columns-"]').html(data);
 
-            intersectionObjerver();
+                intersectionObjerver();
 
-            // delete original pagination and append ajaxed one
-            $('.products__area > .woocommerce-pagination').remove();
-            $('.woocommerce-pagination').appendTo('.products__area');
-            
-            // delete original result count + sorting and append ajaxed one
-            $('.products__area > .products__ordering').remove();
-            $('.products__ordering').prependTo('.products__area');
+                // delete original pagination and append ajaxed one
+                $('.products__area > .woocommerce-pagination').remove();
+                $('.woocommerce-pagination').appendTo('.products__area');
+                
+                // delete original result count + sorting and append ajaxed one
+                $('.products__area > .products__ordering').remove();
+                $('.products__ordering').prependTo('.products__area');
 
-            // hide ajax loading
-            $(".lds-ellipsis").css("display", "none");
-            
-            window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
-        }).fail(function(data) {
-            console.log(data.responseText);
-            console.log('Request failed: ' + data.statusText);
-        });
+                // hide ajax loading
+                $(".lds-ellipsis").css("display", "none");
+                
+                window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
+            }).fail(function(data) {
+                console.log(data.responseText);
+                console.log('Request failed: ' + data.statusText);
+            });
+        }
     });
 
     $(document).on('click', '.quick-view__open-single-product', function (e) {

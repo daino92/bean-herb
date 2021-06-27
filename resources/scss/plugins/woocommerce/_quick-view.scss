@@ -1,7 +1,9 @@
-.products .product:hover .quick-view__btn {
-	opacity: 1;
-	transform: scale(1);
-	transition: all .3s ease;
+@media all and (min-width: 768px) {
+    .products .product:hover .quick-view__btn {
+        opacity: 1;
+        transform: scale(1);
+        transition: all .3s ease;
+    }
 }
 
 .quick-view {
