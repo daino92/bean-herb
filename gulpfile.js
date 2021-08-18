@@ -12,33 +12,36 @@ const { src, dest, watch, series, parallel } = require('gulp'),
     svgSprite = require('gulp-svg-sprite'),
     svgmin = require("gulp-svgmin"),
     cheerio = require('gulp-cheerio'),
-    responsive = require("gulp-responsive"),
     replace = require('gulp-replace'),
     copy = require('gulp-copy'),
-    log = require('fancy-log');
+    log = require('fancy-log'),
+    changed = require('gulp-changed'),
+    sharpResponsive = require("gulp-sharp-responsive");
 
 const path = { 
     styles: {
         src: 'resources/scss/*.scss',
         dest: 'dist/styles',
+        watch: 'resources/scss/**/**/**'
     },
     scripts: {
-        src: 'resources/js/**/*.js',
-        dest: 'dist/scripts'
+        src: 'resources/js/*.js',
+        dest: 'dist/scripts',
+        watch: 'resources/js/*.js'
     },
     svg: {
         src: 'resources/svg/*.svg',
-        dest: 'dist/svg'
+        dest: 'dist/svg',
+        watch: 'resources/svg/*.svg'
     },
     fonts: {
         src: 'resources/fonts/**/*',
         dest: 'dist/fonts'
     },
     img: {
-        //src: '../../uploads/**/**/*.{jpg,png}',
-        //src: 'resources/images/*.{jpg,png}/*.{jpg,png}',
-        src: 'resources/images/**/*',
-        dest: 'dist/images'
+        src: 'resources/images/**/*.+(png|jpg|jpeg)',
+        dest: 'dist/images',
+        excl: 'resources/images/**/*.gif'
     }
 }
 
@@ -114,61 +117,23 @@ function svg() {
 		.pipe(dest(path.svg.dest));
 }
 
-function responsiveImages() {
-    return src(path.img.src)
+function minifyImages() {
+    return src([
+        path.img.src,
+        `!${path.img.excl}`
+    ])
+    .pipe(changed(path.img.dest))
     .pipe(
-        responsive(
-            {
-                '*.jpg': [
-                {
-                    width: 300,
-                    rename: {
-                        suffix: '-300px',
-                        extname: '.jpg'
-                    }
-                },
-                {
-                    width: 600,
-                    rename: {
-                        suffix: '-600px',
-                        extname: '.jpg'
-                    }
-                },
-                {
-                    width: 1900,
-                    rename: {
-                        suffix: '-1900px',
-                        extname: '.jpg'
-                    },
-                    // Do not enlarge the output image if the input image are already less than the required dimensions.
-                    withoutEnlargement: true
-                },
-                {
-                    // Convert images to the webp format
-                    width: 630,
-                    rename: {
-                        suffix: '-630px',
-                        extname: '.webp'
-                    }
-                }],
-                '*.png': [
-                {
-                    width: "50%"
-                },
-                {
-                    width: "75%",
-                    rename: { suffix: '@2x' }
-                }]
-            },
-            {
-                // Global configuration for all images
-                quality: 80,
-                progressive: true,
-                withMetadata: false,
-                errorOnEnlargement: false
-            }
-        )
+        sharpResponsive({
+            formats: [
+                {width: 768, format: "jpeg"},
+                {width: 1920, format: "png"},
+                {width: 768, format: "webp"},
+            ]
+        })
     )
+    .pipe(dest(path.img.dest))
+    .pipe(src(path.img.excl))
     .pipe(dest(path.img.dest))
 }
 
@@ -181,17 +146,19 @@ function uncache(){
 
 function watcher(){
     watch([
-        files.scssPath, 
-        files.jsPath
+        path.styles.watch, 
+        path.scripts.watch,
+        path.svg.watch
     ],
     {
         interval: 1000, 
-        usePolling: true
+        usePolling: true,
+        ignoreInitial: false
     },
     series(
-        parallel(css, js),
-        //uncache
-    ));    
+        parallel(styles, scripts),
+        svg
+    ));
 }
 
 function clean() {
@@ -205,26 +172,19 @@ function copyFonts() {
         .pipe(dest(path.fonts.dest))
 }
 
-function copyImages() {
-    return src(path.img.src)
-        .pipe(dest(path.img.dest))
-}
-
 exports.clean = clean;
 exports.css = styles;
 exports.js = scripts;
-exports.img = responsiveImages;
+exports.img = minifyImages;
 exports.svg = svg;
 exports.fonts = copyFonts;
-exports.images = copyImages;
 exports.watcher = watcher;
 
 exports.default = series(
     clean,
     parallel(styles, scripts), 
     copyFonts,
-    copyImages,
-    //responsiveImages,
+    minifyImages,
     svg,
-    //watcher
+    watcher
 );

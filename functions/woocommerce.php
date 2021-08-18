@@ -318,3 +318,22 @@ add_action('init', function() {
     remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_get_product_thumbnail', 10);
     add_action('woocommerce_before_shop_loop_item_title', 'woocommerce_get_product_thumbnail', 10);
 });
+
+// allow SVGs in wp_kses function for notices
+function wp_kses_allowed_html_fn($allowedposttags, $context) {
+    if ($context === 'post') :
+        $allowedposttags['svg']  = array(
+            'xmlns'   => true,
+            'viewbox' => true
+        );
+        $allowedposttags['path'] = array(
+            'd'    => true,
+            'fill' => true
+        );
+		$allowedposttags['use'] = array(
+            'xlink:href'  => true
+        );
+    endif;
+    return $allowedposttags;
+}
+add_filter('wp_kses_allowed_html', 'wp_kses_allowed_html_fn', 10, 2);
