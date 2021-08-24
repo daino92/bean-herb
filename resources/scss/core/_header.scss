@@ -13,39 +13,9 @@
     .main-navigation {
         width: 100%;
         display: flex;
-        margin-top: 1.5em;
         justify-content: center;
         align-items: center;
         flex-flow: row wrap;
-
-        .account {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #888;
-            text-transform: uppercase;
-
-            a {
-                display: flex;
-                color: $secondary;
-
-                &:hover {
-                    color: $primary;
-                }
-
-                svg {
-                    width: 20px;
-                    height: 20px;
-                    margin-left: 5px;
-                    margin-right: 5px;
-                    fill: #888;
-
-                    &:hover {
-                        color: #000;
-                    }
-                }
-            }
-        }
 
         .main-menu {
             text-transform: uppercase;
@@ -66,4 +36,43 @@
             }
         }
     }
+
+    .secondary-menu {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: row wrap;
+        margin-top: 1.5em;
+
+        .account {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            text-transform: uppercase;
+    
+            a {
+                display: flex;
+                color: $secondary;
+                text-decoration: none;
+    
+                &:hover {
+                    color: $primary;
+                }
+    
+                svg {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    fill: #888;
+    
+                    &:hover {
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }   
 }
