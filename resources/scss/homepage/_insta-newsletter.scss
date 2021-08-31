@@ -1,0 +1,120 @@
+.instagram {
+    &__banner {
+        width: 100%;
+        background-image: url("../../dist/images/yellow-banner.png");
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-top: 4em;
+        padding-top: 4em;
+        padding-bottom: 4em;
+    }
+
+    &__header {
+        padding: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5em;
+        color: $secondary;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.newsletter {
+    &__banner {
+        width: 100%;
+        background-image: url("../../dist/images/green-banner.png");
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-top: -6.2em;
+        padding-top: 3em;
+        padding-bottom: 3em;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+
+    &__header {
+        font-size: 1.5em;
+	    color: #FFF;
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+        line-height: 1.4;
+        margin-top: .5em;
+    }
+
+    &__input {
+        position: relative;
+        max-width: 85%;
+        margin: 1.5em auto;
+
+        span {
+            margin-top: 1em;
+            display: inline-block;
+            color: #949494;
+
+            a {
+                color: #949494;
+            }
+        }
+    }
+
+    &__email {
+        border: 2px solid $secondary !important;
+        max-width: 100%;
+        width: 100%;
+        border-radius: 0 !important;
+        padding-left: 1em !important;
+        padding-top: .5em !important;
+        padding-bottom: .5em !important;
+    }
+
+    &__btn {
+        background: $primary !important;
+        color: #FFF !important;
+        position: absolute;
+        right: .5px;
+        top: 1px;
+        border: 1px solid $secondary !important;
+        padding-top: 0.75em !important;
+	    padding-bottom: 0.75em !important;
+        cursor: pointer;
+        border-radius: 0 !important;
+
+        &:hover {
+            background-color: $primary__alt !important;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .instagram {
+        &__header {
+            padding: 4em;
+        }
+    }
+
+    .newsletter {
+        &__banner {
+            margin-top: -3.7em;
+        }
+        
+        &__content {
+            flex-direction: row;
+        }
+    }
+}

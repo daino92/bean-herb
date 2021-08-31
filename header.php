@@ -51,6 +51,7 @@ endif; ?>
 					<?= $accountTranslation ?> 
 				</a>
 			</div>
+			<div id="cd-shadow-layer"></div>
 			<?php if (function_exists('bean_herb_woocommerce_header_cart')) bean_herb_woocommerce_header_cart(); ?>
 		</nav>
 		<nav id="site-navigation" class="main-navigation">

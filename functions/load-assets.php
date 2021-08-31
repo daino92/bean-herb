@@ -27,6 +27,7 @@ function wpb_hook_javascript() {
 	 
 		var scriptOrder = [
 			"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+			"https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js",
 			"<?php echo get_template_directory_uri() . "/resources/js/lazysizes.min.js"?>",
 			"<?php echo get_template_directory_uri() . "/dist/scripts/custom${assetVersion}.js"?>"
 	   	]; 
@@ -43,27 +44,9 @@ function wpb_hook_javascript() {
 			}
 		}
 
-		function CSSOnReady(){
-			//loadCSS('<?php //echo get_template_directory_uri() . "/dist/styles/slick-slider.${asset_version}css"?>');
-		}
-	
-		function CSSOnLoad() {
-			//loadCSS("https://unpkg.com/aos@2.3.1/dist/aos.css");
-		} 
-
-		if (document.addEventListener) {
-			document.addEventListener("DOMContentLoaded", loadScript, false); 
-			document.addEventListener("DOMContentLoaded", CSSOnReady, false);
-		} else if (document.attachEvent){
-			document.attachEvent("DOMContentLoaded", loadScript);
-			document.attachEvent("DOMContentLoaded", CSSOnReady);
-		} else {
-			document.onready = JSOnReady;	
-			document.onready = CSSOnReady;
-		}
-		if (window.addEventListener) window.addEventListener("load", CSSOnLoad);
-		else if (window.attachEvent) window.attachEvent("load", CSSOnLoad);
-		else window.onload = CSSOnLoad;
+		if (document.addEventListener) document.addEventListener("DOMContentLoaded", loadScript, false); 
+		else if (document.attachEvent) document.attachEvent("DOMContentLoaded", loadScript);
+		else document.onready = JSOnReady;	
 	</script>
     <?php
 }
