@@ -7,31 +7,31 @@
  * @package Bean_&_Herb
  */
 
-$productType = $args['data']['product_type'];
+$productType = $args['data']['productType'];
 
 if (get_locale() == "en_GB") : 
 	$baseLinkUrl = "../product";
     if ($productType == "popular") :
         $categories_header = "Popular products";
-        $categoryId = 6376;
-    elseif ($productType === "new-products") :
+        $categoryId = 7115;
+    elseif ($productType === "new") :
         $categories_header = "New products";
-        $categoryId = 6152;
+        $categoryId = 6891;
     else : 
         $categories_header = "Offers";
-        $categoryId = 6401; 
+        $categoryId = 7140; 
     endif;
 else :
     $baseLinkUrl = "product";
     if ($productType === "popular") :
         $categories_header = "Δημοφιλή προϊόντα";
-        $categoryId = 6029;
-    elseif ($productType === "new-products") :
+        $categoryId = 6768;
+    elseif ($productType === "new") :
         $categories_header = "Νέα προϊόντα";
-        $categoryId = 6126;
+        $categoryId = 6865;
     else : 
         $categories_header = "Προσφορές";
-        $categoryId = 6128;
+        $categoryId = 6867;
     endif;
 endif; 
 
@@ -43,12 +43,12 @@ $args = array(
     'include' => $categoryId
 );
 
-$product_categories = get_categories($args); 
+$product_categories = get_categories($args);
 $categoryName = $product_categories[0]->cat_name;
 $args2 = array('category' => array($categoryName));
 $products = wc_get_products($args2); ?>
 
-<section id="featured-products">
+<section id="featured-products__<?= $productType; ?>">
     <h3 class="product__header"><?= $categories_header; ?></h3>
     <div class="product__wrapper">
         <?php 

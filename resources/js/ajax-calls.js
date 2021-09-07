@@ -39,7 +39,8 @@ jQuery('document').ready(function($) {
                 productCount
             },
             beforeSend: function() {
-               $(".lds-ellipsis").css("display", "block");
+                $("#site-overlay").css("display", "block");
+                $(".lds-ellipsis").css("display", "block");
             },
         }).then(function(data) {
             $('[class^="products columns-"]').html(data);
@@ -55,6 +56,7 @@ jQuery('document').ready(function($) {
             $('.products__ordering').prependTo('.products__area');
 
             // hide ajax loading
+            $("#site-overlay").css("display", "none");
             $(".lds-ellipsis").css("display", "none");
 
             window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}`);
@@ -103,7 +105,8 @@ jQuery('document').ready(function($) {
                 currentURL
             },
             beforeSend: function() {
-               $(".lds-ellipsis").css("display", "block");
+                $("#site-overlay").css("display", "block");
+                $(".lds-ellipsis").css("display", "block");
             },
         }).then(function(data) {    
             $('html, body').animate({
@@ -123,6 +126,7 @@ jQuery('document').ready(function($) {
             $('.products__ordering').prependTo('.products__area');
 
             // hide ajax loading
+            $("#site-overlay").css("display", "none");
             $(".lds-ellipsis").css("display", "none");
             
             if (searchField) {
@@ -163,7 +167,8 @@ jQuery('document').ready(function($) {
                 currentURL
             },
             beforeSend: function() {
-               $(".lds-ellipsis").css("display", "block");
+                $("#site-overlay").css("display", "block");
+                $(".lds-ellipsis").css("display", "block");
             },
         }).then(function(data) {  
             $('html, body').animate({
@@ -183,7 +188,8 @@ jQuery('document').ready(function($) {
             $('.products__ordering').prependTo('.products__area');
 
             // hide ajax loading
-            $(".lds-ellipsis").css("display", "none");;
+            $("#site-overlay").css("display", "none");
+            $(".lds-ellipsis").css("display", "none");
             
             if (searchField) {
                 window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
@@ -214,7 +220,8 @@ jQuery('document').ready(function($) {
                     orderby
                 },
                 beforeSend: function() {
-                $(".lds-ellipsis").css("display", "block");
+                    $("#site-overlay").css("display", "block");
+                    $(".lds-ellipsis").css("display", "block");
                 },
             }).then(function(data) {  
                 $('html, body').animate({
@@ -234,6 +241,7 @@ jQuery('document').ready(function($) {
                 $('.products__ordering').prependTo('.products__area');
 
                 // hide ajax loading
+                $("#site-overlay").css("display", "none");
                 $(".lds-ellipsis").css("display", "none");
                 
                 window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
@@ -258,9 +266,11 @@ jQuery('document').ready(function($) {
                 id
             },
             beforeSend: function() {
+                $("#site-overlay").css("display", "block");
                 $(".lds-ellipsis").css("display", "block");
             }
         }).done(function (result) {
+            $("#site-overlay").css("display", "none");
             $(".lds-ellipsis").css("display", "none");
             $('#productModal > .modal-content').html(result + '<span class="close">&times;</span>');
             $('#productModal').fadeIn();
@@ -366,9 +376,11 @@ jQuery('document').ready(function($) {
             type: 'POST',
             data,
             beforeSend: function () {
+                $("#site-overlay").css("display", "block");
                 $(".lds-ellipsis").css("display", "block");
             },
         }).done(function (response) {
+            $("#site-overlay").css("display", "none");
             $(".lds-ellipsis").css("display", "none");
             $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
             $(successMessage).appendTo('.woocommerce-notices-wrapper');

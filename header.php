@@ -9,11 +9,7 @@
  * @package Bean_&_Herb
  */
 
-if (get_locale() == "en_GB") :
-	$accountTranslation = 'Account';   
-else :
-	$accountTranslation = 'Λογαριασμός';
-endif; ?>
+?>
 
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -29,11 +25,13 @@ endif; ?>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<div class="lds-ellipsis">
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
+	<div id="site-overlay">
+		<div class="lds-ellipsis">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
 	</div>
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'bean-herb'); ?></a>
 	<?php get_template_part('template-parts/content-socials', get_post_type()); ?>
@@ -48,10 +46,8 @@ endif; ?>
 					<svg>
 						<use xlink:href="#user"></use>
 					</svg>
-					<?= $accountTranslation ?> 
 				</a>
 			</div>
-			<div id="cd-shadow-layer"></div>
 			<?php if (function_exists('bean_herb_woocommerce_header_cart')) bean_herb_woocommerce_header_cart(); ?>
 		</nav>
 		<nav id="site-navigation" class="main-navigation">

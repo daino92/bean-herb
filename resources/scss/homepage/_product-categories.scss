@@ -20,8 +20,10 @@
             text-decoration: none;
             width: 250px;
             margin-right: 10px;
-            border: 1px solid #CCC;
-            //background-color: rgb(242, 229, 229); 
+            //border: 1px solid #CCC;
+            //background-color: rgb(242, 229, 229);
+            border-bottom-right-radius: 10px;
+	        border-bottom-left-radius: 10px;
             background-color: transparent;
             background-position: 0 0;
             background-repeat: no-repeat;
@@ -43,12 +45,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 18px;
-        line-height: 1.2;
+        font-size: 17px;
+        line-height: 1.1;
         text-align: center;
         color: #FFF;
         height: 3.2em;
-        background: linear-gradient(transparent,rgba(0, 0, 0, .75));
+        background: linear-gradient(transparent,rgba(0, 0, 0, .5));
         width: 100%;
         padding: .5em;
     }

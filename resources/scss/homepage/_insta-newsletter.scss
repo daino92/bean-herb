@@ -1,7 +1,7 @@
 .instagram {
     &__banner {
         width: 100%;
-        background-image: url("../../dist/images/yellow-banner.png");
+        background-image: url("../../dist/images/homepage/yellow-banner.png");
         background-position: 0 0;
         background-repeat: no-repeat;
         background-size: cover;
@@ -29,7 +29,7 @@
 .newsletter {
     &__banner {
         width: 100%;
-        background-image: url("../../dist/images/green-banner.png");
+        background-image: url("../../dist/images/homepage/green-banner.png");
         background-position: 0 0;
         background-repeat: no-repeat;
         background-size: cover;
@@ -67,6 +67,10 @@
             display: inline-block;
             color: #949494;
 
+            input {
+                cursor: pointer;
+            }
+
             a {
                 color: #949494;
             }
@@ -81,6 +85,10 @@
         padding-left: 1em !important;
         padding-top: .5em !important;
         padding-bottom: .5em !important;
+
+        &:focus-visible {
+            outline: none;
+        }
     }
 
     &__btn {
@@ -88,8 +96,8 @@
         color: #FFF !important;
         position: absolute;
         right: .5px;
-        top: 1px;
-        border: 1px solid $secondary !important;
+        top: 0;
+        border: 2px solid $secondary !important;
         padding-top: 0.75em !important;
 	    padding-bottom: 0.75em !important;
         cursor: pointer;

@@ -164,7 +164,7 @@ if (!function_exists('bean_herb_woocommerce_cart_link_fragment')) {
 	function bean_herb_woocommerce_cart_link_fragment($fragments) {
 		ob_start();
 		bean_herb_woocommerce_cart_link();
-		$fragments['a.cart-contents'] = ob_get_clean();
+		$fragments['.cart-contents'] = ob_get_clean();
 		return $fragments;
 	}
 }
@@ -179,16 +179,12 @@ if (!function_exists('bean_herb_woocommerce_cart_link')) {
 	 * @return void
 	 */
 	function bean_herb_woocommerce_cart_link() { ?>
-		<a class="cart-contents" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php esc_attr_e('View your shopping cart', 'bean-herb'); ?>">
+		<div class="cart-contents" title="<?php esc_attr_e('View your shopping cart', 'bean-herb'); ?>">
 			<svg>
 				<use xlink:href="#cart"></use>
 			</svg>
-			<span class="count">
-				<?php echo esc_html(WC()->cart->get_cart_contents_count()); ?>
-			</span>
-		</a>
-		<?php
-	}
+		</div>
+	<?php }
 }
 
 if (!function_exists('bean_herb_woocommerce_header_cart')) {
@@ -198,25 +194,14 @@ if (!function_exists('bean_herb_woocommerce_header_cart')) {
 	 * @return void
 	 */
 	function bean_herb_woocommerce_header_cart() {
-		if (is_cart()) {
-			$class = 'current-menu-item';
-		} else {
-			$class = '';
-		} ?>
-		<ul id="site-header-cart" class="site-header-cart">
-			<li class="<?php echo esc_attr($class); ?>">
-				<?php bean_herb_woocommerce_cart_link(); ?>
-			</li>
-			<li>
-				<?php
-					$instance = array(
-						'title' => '',
-					);
-
-					the_widget('WC_Widget_Cart', $instance); 
-				?>
-			</li>
-		</li>
+		if (is_cart()) : $class = 'current-menu-item'; else : $class = ''; endif; ?>
+		<div class="site-header-cart">
+			<?php 
+				bean_herb_woocommerce_cart_link();
+				$instance = array('title' => ''); 
+				the_widget('WC_Widget_Cart', $instance); 
+			?>
+		</div>
 		<?php
 	}
 }

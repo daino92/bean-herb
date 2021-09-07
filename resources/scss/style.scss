@@ -143,83 +143,26 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------- */
 @import "homepage/product_loop";
 
-.purple-bg {
-	width: 100%;
-	background-image: url("../../dist/images/purple-banner.png");
-	background-position: 0 0;
-	background-repeat: no-repeat;
-	background-size: cover;
-	padding-top: 9em;
-	padding-bottom: 9em;
-	margin-top: 5em;
-	margin-bottom: 5em;
+/* Purple banner
+--------------------------------------------- */
+@import "homepage/purple-banner";
 
-	&__content {
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: column;
-		justify-content: space-around;
-		align-items: center;
-		max-width: 750px;
-		margin: 0 auto;
+/* Orange banner
+--------------------------------------------- */
+@import "homepage/orange-banner";
 
-		&--left {
-			div {
-				background-color: transparent !important;
-				background-size: contain !important;
-				background-repeat: no-repeat !important;
-				background-position: center !important;
-				width: 10em;
-				padding-top: 10em;
-			}
-		}
+/* Featuring
+--------------------------------------------- */
+@import "homepage/featuring";
 
-		&--right {
-			flex-direction: column;
-			padding-top: 2em;
+/* Gift ideas
+--------------------------------------------- */
+@import "homepage/gift-ideas";
 
-			div:first-child {
-				background-color: transparent !important;
-				background-size: contain !important;
-				background-repeat: no-repeat !important;
-				background-position: center !important;
-				width: 12em;
-				padding-top: 3em;
-			}
-			.logo-wrapper {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				width: 15em;
-				margin: 0 auto;
-			}
-		}
+/* Gift creation
+--------------------------------------------- */
+@import "homepage/gift-creation";
 
-		&--left,
-		&--right {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex: 1 0 45%;
-		}
-
-		.content-message {
-			line-height: 1.4;
-			font-size: 1.4em;
-			margin-top: 1em;
-			color: #FFF;
-		}
-	}
-}
-
-@media (min-width: 768px) {
-	.purple-bg {
-		&__content {
-			flex-direction: row;
-
-			&--right {
-				padding-top: 0;
-			}
-		}
-	}
-}
+/* eshop featuring
+--------------------------------------------- */
+@import "homepage/eshop-featuring";

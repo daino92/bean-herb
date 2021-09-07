@@ -54,19 +54,15 @@
     
             a {
                 display: flex;
-                color: $secondary;
+                color: #888;
                 text-decoration: none;
-    
-                &:hover {
-                    color: $primary;
-                }
     
                 svg {
                     width: 20px;
                     height: 20px;
                     margin-left: 5px;
                     margin-right: 5px;
-                    fill: #888;
+                    fill: currentColor;
     
                     &:hover {
                         color: #000;
@@ -76,22 +72,3 @@
         }
     }   
 }
-
-#cd-cart {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    height: 100%;
-  
-    /* header height */
-    padding-top: 50px;
-  
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  
-    transition: right 0.3s;
-  }
-  
-  #cd-cart.speed-in {
-    right: 0;
-  }

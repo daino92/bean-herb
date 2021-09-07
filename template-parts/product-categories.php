@@ -13,7 +13,7 @@ $args = array(
     'orderby' => 'name',
     'order' => 'ASC',
     'hide_empty' => true,
-    'exclude' => array(38, 6031, 15)
+    'exclude' => array(6770, 15)
 );
 
 $product_categories = get_categories($args); 
