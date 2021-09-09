@@ -101,3 +101,9 @@ function load_per_page() {
 	}
 }
 add_action('wp_enqueue_scripts', 'load_per_page', 16);
+
+function enqueue_jQuery_admin() {
+	wp_register_script('jQuery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js', null, null, true);
+	wp_enqueue_script('jQuery');
+}
+add_action('admin_enqueue_scripts', 'enqueue_jQuery_admin');
