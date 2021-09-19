@@ -54,7 +54,7 @@ $base_dir = get_template_directory_uri(); ?>
         </div>
     </div>
     <div class="gift-creation-bg__footer">
-        <a href="">
+        <a href="<?php if (get_locale() == "en_GB") : echo home_url(); else : echo home_url(); endif; ?>">
             <?php if (get_locale() == "en_GB") : ?>
                 Start now!
             <?php else : ?>

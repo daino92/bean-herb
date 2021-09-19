@@ -42,7 +42,7 @@
 		</div><!-- .site-branding -->
 		<nav class="secondary-menu">
 			<div class="account">
-				<a href="<?= urldecode(wc_get_page_permalink('myaccount')); ?>">
+				<a alt="account" title="account" href="<?= urldecode(wc_get_page_permalink('myaccount')); ?>">
 					<svg>
 						<use xlink:href="#user"></use>
 					</svg>

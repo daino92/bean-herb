@@ -16,7 +16,7 @@ $args = array(
     'exclude' => array(6770, 15)
 );
 
-$product_categories = get_categories($args); 
+$product_categories = get_categories($args);
 
 if (get_locale() == "en_GB") : 
 	$baseLinkUrl = "../product-category";
@@ -27,18 +27,25 @@ else :
 endif; ?>
 
 <section id="product-categories">
-    <h3 class="category__header"><?= $categories_header; ?></h3>
+    <h2 class="category__header"><?= $categories_header; ?></h2>
     <div class="category__wrapper">
         <?php 
             foreach ($product_categories as $category) : 
                 $catName = $category->cat_name;
+                $id = $category->term_id;
                 $catLink =  $baseLinkUrl . "/" . urldecode($category->slug);
                 $thumbnailId = get_term_meta($category->term_id, 'thumbnail_id', true);
                 $image = wp_get_attachment_url($thumbnailId); ?>
-
-                <a class="individual-category lazyload blur-up" style="background-image: url(<?= $image; ?>);" href="<?= $catLink; ?>">
-                    <div class="category__name"><?= $catName; ?></div>
-                </a>
+                <div>
+                    <a id="product__cat-<?= $id; ?>" class="individual-category lazyload blur-up lazy" 
+                        style="background-image: url(<?= $image; ?>);" 
+                        href="<?= $catLink; ?>" 
+                        alt="<?= urldecode($category->slug); ?>" 
+                        title="<?= urldecode($category->slug); ?>"
+                    >
+                        <div class="category__name"><?= $catName; ?></div>
+                    </a>
+                </div>
             <?php endforeach; 
         ?>
     </div>

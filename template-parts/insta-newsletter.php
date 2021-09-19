@@ -34,15 +34,17 @@ endif;
 <section id="newsletter">
     <div class="newsletter__banner">
         <div class="newsletter__content">
-            <img src="<?= $base_dir; ?>/resources/images/homepage/frame.png" />
+            <img src="<?= $base_dir; ?>/resources/images/homepage/frame.png"  alt="woman-frame"/>
             <div class="newsletter__signup">
                 <div class="newsletter__header"><?= $newsletter__header; ?></div>
                 <div class="newsletter__input">
                     <input class="newsletter__email" type="email" name="email" placeholder="Email" required="">
                     <input class="newsletter__btn" type="submit" value="<?= $newsletter__btn__name; ?>">
                     <span>
-                        <input name="terms" type="checkbox" value="1" required="">
-                        <?= $accept__terms_part1; ?> <a href="https://beanandherb.com/%cf%8c%cf%81%ce%bf%ce%b9-%cf%87%cf%81%ce%ae%cf%83%ce%b7%cf%82/"><?= $accept__terms_part2; ?></a>
+                        <input id="terms" type="checkbox" value="1" required="">
+                        <label for="terms">
+                            <?= $accept__terms_part1; ?> <a href="https://beanandherb.com/%cf%8c%cf%81%ce%bf%ce%b9-%cf%87%cf%81%ce%ae%cf%83%ce%b7%cf%82/"><?= $accept__terms_part2; ?></a>
+                        </label>
                     </span>
                 </div>
             </div>

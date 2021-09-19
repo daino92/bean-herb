@@ -24,10 +24,10 @@ do_action('woocommerce_before_mini_cart'); ?>
 <div class="mini__cart--wrapper">
 	<div class="mini__cart--upper-content">
 		<div class="mini__cart--info">
-			<h4><?php if (get_locale() == "en_GB") : echo "My basket"; else : echo "Τo καλάθι μου"; endif; ?></h4>
+			<div class="mini__cart--header"><?php if (get_locale() == "en_GB") : echo "My basket"; else : echo "Τo καλάθι μου"; endif; ?></div>
 			<div class="mini__cart--close">x</div>
 		</div>
-		<h6><span><?php echo esc_html(WC()->cart->get_cart_contents_count()); ?></span> προϊόντα</h6>
+		<div class="mini__cart--products"><span><?php echo esc_html(WC()->cart->get_cart_contents_count()); ?></span> προϊόντα</div>
 	</div>
 	<?php if (!WC()->cart->is_empty()) : ?>
 		<div class="woocommerce-mini-cart cart_list product_list_widget <?php echo esc_attr($args['list_class']); ?>">

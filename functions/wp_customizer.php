@@ -71,3 +71,56 @@ function front_page_banners($wp_customize) {
 	endfor;
 }
 add_action('customize_register', 'front_page_banners');
+
+function featuring($wp_customize) {
+
+	// Featuring section
+	$wp_customize->add_section("featuring", array(
+		"title" => "Featuring"
+	));
+
+	for ($i = 1; $i <= 3; $i++) :
+		$wp_customize->add_setting("Feature ${i} URL", array(
+			"default" => ""
+		));
+
+		$wp_customize->add_control(new WP_Customize_control($wp_customize, "Feature ${i} URL", array(
+			"label" => "Feature ${i} URL",
+			"section" => "featuring",
+			"settings" => "Feature ${i} URL"
+		)));
+
+		$wp_customize->add_setting("Feature ${i} text", array(
+			"default" => ""
+		));
+	
+		$wp_customize->add_control(new WP_Customize_control($wp_customize, "Feature ${i} text", array(
+			"type" => "textarea",
+			"label" => "Feature ${i} text",
+			"section" => "featuring",
+			"settings" => "Feature ${i} text"
+		)));
+
+		$wp_customize->add_setting("Feature ${i} URL EN", array(
+			"default" => ""
+		));
+
+		$wp_customize->add_control(new WP_Customize_control($wp_customize, "Feature ${i} URL EN", array(
+			"label" => "Feature ${i} URL EN",
+			"section" => "featuring",
+			"settings" => "Feature ${i} URL EN"
+		)));
+
+		$wp_customize->add_setting("Feature ${i} text EN", array(
+			"default" => ""
+		));
+	
+		$wp_customize->add_control(new WP_Customize_control($wp_customize, "Feature ${i} text EN", array(
+			"type" => "textarea",
+			"label" => "Feature ${i} text EN",
+			"section" => "featuring",
+			"settings" => "Feature ${i} text EN"
+		)));
+	endfor;
+}
+add_action('customize_register', 'featuring');
