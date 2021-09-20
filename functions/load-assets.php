@@ -29,7 +29,8 @@ function wpb_hook_javascript() {
 			"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
 			"https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js",
 			"<?php echo get_template_directory_uri() . "/resources/js/lazysizes.min.js"?>",
-			"<?php echo get_template_directory_uri() . "/dist/scripts/custom${assetVersion}.js"?>"
+			"<?php echo get_template_directory_uri() . "/dist/scripts/custom${assetVersion}.js"?>",
+			"https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
 	   	]; 
 	
 		function loadScript() {      

@@ -1,13 +1,20 @@
 // Header
 
 .site-header {
-    padding: 0 30px;
+    position: fixed;
+	width: 100%;
 	margin: 0 auto;
+    z-index: 2;
+	background-color: #FFF;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, .07);
 
     .site-branding {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
         text-align: center;
-        padding-top: 1.5em;
+        margin: 0 auto;
     }
 
     .main-navigation {
@@ -16,46 +23,79 @@
         justify-content: center;
         align-items: center;
         flex-flow: row wrap;
-
-        .main-menu {
-            text-transform: uppercase;
-        }
     
         ul {
+            display: flex;
+            flex-flow: column wrap;
+            list-style: none;
+            margin: 0;
+            text-transform: uppercase;
 
             li {
+                position: relative;
                 padding: 12px;
+
+                li:hover > ul,
+                li.focus > ul {
+                    left: auto;
+                }
             }
     
             a {
+                display: block;
+		        text-decoration: none;
                 color: $secondary;
     
                 &:hover {
                     color: $primary;
                 }
             }
+
+            ul {
+                box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+                float: left;
+                position: absolute;
+                top: 100%;
+                left: -999em;
+                z-index: 99999;
+    
+                ul {
+                    left: -999em;
+                    top: 0;
+                }
+    
+                li {
+    
+                    &:hover > ul,
+                    &.focus > ul {
+                        display: block;
+                        left: auto;
+                    }
+                }
+    
+                a {
+                    width: 200px;
+                }
+            }
         }
     }
 
     .secondary-menu {
-        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-flow: row wrap;
-        margin-top: 1.5em;
 
         .account {
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #888;
             text-transform: uppercase;
     
             a {
                 display: flex;
-                color: #888;
                 text-decoration: none;
+                color: $secondary;
     
                 svg {
                     width: 20px;
@@ -65,10 +105,67 @@
                     fill: currentColor;
     
                     &:hover {
-                        color: #000;
+                        color: $primary;
                     }
                 }
             }
         }
     }   
+}
+
+.flexed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    max-width: 1800px;
+	margin: 0 auto;
+}
+
+.collapsing {
+	height: 0;
+	overflow: hidden;
+	transition: height .35s ease;
+}
+
+.comment-navigation,
+.posts-navigation,
+.post-navigation {
+
+	.site-main & {
+		margin: 0 0 1.5em;
+	}
+
+	.nav-links {
+		display: flex;
+	}
+
+	.nav-previous {
+		flex: 1 0 50%;
+	}
+
+	.nav-next {
+		text-align: end;
+		flex: 1 0 50%;
+	}
+}
+
+#primary {
+	padding-top: 5em;
+}
+
+@media all and (min-width: 640px) {
+    #primary {
+        padding-top: 11em;
+    }
+
+    .site-header .main-navigation ul {
+        flex-flow: row wrap;
+    }
+}
+
+@media all and (max-width: 640px) {
+    .collapse:not(.show) {
+        display: none;
+    }
 }

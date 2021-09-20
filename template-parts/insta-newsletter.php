@@ -34,7 +34,7 @@ endif;
 <section id="newsletter">
     <div class="newsletter__banner">
         <div class="newsletter__content">
-            <img src="<?= $base_dir; ?>/resources/images/homepage/frame.png"  alt="woman-frame"/>
+            <img src="<?= $base_dir; ?>/resources/images/homepage/frame.png" alt="woman-frame" width="184" height="242" />
             <div class="newsletter__signup">
                 <div class="newsletter__header"><?= $newsletter__header; ?></div>
                 <div class="newsletter__input">

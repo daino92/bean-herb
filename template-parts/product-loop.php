@@ -58,7 +58,7 @@ $products = wc_get_products($args2); ?>
                 $image = wp_get_attachment_image_src(get_post_thumbnail_id($productId), 'single-post-thumbnail')[0];
                 $productLink =  $baseLinkUrl . "/" . urldecode($product->get_slug()); ?>
                 <div>
-                    <a id="product-<?= $productId; ?>" class="individual-product lazyload blur-up lazy" 
+                    <a id="product__<?= $productType . '-' . $productId; ?>" class="individual-product lazyload blur-up lazy" 
                         style="background-image: url('<?= $image; ?>');" 
                         href="<?= $productLink; ?>"
                         alt="<?= urldecode($product->get_slug()); ?>" 

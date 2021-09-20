@@ -114,7 +114,16 @@ $('.cat-item .cats').on('click', function() {
     });
 });
 
+
+// mail subscribe
 const email_regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+// var email = $('.newsletter__email').val();
+// $('.newsletter__btn').on('click', function() {
+// 	if(email.length > 0 && email_regex.test(email)) {
+// 		$(this).click();
+// 	}
+// });
+
 
 const escapeRegExp = function(strToEscape) {
     // Escape special characters for use in a regular expression
@@ -197,6 +206,22 @@ $(document).on('click', '#productModal', function (e) {
 //     }, 500);
 // });
 
+$(document).ready(function() {
+   $(".insta-gallery-link").each(function() {
+        $(this).attr('rel', 'noopener');
+    });
+
+    $(".insta-gallery-icon").each(function() {
+        $(this).attr('rel', 'noopener');
+    });
+});
+
+// toggle hamburger
+$(".hamburger").on("click", function() {
+	$(".hamburger").toggleClass("is-active");
+});
+
+$(".widget_shopping_cart").prependTo('#page');
 
 // Custom lazyload script using Intersection Observer
 function intersectionObjerver() {
