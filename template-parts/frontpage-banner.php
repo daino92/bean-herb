@@ -30,17 +30,38 @@ else :
     $endLinkURL1 = $urlBanner1;
     $endLinkURL2 = $urlBanner2;
     $endLinkURL3 = $urlBanner3;
-endif; ?>
+endif; 
+
+$args = array(
+	'posts_per_page' => -1,
+	'category_name' => array(
+        'frontpage-banner-en',
+        'frontpage-banner-el'
+    ),
+	'orderby' => 'date',
+	'order' => 'DESC',
+	'post_status' => 'publish'
+);
+
+$frontPageCarousels = get_posts($args); ?>
 
 <section id="front-banners">
     <div class="banner-wrapper">
-        <a class="first-column" href="/">
-            <img class="lazyload" 
-                alt="No sugar" 
-                title="No sugar" 
-                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-                data-src="<?= $base_dir; ?>/resources/images/No-Sugar.png"/>
-        </a>
+        <ul class="first-column">
+            <?php foreach ($frontPageCarousels as $carousel) : setup_postdata($carousel); ?>
+                <li id="carousel__<?= $carousel->ID; ?>">
+                    <?php 
+                        foreach(get_post_meta($carousel->ID) as $key => $val) :
+                            foreach($val as $vals) :
+                                if (preg_match('/url/', $key)) echo "<a href='$vals'>";
+                            endforeach;
+                        endforeach; 
+                    
+                        echo get_the_post_thumbnail($carousel->ID); ?>
+                    </a>
+                </li>   
+            <?php endforeach; wp_reset_postdata(); ?>
+        </ul>
         <div class="second-column">
             <a href="<?= $baseLinkUrl . "/" . $endLinkURL1; ?>" class="upper-banner">
                 <img class="lazyload" 

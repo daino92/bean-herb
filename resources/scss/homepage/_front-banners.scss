@@ -2,6 +2,12 @@
     padding-bottom: 2em;
 }
 
+img {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
 .banner-wrapper {
     max-width: $max__width;
     display: flex;
@@ -12,7 +18,7 @@
     padding-left: 2em;
 	padding-right: 2em;
 
-    a > img {
+    img {
         height: 100%;
         width: 100%;
         display: block;
@@ -39,6 +45,18 @@
     }
 } 
 
+.first-column {
+    margin: 0;
+    list-style: none;
+    //width: 100%;
+    //overflow: hidden;
+    // max-width: 74vh;
+
+    // li {
+    //     height: 475px;
+    // }
+}
+
 .first-column,
 .banner-wrapper .upper-banner,
 .banner-wrapper .lower-banners a {
@@ -54,4 +72,8 @@
         padding-left: .5em;
         padding-top: 0;
     }
+
+    // .first-column {
+    //     max-width: 57vh;
+    // }
 }

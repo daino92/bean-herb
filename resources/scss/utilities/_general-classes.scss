@@ -104,6 +104,44 @@
 	filter: blur(8px);
 }
 
+.visually-hidden {
+	background: #E60000;
+	border: none;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+.icon {
+    fill: none !important;
+	stroke: currentcolor !important;
+	stroke-width: 8px;
+	vertical-align: middle !important;
+	width: 35px;
+	height: 35px; 
+}
+
+.carousel-slick__control--circle {
+    display: block !important;
+    position: absolute;
+    z-index: 999;
+    color: $primary__alt;
+    top: 40%;
+    cursor: pointer;
+}
+
+.carousel-slick__control--right {
+    right: 0;
+}
+
+.carousel-slick__control--left {
+    left: 0;
+}
+
 /* Custom Spinner */
 .lds-ellipsis {
     display: none;

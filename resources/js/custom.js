@@ -275,6 +275,21 @@ function intersectionObjerver() {
 }
 
 intersectionObjerver();
+$('.first-column').slick({
+    lazyLoad: 'ondemand',
+    //arrows: false,
+    dots: false,
+    infinite: true,
+  	speed: 500,
+  	fade: true,
+  	cssEase: 'linear',
+  	slidesToShow: 1,
+  	slidesToScroll: 1,
+  	//autoplay: true,
+  	autoplaySpeed: 4000,
+    prevArrow: '<p class="js-carousel-control carousel-slick__control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon carousel-slick__control-icon"><svg viewBox="0 0 76 144" id="icon-chevron-left" width="100%" height="100%"><polyline id="chevron-left-a4e0e987-f44d-495f-8041-cbcac2454416" data-name="<Pfad>" points="72 140 4 72 72 4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></svg></p>',
+	nextArrow: '<p class="js-carousel-control carousel-slick__control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"> <span class="visually-hidden">Next</span><svg class="icon carousel-slick__control-icon"><svg viewBox="0 0 76 144" id="icon-chevron-right" width="100%" height="100%"><polyline id="chevron-right-2063ebf3-901a-4482-a254-6509fb6140e6" data-name="<Pfad>" points="4 4 72 72 4 140" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></svg></p>',
+});
 
 $('.category__wrapper, .product__wrapper').slick({
     infinite: true,
