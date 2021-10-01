@@ -85,7 +85,7 @@
     display: flex; 
     flex-wrap: wrap;
     justify-content: space-evenly;
-    max-width: $max__width;
+    max-width: $max__width + 200;
     margin: 0 auto;
     padding-top: 4em;
 	padding-bottom: 4em;
@@ -183,8 +183,7 @@
                 background-position: center !important;
                 width: 100%;
                 height: 0;
-                //padding-top: 130px;
-                padding-top: 7em;
+                padding-top: 9em;
             
                 &.lazy {
                     background-image: none !important;

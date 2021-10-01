@@ -35,9 +35,16 @@
                 position: relative;
                 padding: 12px;
 
-                li:hover > ul,
-                li.focus > ul {
-                    left: auto;
+                &:hover > ul,
+                &.focus > ul {
+                    opacity: 1;
+                    transition: opacity 200ms ease;
+                }
+
+                &.current-menu-item {
+                    a {
+                        color: $primary;
+                    }
                 }
             }
     
@@ -51,31 +58,67 @@
                 }
             }
 
+            .big__menu {
+                .sub-menu {
+                    visibility: hidden; 
+                    opacity: 0;
+                    width: max-content;
+                    min-width: 200px;
+                    position: absolute;
+                    padding: 10px;
+                
+                    li {
+                        width: 200px;
+            
+                        .sub-menu {
+                            position: relative;
+                            top: -2em;
+                            max-width: 100%;
+                            padding: 0;
+                            width: auto;
+                            box-shadow: none;
+            
+                            li {
+                                padding: 0;
+                            }
+                        }
+                    }
+                }
+            }
+
             ul {
                 box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-                float: left;
-                position: absolute;
                 top: 100%;
-                left: -999em;
-                z-index: 99999;
-    
-                ul {
-                    left: -999em;
-                    top: 0;
-                }
-    
+                z-index: 2;
+                background-color: $secondary;
+                transition: opacity 200ms ease;
+
                 li {
+                    position: static;
+                    display: inline-flex;
+                    flex-flow: column wrap;
+                    padding: 0 10px 0;
+                    box-sizing: border-box;
     
                     &:hover > ul,
                     &.focus > ul {
                         display: block;
                         left: auto;
                     }
-                }
-    
-                a {
-                    width: 200px;
-                }
+
+                    a {
+                        width: 185px;
+                        color: #FFF;
+                        padding: .4em .5em;
+                        
+                        &:hover {
+                            color: #FFF;
+                            background-color: $primary;
+                            background: rgba(255, 81, 0, .07);
+                            transition: all .2ms ease;
+                        }
+                    }
+                } 
             }
         }
     }
@@ -167,5 +210,14 @@
 @media all and (max-width: 640px) {
     .collapse:not(.show) {
         display: none;
+    }
+}
+
+.hovered {
+
+    .sub-menu {
+        display: block;
+        opacity: 1 !important;
+        transition: all .2ms ease;
     }
 }

@@ -2,17 +2,11 @@
     padding-bottom: 2em;
 }
 
-img {
-    height: 100%;
-    width: 100%;
-    display: block;
-}
-
 .banner-wrapper {
     max-width: $max__width;
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     flex-direction: column;
     margin: 2em auto;
     padding-left: 2em;
@@ -25,7 +19,19 @@ img {
     }
 }
 
-.second-column {
+.left-column {
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    overflow: hidden;
+
+    li {
+        //height: 475px;
+        height: 255px;
+    }
+}
+
+.right-column {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -45,35 +51,61 @@ img {
     }
 } 
 
-.first-column {
-    margin: 0;
-    list-style: none;
-    //width: 100%;
-    //overflow: hidden;
-    // max-width: 74vh;
-
-    // li {
-    //     height: 475px;
-    // }
+.left-column,
+.right-column {
+	flex: 0 1 100%;
+    width: calc((1140px /2) - .5em)
 }
 
-.first-column,
+.left-column,
 .banner-wrapper .upper-banner,
 .banner-wrapper .lower-banners a {
 	border: 1px solid #CCC;
 }
 
+$max: 100;
+$step: 5;
+
+@for $i from 1 through ceil($max / $step) {
+    $value: ($i - 1) * $step + 1;
+    
+    @media all and (min-width: 766px + ($value * 1.6)) {
+        .left-column {
+            li {
+                height: 305px + ($value + 3px);
+            }
+        }
+    }
+}
+
+@for $i from 1 through ceil($max / $step) {
+    $value: ($i - 1) * $step + 1;
+    
+    @media all and (min-width: 976px + ($value * 2)) {
+        .left-column {
+            li {
+                height: 401px + ($value);
+            }
+        }
+    }
+}
+
+@media all and (min-width: 1115px) {
+    .left-column {
+        li {
+            height: 473px;
+        }
+    }
+}
+
 @media all and (min-width: 768px) {
     .banner-wrapper {
         flex-direction: row;
+        align-items: stretch;
     }
 
-    .second-column {
+    .right-column {
         padding-left: .5em;
         padding-top: 0;
     }
-
-    // .first-column {
-    //     max-width: 57vh;
-    // }
 }

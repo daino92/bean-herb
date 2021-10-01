@@ -1,0 +1,16 @@
+.woocommerce__general-bg-header {
+    display: flex;
+    position: relative;
+    background-image: url("../../dist/images/shared/header-bg.png");
+	background-position: center;
+	background-size: cover;
+    min-height: 85px;
+
+    .woocommerce__general-bg-header__title {
+        font-size: 18px;
+        color: #FFF;
+        bottom: 1em;
+        text-transform: uppercase;
+        position: absolute;
+    }
+}

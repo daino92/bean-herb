@@ -344,6 +344,15 @@ jQuery('document').ready(function($) {
             carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
             currentLang = $('html')[0].getAttribute('lang');
             productName = $('.single-product__main-body .product_title').text();
+
+        var weightNeeded = $('input[name=weight_needed]').val(),
+        minimumWeight = $('input[name=minimum__weight]').val(),
+        pricingUnit = $('input[name=pricingUnit]').val(),
+        unit = $('input[name=unit]').val(),
+        measurementWeededUnit = $('input[name=_measurement_needed_unit]').val(),
+        measurementNeeded = $('input[name=_measurement_needed]').val();
+        
+        
         
         var displayCart, message; 
 
@@ -367,6 +376,13 @@ jQuery('document').ready(function($) {
             productSku: "",
             quantity,
             variationId,
+            weightNeeded,
+            minimumWeight,
+            weightNeeded,
+            pricingUnit,
+            unit,
+            measurementWeededUnit,
+            measurementNeeded
         };
 
         $(document.body).trigger('adding_to_cart', [$thisbutton, data]);

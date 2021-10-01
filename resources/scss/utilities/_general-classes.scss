@@ -116,30 +116,39 @@
 	width: 1px;
 }
 
-.icon {
-    fill: none !important;
-	stroke: currentcolor !important;
-	stroke-width: 8px;
-	vertical-align: middle !important;
-	width: 35px;
-	height: 35px; 
-}
+.carousel-slick__control {
+    &--circle {
+        top: 50%;
+        display: block;
+        z-index: 1;
+        cursor: pointer;
+        position: absolute;
+        color: $primary__alt;
 
-.carousel-slick__control--circle {
-    display: block !important;
-    position: absolute;
-    z-index: 999;
-    color: $primary__alt;
-    top: 40%;
-    cursor: pointer;
-}
+        .icon {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 8px;
+            vertical-align: middle;
+            width: 28px;
+            height: 28px;
+            opacity: 0;
+            transition: all .3s;
 
-.carousel-slick__control--right {
-    right: 0;
-}
+            &:hover {
+                opacity: 1;
+            }
+            
+        }
+    }
 
-.carousel-slick__control--left {
-    left: 0;
+    &--right {
+        right: 0;
+    }
+    
+    &--left {
+        left: 0;
+    }
 }
 
 /* Custom Spinner */

@@ -11,18 +11,20 @@
 if (get_locale() == "en_GB") : 
 	$all_products = 'All products';
     $product_cat_title = "Product Categories";
+    $exclude = array(15);
 else :
 	$all_products = 'Όλα τα προϊόντα';
     $product_cat_title = "Κατηγορίες προϊόντων";
+    $exclude = array(6770, 35);
 endif; 
 
 $cat_args = array(
-    'taxonomy'     => 'product_cat',
-    'orderby'      => 'name',
-    'show_count'   => 1,
-    'pad_counts'   => 1,
-    'hierarchical' => 1,
-    'hide_empty'   => 1
+    'taxonomy'      => 'product_cat',
+    'show_count'    => 1,
+    'pad_counts'    => 1,
+    'hierarchical'  => 1,
+    'hide_empty'    => 1,
+    'exclude'       => $exclude
 );
 $all_categories = get_categories($cat_args); ?>
 
@@ -45,7 +47,6 @@ $all_categories = get_categories($cat_args); ?>
                     'parent'       => $categoryId,
                     'child_of'     => 0,
                     'taxonomy'     => 'product_cat',
-                    'orderby'      => 'name',
                     'show_count'   => 1,
                     'pad_counts'   => 1,
                     'hierarchical' => 1,

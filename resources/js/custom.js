@@ -192,19 +192,34 @@ $(document).on('click', '#productModal', function (e) {
     $('body').removeClass('quick-view__no-scroll');
 });
 
-// $('.woocommerce').on('change', 'input.qty', function(){
-//     $("[name='update_cart']").trigger("click");
-// });
-
 // var timeout;
-
-// $('.woocommerce').on('change', 'input.qty', function(){
+// $(document).on('change', 'input.qty', function() {
 //     if (timeout !== undefined) clearTimeout(timeout);
+//     console.log(this)
 
 //     timeout = setTimeout(function() {
 //         $("[name='update_cart']").trigger("click");
-//     }, 500);
+//     }, 100);
 // });
+
+$(document).on("click", ".cart-btn__minus", function() {
+    var input = $(this).next("input.qty");
+	var inputVal = parseInt(input.val());
+	var updatedVal = inputVal - 1;
+    if (input.val() == 1) return;
+	input.val(updatedVal);
+    $("[name='update_cart']").removeAttr("disabled");
+    $("[name='update_cart']").trigger('click');
+});
+
+$(document).on("click", ".cart-btn__plus", function() {
+    var input = $(this).prev("input.qty");
+	var inputVal = parseInt(input.val());
+	var updatedVal = inputVal + 1;
+	input.val(updatedVal);
+    $("[name='update_cart']").removeAttr("disabled");
+    $("[name='update_cart']").trigger('click');
+});
 
 $(document).ready(function() {
    $(".insta-gallery-link").each(function() {
@@ -222,6 +237,19 @@ $(".hamburger").on("click", function() {
 });
 
 $(".widget_shopping_cart").prependTo('#page');
+
+// shop submenu
+$(".big__menu").hover(function () {
+    $(".sub-category").addClass("hovered");
+    $(".big__menu .sub-menu").css("visibility", "visible");
+    $(".big__menu .sub-menu").css("transition", "opacity .6s;");
+    $(".big__menu .sub-menu").css("opacity", "1"); 
+}, function () {
+    $(".sub-category").removeClass("hovered");
+    $(".big__menu .sub-menu").css("visibility", "hidden");
+    $(".big__menu .sub-menu").css("transition", "opacity .6s;");
+    $(".big__menu .sub-menu").css("opacity", "0");
+});
 
 // Custom lazyload script using Intersection Observer
 function intersectionObjerver() {
@@ -275,53 +303,53 @@ function intersectionObjerver() {
 }
 
 intersectionObjerver();
-$('.first-column').slick({
-    lazyLoad: 'ondemand',
-    //arrows: false,
-    dots: false,
+
+$('.left-column').slick({
     infinite: true,
-  	speed: 500,
-  	fade: true,
   	cssEase: 'linear',
+    lazyLoad: 'ondemand',
   	slidesToShow: 1,
   	slidesToScroll: 1,
-  	//autoplay: true,
+  	speed: 500,
+  	autoplay: true,
   	autoplaySpeed: 4000,
-    prevArrow: '<p class="js-carousel-control carousel-slick__control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon carousel-slick__control-icon"><svg viewBox="0 0 76 144" id="icon-chevron-left" width="100%" height="100%"><polyline id="chevron-left-a4e0e987-f44d-495f-8041-cbcac2454416" data-name="<Pfad>" points="72 140 4 72 72 4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></svg></p>',
-	nextArrow: '<p class="js-carousel-control carousel-slick__control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"> <span class="visually-hidden">Next</span><svg class="icon carousel-slick__control-icon"><svg viewBox="0 0 76 144" id="icon-chevron-right" width="100%" height="100%"><polyline id="chevron-right-2063ebf3-901a-4482-a254-6509fb6140e6" data-name="<Pfad>" points="4 4 72 72 4 140" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></svg></p>',
+    dots: false,
+  	fade: true,
+    prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
+	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
 });
 
 $('.category__wrapper, .product__wrapper').slick({
     infinite: true,
-    slidesToShow: 6,
-    slidesToScroll: 6,
-    dots: true,
-    speed: 3000,
     cssEase: 'linear',
     lazyLoad: 'ondemand',
-    arrows: false,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    speed: 2000,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2500,
+    dots: false,
+    arrows: false,
     responsive: [
     {
       breakpoint: 1024,
       settings: {
         slidesToShow: 4,
-        slidesToScroll: 4
+        slidesToScroll: 1
       }
     },
     {
       breakpoint: 860,
       settings: {
         slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToScroll: 1
       }
     },
     {
       breakpoint: 600,
       settings: {
         slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToScroll: 1,
         dots: false
       }
     },

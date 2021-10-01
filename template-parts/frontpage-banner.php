@@ -47,7 +47,7 @@ $frontPageCarousels = get_posts($args); ?>
 
 <section id="front-banners">
     <div class="banner-wrapper">
-        <ul class="first-column">
+        <ul class="left-column">
             <?php foreach ($frontPageCarousels as $carousel) : setup_postdata($carousel); ?>
                 <li id="carousel__<?= $carousel->ID; ?>">
                     <?php 
@@ -62,7 +62,7 @@ $frontPageCarousels = get_posts($args); ?>
                 </li>   
             <?php endforeach; wp_reset_postdata(); ?>
         </ul>
-        <div class="second-column">
+        <div class="right-column">
             <a href="<?= $baseLinkUrl . "/" . $endLinkURL1; ?>" class="upper-banner">
                 <img class="lazyload" 
                     alt="<?= $endLinkURL1; ?>" 

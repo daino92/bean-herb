@@ -243,10 +243,8 @@ function custom_search_field(){
 }
 add_action('wp_loaded','custom_search_field');
 
-function ddump($args) {
-	$dumped .= "<pre>"; 
-	$dumped .= var_dump($args);
-	$dumped .= "</pre>";
-
-	return $dumped;
+function ddump($value) {
+	echo '<pre>';
+    var_dump($value);
+    echo '</pre>';
 }
