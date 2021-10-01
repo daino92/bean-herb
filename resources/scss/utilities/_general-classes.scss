@@ -151,6 +151,31 @@
     }
 }
 
+.full-width {
+	padding: 12em 4% 5em;
+
+	article {
+		max-width: $max__width;
+		margin: 0 auto;
+	}
+
+    p {
+        color: #8B8D94;
+    }
+}
+
+.full-screen {
+	min-height: 150vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.hidden {
+	display: none;
+}
+
+
 /* Custom Spinner */
 .lds-ellipsis {
     display: none;
