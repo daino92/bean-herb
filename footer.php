@@ -39,10 +39,7 @@
 									<?php if (function_exists('pll_e')) printf(esc_html__ (pll_e('Support'))); ?>
 								</div>
 								<div class="section-content">
-									ΤΡΟΠΟΙ ΠΛΗΡΩΜΗΣ<br>
-									ΑΠΟΣΤΟΛΕΣ & ΕΠΙΣΤΡΟΦΕΣ<br>
-									ΟΡΟΙ ΧΡΗΣΗΣ<br>
-									COOKIES	
+									<?php wp_nav_menu(array('theme_location' => 'menu-4', 'container_class' => 'footer-navigation')); ?>
 								</div>
 							</div>
 						</div>
