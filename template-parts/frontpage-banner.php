@@ -34,10 +34,7 @@ endif;
 
 $args = array(
 	'posts_per_page' => -1,
-	'category_name' => array(
-        'frontpage-banner-en',
-        'frontpage-banner-el'
-    ),
+	'category' => get_cat_ID('frontpage-banner'),
 	'orderby' => 'date',
 	'order' => 'DESC',
 	'post_status' => 'publish'
