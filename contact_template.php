@@ -16,26 +16,14 @@ if (get_locale() == "en_GB") :
     $contactHeader = "We will be happy to answer your questions!" . "<br>" . 
     "Just fill in the form below and we’ll be get back to you shortly!";
     $store = "Our Store";
-    $street = "106 P. Tsaldari Str.,";
-    $tk = "184 50, Nikaia, Athens, Greece";
-    $phone = "+30 211 41 75 770";
-    $email = "info@beanandherb.com";
     $workingHoursHeader = "Working hours";
-    $workingHours = "MON. – WED. – SAT.: 8:00 AM – 4:00 PM" . "<br>" . 
-    "TUE. – THU. – FRI.: 8:00 AM – 2:30 PM & 5:00 PM – 9:00 PM";
     $formNo = "1";
 else :
     $pageHeader = "Επικοινωνία";
     $contactHeader = "Είμαστε στη διάθεσή σας για να απαντήσουμε σε κάθε σας ερώτηση!" . '<br>' . 
     "Συμπληρώστε την παρακάτω φόρμα και θα επικοινωνήσουμε μαζί σας!";
     $store = "Κατάστημα";
-    $street = "Π. Τσαλδάρη 104-106";
-    $tk = "184 50, Νίκαια, Αθήνα";
-    $phone = "+30 211 41 75 770";
-    $email = "info@beanandherb.gr";
     $workingHoursHeader = "Ωράριο λειτουργίας";
-    $workingHours = "ΔΕΥ. – ΤΕΤ. – ΣΑΒ.: 8:00ΠΜ – 4:00ΜΜ" . "<br>" . 
-    "ΤΡΙ. – ΠΕΜ. – ΠΑΡ.: 8:00ΠΜ – 9:00ΜΜ";
     $formNo = "2";
 endif; ?>
 
@@ -62,18 +50,19 @@ endif; ?>
             <div class="contact-details--info">
                 <?php if (function_exists('the_custom_logo')) the_custom_logo(); ?>
                 <h3 class="heading"><?= $store; ?></h3>
-                <h3><?= $street; ?></h3>
-                <h3><?= $tk; ?></h3>
+                <h3><?php if (function_exists('pll_e')){ echo pll_e(get_theme_mod("Shop info"));} else { echo get_theme_mod("Shop info");} ?></h3>
                 <h3>
                     <span class="heading">T. </span>
-                    <a href="tel:<?= $phone; ?>"><?= $phone; ?></a>
+                    <a href="tel:<?php echo get_theme_mod("Shop phone"); ?>"><?php echo get_theme_mod("Shop phone"); ?></a>
                 </h3>
                 <h3>
                     <span class="heading">E-mail: </span>
-                    <a href="mailto:<?= $email; ?>"><?= $email; ?></a>
+                    <a href="mailto:<?php if (function_exists('pll_e')){ echo pll_e(get_theme_mod("Shop email"));} else { echo get_theme_mod("Shop email");} ?>">
+                        <?php if (function_exists('pll_e')){ echo pll_e(get_theme_mod("Shop email"));} else { echo get_theme_mod("Shop email");} ?>
+                    </a>
                 </h3>
                 <h3 class="heading"><?= $workingHoursHeader; ?></h3>
-                <h3><?= $workingHours; ?></h3>
+                <h3><?php if (function_exists('pll_e')){ echo pll_e(get_theme_mod("Working Times info"));} else { echo get_theme_mod("Working Times info");} ?></h3>
             </div>
             <div class="contact-details--contact-form">
                 <h2><?= $contactHeader; ?></h2>

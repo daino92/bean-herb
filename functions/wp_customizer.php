@@ -3,7 +3,7 @@
 // Add Translations section to admin appearance customize screen
 function bean_translations($wp_customize) {
 	$wp_customize->add_section('bean_translations', array(
-		'title' => 'Translations'
+		'title' => 'General Information'
 	));
 
 	$wp_customize->add_setting('Shop info', array(
@@ -14,6 +14,26 @@ function bean_translations($wp_customize) {
 		'label' => 'Shop info',
 		'section' => 'bean_translations',
 		'settings' => 'Shop info'
+	)));
+
+	$wp_customize->add_setting('Shop phone', array(
+		'default' => '+302114175770'
+	));
+
+	$wp_customize->add_control(new WP_Customize_control($wp_customize, 'Shop phone', array(
+		'label' => 'Shop phone',
+		'section' => 'bean_translations',
+		'settings' => 'Shop phone'
+	)));
+
+	$wp_customize->add_setting('Shop email', array(
+		'default' => 'info@beanandherb.com'
+	));
+
+	$wp_customize->add_control(new WP_Customize_control($wp_customize, 'Shop email', array(
+		'label' => 'Shop email',
+		'section' => 'bean_translations',
+		'settings' => 'Shop email'
 	)));
 
 	$wp_customize->add_setting('Working Times info', array(

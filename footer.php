@@ -51,11 +51,11 @@
 									<?php if (function_exists('pll_e')) printf(esc_html__ (pll_e('Contact'))); ?>
 								</div>
 								<div class="section-content">
-									<a href="tel:+30 2114175770">
-										T. +30 211 41 75 770
+									<a href="tel:<?php echo get_theme_mod("Shop phone"); ?>">
+										T. <?php echo get_theme_mod("Shop phone"); ?>
 									</a> <br>
-									<a href="mailto:info@beanandherb.com">
-										E-mail: info@beanandherb.com
+									<a href="mailto:<?php if (function_exists('pll_e')){ echo pll_e(get_theme_mod("Shop email"));} else { echo get_theme_mod("Shop email");} ?>">
+										E-mail: <?php if (function_exists('pll_e')){ echo pll_e(get_theme_mod("Shop email"));} else { echo get_theme_mod("Shop email");} ?>
 									</a>
 								</div>
 							</div>
@@ -69,8 +69,7 @@
 									<a href="<?php echo get_option('twitter'); ?>">Twitter</a><br>
 									<a href="<?php echo get_option('linkedin'); ?>">LinkedIn</a>
 								</div>
-							</div>
-							
+							</div>	
 						</div>
 						<div class="col">
 							<div class="sub-sections">
@@ -92,11 +91,9 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- .site-info -->
-		</footer><!-- #colophon -->
-	</div><!-- #page -->
-
+			</div>
+		</footer>
+	</div>
 	<?php wp_footer(); ?>
-
 	</body>
 </html>
