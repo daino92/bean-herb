@@ -10,14 +10,16 @@
 if (get_locale() == "en_GB") : 
     $associatesHeader = "Wholesale";
     $ordersHeader = "Order by phone";
+    $link = "wholesale";
 else :
     $associatesHeader = "Συνεργάτες χονδρικής";
     $ordersHeader = "Τηλ. παραγγελίες";
+    $link = "sinergates";
 endif; ?>
 
 <div class="top-bar">
     <div class="top-bar--section partners">
-        <a href="sinergates/"><?= $associatesHeader; ?></a>
+        <a href="<?= $link; ?>/"><?= $associatesHeader; ?></a>
         <span><?= $ordersHeader; ?>: <a href="tel:<?php echo get_theme_mod("Shop phone"); ?>"><?php echo get_theme_mod("Shop phone"); ?></a></span>
     </div>
     <div class="top-bar--section socials">
