@@ -125,6 +125,14 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------- */
 @import "core/hamburger";
 
+/* Grid system
+--------------------------------------------- */
+@import "core/grid-system";
+
+/* Forms
+--------------------------------------------- */
+@import "core/forms";
+
 /*--------------------------------------------------------------
 # Homepage
 --------------------------------------------------------------*/
@@ -175,3 +183,8 @@ a[id*="product-"].lazy {
 	background-image: none !important;
    	background-color: #FFF !important;
 }
+
+/*--------------------------------------------------------------
+# Contact page
+--------------------------------------------------------------*/
+@import "pages/contact";
