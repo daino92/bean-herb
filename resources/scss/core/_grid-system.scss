@@ -8,8 +8,8 @@
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: calc(var(--bs-gutter-y) * -1);
-	margin-right: calc(var(--bs-gutter-x) / -2);
-    margin-left: calc(var(--bs-gutter-x) / -2);
+	//margin-right: calc(var(--bs-gutter-x) / -2);
+    //margin-left: calc(var(--bs-gutter-x) / -2);
     
     > * {
         flex-shrink: 0;
@@ -65,7 +65,7 @@
 	.col-md-7 {
 		flex: 0 0 auto;
 		//width: 58.3333333333%;
-		width: 90.5%;
+		//width: 90.5%;
 	}
 
 	.container {
@@ -82,7 +82,7 @@
 	.col-lg-6 {
 		flex: 0 0 auto;
 		//width: 50%;
-		width: 90.5%;
+		//width: 90.5%;
 	}
 
 	.container {

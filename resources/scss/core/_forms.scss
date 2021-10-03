@@ -6,7 +6,7 @@
 
     .row-fields {
         display: flex; 
-        justify-content: center; 
+        justify-content: space-between; 
         align-items: center; 
         flex-direction: column;
     }
@@ -31,11 +31,7 @@
             width: 100%;
         }
     }
-
-    textarea {
-        max-width: 95%;
-    }
-
+    
     .wpcf7-submit {
         font-size: 1.1em;
         line-height: 1.1 !important;
