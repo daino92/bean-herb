@@ -279,130 +279,130 @@ jQuery('document').ready(function($) {
         return false;
     });
 
-    $(document).on('click', '.modal-content .single_add_to_cart_button', function(e) {
-        e.preventDefault();
+    // $(document).on('click', '.modal-content .single_add_to_cart_button', function(e) {
+    //     e.preventDefault();
 
-        var $thisbutton = $(this),
-            $form = $thisbutton.closest('form.cart'),
-            id = $thisbutton.val(),
-            quantity = $form.find('input[name=quantity]').val() || 1,
-            productId = $form.find('input[name=product_id]').val() || id,
-            variationId = $form.find('input[name=variation_id]').val() || 0,
-            carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
-            currentLang = $('html')[0].getAttribute('lang');
-            productName = $('.single-product__main-body .product_title').text();
+    //     var $thisbutton = $(this),
+    //         $form = $thisbutton.closest('form.cart'),
+    //         id = $thisbutton.val(),
+    //         quantity = $form.find('input[name=quantity]').val() || 1,
+    //         productId = $form.find('input[name=product_id]').val() || id,
+    //         variationId = $form.find('input[name=variation_id]').val() || 0,
+    //         carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
+    //         currentLang = $('html')[0].getAttribute('lang');
+    //         productName = $('.single-product__main-body .product_title').text();
         
-        var displayCart, message; 
+    //     var displayCart, message; 
 
-        if (currentLang === "el") {
-            displayCart = "Προβολή καλαθιού";
-            message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
-        } else {
-            displayCart = "View basket";
-            message = `${productName} has been added to your basket.`;
-        }
+    //     if (currentLang === "el") {
+    //         displayCart = "Προβολή καλαθιού";
+    //         message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
+    //     } else {
+    //         displayCart = "View basket";
+    //         message = `${productName} has been added to your basket.`;
+    //     }
 
-        var successMessage = `<div class="woocommerce-message" role="alert">`;
-            successMessage += `<svg><use xlink:href="#check"></use></svg>`;
-            successMessage += `<div class="woocommerce-message-text">`;
-            successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
-            successMessage += `${message}</div></div>`;
+    //     var successMessage = `<div class="woocommerce-message" role="alert">`;
+    //         successMessage += `<svg><use xlink:href="#check"></use></svg>`;
+    //         successMessage += `<div class="woocommerce-message-text">`;
+    //         successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
+    //         successMessage += `${message}</div></div>`;
 
-        var data = {
-            action: 'add_to_cart',
-            productId,
-            productSku: "",
-            quantity,
-            variationId,
-        };
+    //     var data = {
+    //         action: 'add_to_cart',
+    //         productId,
+    //         productSku: "",
+    //         quantity,
+    //         variationId,
+    //     };
 
-        $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
+    //     $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
 
-        $.ajax({
-            url,
-            type: 'POST',
-            data,
-        }).done(function (response) {
-            $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
-            $('#productModal').fadeOut();
-            $(successMessage).appendTo('.woocommerce-notices-wrapper');
-        }).fail(function(response) {
-            console.log(response.responseText);
-            console.log('Request failed: ' + response.statusText);
-        });
-    });
+    //     $.ajax({
+    //         url,
+    //         type: 'POST',
+    //         data,
+    //     }).done(function (response) {
+    //         $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
+    //         $('#productModal').fadeOut();
+    //         $(successMessage).appendTo('.woocommerce-notices-wrapper');
+    //     }).fail(function(response) {
+    //         console.log(response.responseText);
+    //         console.log('Request failed: ' + response.statusText);
+    //     });
+    // });
 
-    $(document).on('click', '.single .single_add_to_cart_button', function(e) {
-        e.preventDefault();
+    // $(document).on('click', '.single .single_add_to_cart_button', function(e) {
+    //     e.preventDefault();
 
-        var $thisbutton = $(this),
-            $form = $thisbutton.closest('form.cart'),
-            id = $thisbutton.val(),
-            quantity = $form.find('input[name=quantity]').val() || 1,
-            productId = $form.find('input[name=product_id]').val() || id,
-            variationId = $form.find('input[name=variation_id]').val() || 0,
-            carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
-            currentLang = $('html')[0].getAttribute('lang');
-            productName = $('.single-product__main-body .product_title').text();
+    //     var $thisbutton = $(this),
+    //         $form = $thisbutton.closest('form.cart'),
+    //         id = $thisbutton.val(),
+    //         quantity = $form.find('input[name=quantity]').val() || 1,
+    //         productId = $form.find('input[name=product_id]').val() || id,
+    //         variationId = $form.find('input[name=variation_id]').val() || 0,
+    //         carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
+    //         currentLang = $('html')[0].getAttribute('lang');
+    //         productName = $('.single-product__main-body .product_title').text();
 
-        var weightNeeded = $('input[name=weight_needed]').val(),
-        minimumWeight = $('input[name=minimum__weight]').val(),
-        pricingUnit = $('input[name=pricingUnit]').val(),
-        unit = $('input[name=unit]').val(),
-        measurementWeededUnit = $('input[name=_measurement_needed_unit]').val(),
-        measurementNeeded = $('input[name=_measurement_needed]').val();
+    //     var weightNeeded = $('input[name=weight_needed]').val(),
+    //     minimumWeight = $('input[name=minimum__weight]').val(),
+    //     pricingUnit = $('input[name=pricingUnit]').val(),
+    //     unit = $('input[name=unit]').val(),
+    //     measurementWeededUnit = $('input[name=_measurement_needed_unit]').val(),
+    //     measurementNeeded = $('input[name=_measurement_needed]').val();
         
         
         
-        var displayCart, message; 
+    //     var displayCart, message; 
 
-        if (currentLang === "el") {
-            displayCart = "Προβολή καλαθιού";
-            message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
-        } else {
-            displayCart = "View basket";
-            message = `${productName} has been added to your basket.`;
-        }
+    //     if (currentLang === "el") {
+    //         displayCart = "Προβολή καλαθιού";
+    //         message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
+    //     } else {
+    //         displayCart = "View basket";
+    //         message = `${productName} has been added to your basket.`;
+    //     }
 
-        var successMessage = `<div class="woocommerce-message" role="alert">`;
-            successMessage += `<svg><use xlink:href="#check"></use></svg>`;
-            successMessage += `<div class="woocommerce-message-text">`;
-            successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
-            successMessage += `${message}</div></div>`;
+    //     var successMessage = `<div class="woocommerce-message" role="alert">`;
+    //         successMessage += `<svg><use xlink:href="#check"></use></svg>`;
+    //         successMessage += `<div class="woocommerce-message-text">`;
+    //         successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
+    //         successMessage += `${message}</div></div>`;
 
-        var data = {
-            action: 'add_to_cart',
-            productId,
-            productSku: "",
-            quantity,
-            variationId,
-            weightNeeded,
-            minimumWeight,
-            weightNeeded,
-            pricingUnit,
-            unit,
-            measurementWeededUnit,
-            measurementNeeded
-        };
+    //     var data = {
+    //         action: 'add_to_cart',
+    //         productId,
+    //         productSku: "",
+    //         quantity,
+    //         variationId,
+    //         weightNeeded,
+    //         minimumWeight,
+    //         weightNeeded,
+    //         pricingUnit,
+    //         unit,
+    //         measurementWeededUnit,
+    //         measurementNeeded
+    //     };
 
-        $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
+    //     $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
 
-        $.ajax({
-            url,
-            type: 'POST',
-            data,
-            beforeSend: function () {
-                $("#site-overlay").css("display", "block");
-                $(".lds-ellipsis").css("display", "block");
-            },
-        }).done(function (response) {
-            $("#site-overlay").css("display", "none");
-            $(".lds-ellipsis").css("display", "none");
-            $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
-            $(successMessage).appendTo('.woocommerce-notices-wrapper');
-        }).fail(function(response) {
-            console.log(response.responseText);
-            console.log('Request failed: ' + response.statusText);
-        });
-    });
+    //     $.ajax({
+    //         url,
+    //         type: 'POST',
+    //         data,
+    //         beforeSend: function () {
+    //             $("#site-overlay").css("display", "block");
+    //             $(".lds-ellipsis").css("display", "block");
+    //         },
+    //     }).done(function (response) {
+    //         $("#site-overlay").css("display", "none");
+    //         $(".lds-ellipsis").css("display", "none");
+    //         $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
+    //         $(successMessage).appendTo('.woocommerce-notices-wrapper');
+    //     }).fail(function(response) {
+    //         console.log(response.responseText);
+    //         console.log('Request failed: ' + response.statusText);
+    //     });
+    // });
 });
