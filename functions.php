@@ -244,7 +244,7 @@ function custom_search_field(){
 }
 add_action('wp_loaded','custom_search_field');
 
-function ddump($value) {
+function dd($value) {
 	echo '<pre>';
     var_dump($value);
     echo '</pre>';
