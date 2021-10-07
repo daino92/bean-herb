@@ -6,15 +6,21 @@
  *
  * @package Bean_&_Herb
  */
+
+$base_dir = get_template_directory_uri(); 
  
 if (get_locale() == "en_GB") : 
 	$baseLinkUrl = "../product-category";
     $giftProposalsHeader = "Gift ideas";
+    $giftProposalsURL = "/accessories-gifts";
     $kava = 7008;
+    $gift_card = 8491;
 else :
 	$baseLinkUrl = "product-category";
     $giftProposalsHeader = "Προτάσεις δώρων";
+    $giftProposalsURL = "/αξεσουαρ-ειδη-δωρου";
     $kava = 6857;
+    $gift_card = 8489;
 endif;
 
 $args = array(
@@ -22,7 +28,7 @@ $args = array(
     'orderby' => 'name',
     'order' => 'ASC',
     'hide_empty' => true,
-    'include' => $kava
+    'include' => array($gift_card, $kava)
 );
 
 $product_categories = get_categories($args); ?>
@@ -45,19 +51,14 @@ $product_categories = get_categories($args); ?>
                 >
                     <div class="gift-ideas__name"><?= $catName; ?></div>
                 </a>
-            <?php endforeach; 
+            <?php endforeach;
         ?>
-        <a class="individual-gift lazyload blur-up" style="background-image: url( );" href="<?= $baseLinkUrl . '/καβα';?>">
-            <div class="gift-ideas__name">
-                <?php if (get_locale() == "en_GB") : echo "Gift card"; else : echo "Κάρτα δώρου"; endif; ?>
-            </div>
-        </a>
-        <a class="individual-gift lazyload blur-up" style="background-image: url( );" href="<?= $baseLinkUrl . '/καβα';?>">
+        <a class="individual-gift lazyload blur-up" style="background-image: url(<?= $base_dir . '/dist/images/homepage/herbs.jpg' ?>);" href="">
             <div class="gift-ideas__name">
                 <?php if (get_locale() == "en_GB") : echo "Gifts"; else : echo "Μπαχαρικά κάθε μήνα για ένα χρόνο"; endif; ?>
             </div>
         </a>
-        <a class="individual-gift lazyload blur-up" style="background-image: url( );" href="<?= $baseLinkUrl . '/καβα';?>">
+        <a class="individual-gift lazyload blur-up" style="background-image: url(<?= $base_dir . '/dist/images/homepage/gift-proposal.jpg' ?>);" href="<?= $baseLinkUrl . $giftProposalsURL ?>">
             <div class="gift-ideas__name">
                 <?php if (get_locale() == "en_GB") : echo "Spices every month for a year"; else : echo "Προτάσεις δώρου"; endif; ?>
             </div>

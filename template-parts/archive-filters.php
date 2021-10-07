@@ -11,11 +11,16 @@
 if (get_locale() == "en_GB") : 
 	$all_products = 'All products';
     $product_cat_title = "Product Categories";
-    $exclude = array(15);
+    $uncategorized = 15;
+    $gift_card = 8491;
+    $exclude = array($uncategorized, $gift_card);
 else :
-	$all_products = 'Όλα τα προϊόντα';
+    $all_products = 'Όλα τα προϊόντα';
     $product_cat_title = "Κατηγορίες προϊόντων";
-    $exclude = array(6770, 35);
+    $no_category = 6770;
+    $uncategorized = 35;
+    $gift_card = 8489;
+    $exclude = array($no_category, $uncategorized, $gift_card);
 endif; 
 
 $cat_args = array(
