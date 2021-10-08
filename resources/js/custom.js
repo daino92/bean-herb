@@ -1,8 +1,10 @@
 document.addEventListener('click', function (event) {
+    var isModal = $("#productModal").is(":visible");
+    
     // weight inits
     var initialPrice = $("#initial__price").val();
     var minimumWeight = parseInt($("input[name='minimum__weight']").val());
-    var price = $("#weight_needed");
+    var price = isModal ? $("#productModal #weight_needed") : $("#weight_needed");
     var initialStep = parseInt(price.attr("data-step"));
     var currentStep = parseInt(price.attr("data-current-step"));
     var pricingUnit = $("input[name='pricingUnit']").val();
@@ -15,12 +17,10 @@ document.addEventListener('click', function (event) {
     }
 
     // pieces inits
-    var quantity = $("#quantity-pieces");
+    var quantity = isModal ? $("#productModal #quantity-pieces") : $("#quantity-pieces");
     var minQuantity = quantity.attr("min");
     var step = quantity.attr("step");
     var value = quantity.attr("value");
-
-    //var isModal = event.path[10].className === "modal popup";
 
     // weight funcs
     if (event.target.matches("#minus")) {
@@ -32,7 +32,7 @@ document.addEventListener('click', function (event) {
         var shownPrice = (initialPrice * stepper) / denominator;
         shownPrice = shownPrice.toFixed(2);
 
-        if (event.path[10].className === "modal popup") {
+        if (isModal) {
             $(".modal-content input[name='weight_needed']").val(currentStep);
             $(".modal-content #weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
         } else {
@@ -47,7 +47,8 @@ document.addEventListener('click', function (event) {
         currentStep = parseInt(price.attr("data-current-step"));
         var shownPrice = (initialPrice * stepper) / denominator;
         shownPrice = shownPrice.toFixed(2);
-        if (event.path[10].className === "modal popup") {
+
+        if (isModal) {
             $(".modal-content input[name='weight_needed']").val(currentStep);
             $(".modal-content #weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
         } else {
@@ -58,31 +59,23 @@ document.addEventListener('click', function (event) {
 
 	if (event.target.matches("#plus_pieces")) {
 		var nextVal = parseInt(value) + parseInt(step);
-        if (event.path[10].className === "modal popup") {
+        if (isModal) {
             var quantity = $(".modal-content #quantity-pieces");
-            // quantity.attr("value", nextVal);
-            // value = quantity.attr("value");
         } 
-        // else {
-        // }
-            quantity.attr("value", nextVal);
-            value = quantity.attr("value");
+
+        quantity.attr("value", nextVal);
+        value = quantity.attr("value");
 	}
 
 	if (event.target.matches("#minus_pieces")) {
 		if (value === minQuantity) return;
-
         var nextVal = parseInt(value) - parseInt(step);
         
-        if (event.path[10].className === "modal popup") {
+        if (isModal) {
             var quantity = $(".modal-content #quantity-pieces");
-            // quantity.attr("value", nextVal);
-            // value = quantity.attr("value");
         } 
-        // else {
-        // }
-            quantity.attr("value", nextVal);
-            value = quantity.attr("value");
+        quantity.attr("value", nextVal);
+        value = quantity.attr("value");
 	}
 }, false);
 
