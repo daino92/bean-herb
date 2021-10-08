@@ -7,8 +7,6 @@
  * @package Bean_&_Herb
  */
 
-$base_dir = get_template_directory_uri(); 
-
 if (get_theme_mod("Feature 1 URL"))      : $urlFeature1 = get_theme_mod("Feature 1 URL"); endif;
 if (get_theme_mod("Feature 1 text"))     : $textFeature1 = get_theme_mod("Feature 1 text"); endif;
 if (get_theme_mod("Feature 1 URL EN"))   : $urlFeature1EN = get_theme_mod("Feature 1 URL EN"); endif;
@@ -36,19 +34,19 @@ endif; ?>
 
 <section class="featuring">
     <div class="featuring__wrapper">
-        <a href="<?= $baseLinkUrl . "/" . $endLinkURL1; ?>">
+        <a href="<?= $baseLinkUrl . "/" . $endLinkURL1 ?>">
             <div class="featuring__inner-img"></div>
             <div class="featuring__inner-content">
                 <?php if (get_locale() == "en_GB") : echo $textFeature1EN; else : echo $textFeature1; endif; ?>
             </div>
         </a>
-        <a href="<?= $baseLinkUrl . "/" . $endLinkURL2; ?>">
+        <a href="<?= $baseLinkUrl . "/" . $endLinkURL2 ?>">
             <div class="featuring__inner-img"></div>
             <div class="featuring__inner-content">
                 <?php if (get_locale() == "en_GB") : echo $textFeature2EN; else : echo $textFeature2; endif; ?>
             </div>
         </a>
-        <a href="<?= $baseLinkUrl . "/" . $endLinkURL3; ?>">
+        <a href="<?= $baseLinkUrl . "/" . $endLinkURL3 ?>">
             <div class="featuring__inner-img"></div>
             <div class="featuring__inner-content">
                 <?php if (get_locale() == "en_GB") : echo $textFeature3EN; else : echo $textFeature3; endif; ?>

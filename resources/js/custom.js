@@ -20,6 +20,8 @@ document.addEventListener('click', function (event) {
     var step = quantity.attr("step");
     var value = quantity.attr("value");
 
+    //var isModal = event.path[10].className === "modal popup";
+
     // weight funcs
     if (event.target.matches("#minus")) {
         if (currentStep === minimumWeight) return;
@@ -29,8 +31,14 @@ document.addEventListener('click', function (event) {
         currentStep = parseInt(price.attr("data-current-step"));
         var shownPrice = (initialPrice * stepper) / denominator;
         shownPrice = shownPrice.toFixed(2);
-        $("input[name='weight_needed']").val(currentStep);
-        $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+
+        if (event.path[10].className === "modal popup") {
+            $(".modal-content input[name='weight_needed']").val(currentStep);
+            $(".modal-content #weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+        } else {
+            $("input[name='weight_needed']").val(currentStep);
+            $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+        }
     }
 
     if (event.target.matches("#plus")) {
@@ -39,22 +47,42 @@ document.addEventListener('click', function (event) {
         currentStep = parseInt(price.attr("data-current-step"));
         var shownPrice = (initialPrice * stepper) / denominator;
         shownPrice = shownPrice.toFixed(2);
-        $("input[name='weight_needed']").val(currentStep);
-        $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+        if (event.path[10].className === "modal popup") {
+            $(".modal-content input[name='weight_needed']").val(currentStep);
+            $(".modal-content #weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+        } else {
+            $("input[name='weight_needed']").val(currentStep);
+            $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+        }
     }
 
 	if (event.target.matches("#plus_pieces")) {
 		var nextVal = parseInt(value) + parseInt(step);
-        quantity.attr("value", nextVal);
-        value = quantity.attr("value");
+        if (event.path[10].className === "modal popup") {
+            var quantity = $(".modal-content #quantity-pieces");
+            // quantity.attr("value", nextVal);
+            // value = quantity.attr("value");
+        } 
+        // else {
+        // }
+            quantity.attr("value", nextVal);
+            value = quantity.attr("value");
 	}
 
 	if (event.target.matches("#minus_pieces")) {
 		if (value === minQuantity) return;
-        
+
         var nextVal = parseInt(value) - parseInt(step);
-        quantity.attr("value", nextVal);
-        value = quantity.attr("value");
+        
+        if (event.path[10].className === "modal popup") {
+            var quantity = $(".modal-content #quantity-pieces");
+            // quantity.attr("value", nextVal);
+            // value = quantity.attr("value");
+        } 
+        // else {
+        // }
+            quantity.attr("value", nextVal);
+            value = quantity.attr("value");
 	}
 }, false);
 

@@ -7,9 +7,6 @@
  * @package Bean_&_Herb
  */
 
- 
-$base_dir = get_template_directory_uri(); 
-
 if (get_theme_mod("Banner 1"))          : $bgImageBanner1 = get_theme_mod("Banner 1"); endif;
 if (get_theme_mod("Banner 1 URL"))      : $urlBanner1 = get_theme_mod("Banner 1 URL"); endif;
 if (get_theme_mod("Banner 1 URL EN"))   : $urlBanner1EN = get_theme_mod("Banner 1 URL EN"); endif;
@@ -46,7 +43,7 @@ $frontPageCarousels = get_posts($args); ?>
     <div class="banner-wrapper">
         <ul class="left-column">
             <?php foreach ($frontPageCarousels as $carousel) : setup_postdata($carousel); ?>
-                <li id="carousel__<?= $carousel->ID; ?>">
+                <li id="carousel__<?= $carousel->ID ?>">
                     <?php 
                         foreach(get_post_meta($carousel->ID) as $key => $val) :
                             foreach($val as $vals) :
@@ -60,27 +57,27 @@ $frontPageCarousels = get_posts($args); ?>
             <?php endforeach; wp_reset_postdata(); ?>
         </ul>
         <div class="right-column">
-            <a href="<?= $baseLinkUrl . "/" . $endLinkURL1; ?>" class="upper-banner">
+            <a href="<?= $baseLinkUrl . "/" . $endLinkURL1 ?>" class="upper-banner">
                 <img class="lazyload" 
-                    alt="<?= $endLinkURL1; ?>" 
-                    title="<?= $endLinkURL1; ?>" 
+                    alt="<?= $endLinkURL1 ?>" 
+                    title="<?= $endLinkURL1 ?>" 
                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-                    data-src="<?= $bgImageBanner1; ?>" />
+                    data-src="<?= $bgImageBanner1 ?>" />
             </a>
             <div class="lower-banners">
-                <a href="<?= $baseLinkUrl . "/" . $endLinkURL2; ?>">
+                <a href="<?= $baseLinkUrl . "/" . $endLinkURL2 ?>">
                     <img class="lazyload" 
-                        alt="<?= $endLinkURL2; ?>" 
-                        title="<?= $endLinkURL2; ?>" 
+                        alt="<?= $endLinkURL2 ?>" 
+                        title="<?= $endLinkURL2 ?>" 
                         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-                        data-src="<?= $bgImageBanner2; ?>" />
+                        data-src="<?= $bgImageBanner2 ?>" />
                 </a>
-                <a href="<?= $baseLinkUrl . "/" . $endLinkURL3; ?>">
+                <a href="<?= $baseLinkUrl . "/" . $endLinkURL3 ?>">
                     <img class="lazyload" 
-                        alt="<?= $endLinkURL3; ?>" 
-                        title="<?= $endLinkURL3; ?>" 
+                        alt="<?= $endLinkURL3 ?>" 
+                        title="<?= $endLinkURL3 ?>" 
                         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-                        data-src="<?= $bgImageBanner3; ?>" />
+                        data-src="<?= $bgImageBanner3 ?>" />
                 </a>
             </div>
         </div>

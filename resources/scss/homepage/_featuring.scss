@@ -24,29 +24,29 @@
 			margin-bottom: 3em;
 			
 			&:first-child {
-				background-image: url("../../resources/images/homepage/bag-bg.png");
+				background-image: url("../../dist/images/homepage/bag-bg.png");
 				background-color: $secondary;
 
 				.featuring__inner-img {
-					background-image: url("../../resources/images/homepage/bag.png");
+					background-image: url("../../dist/images/homepage/bag.png");
 				}
 			}
 	
 			&:nth-child(2) {
-				background-image: url("../../resources/images/homepage/box-bg.png");
+				background-image: url("../../dist/images/homepage/box-bg.png");
 				background-color: $primary;
 
 				.featuring__inner-img {
-					background-image: url("../../resources/images/homepage/box.png");
+					background-image: url("../../dist/images/homepage/box.png");
 				}
 			}
 	
 			&:nth-child(3) {
-				background-image: url("../../resources/images/homepage/flower-bg.png");
+				background-image: url("../../dist/images/homepage/flower-bg.png");
 				background-color: #B7BF10;
 
 				.featuring__inner-img {
-					background-image: url("../../resources/images/homepage/flower.png");
+					background-image: url("../../dist/images/homepage/flower.png");
 				}
 			}
 

@@ -24,29 +24,29 @@
 			margin-bottom: 3em;
 			
 			&:first-child {
-				background-image: url("../../resources/images/homepage/mask-bg.png");
+				background-image: url("../../dist/images/homepage/mask-bg.png");
 				background-color: $primary;
 
 				.featuring__inner-img {
-					background-image: url("../../resources/images/homepage/mask.png");
+					background-image: url("../../dist/images/homepage/mask.png");
 				}
 			}
 	
 			&:nth-child(2) {
-				background-image: url("../../resources/images/homepage/van-bg.png");
+				background-image: url("../../dist/images/homepage/van-bg.png");
 				background-color: $secondary;
 
 				.featuring__inner-img {
-					background-image: url("../../resources/images/homepage/van.png");
+					background-image: url("../../dist/images/homepage/van.png");
 				}
 			}
 	
 			&:nth-child(3) {
-				background-image: url("../../resources/images/homepage/van-bg.png");
+				background-image: url("../../dist/images/homepage/van-bg.png");
 				background-color: #B7BF10;
 
 				.featuring__inner-img {
-					background-image: url("../../resources/images/homepage/leaf.png");
+					background-image: url("../../dist/images/homepage/leaf.png");
 				}
 			}
 

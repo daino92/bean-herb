@@ -48,8 +48,8 @@ $categoryName = $product_categories[0]->cat_name;
 $args2 = array('category' => array($categoryName));
 $products = wc_get_products($args2); ?>
 
-<section id="featured-products__<?= $productType; ?>">
-    <h2 class="product__header"><?= $categories_header; ?></h2>
+<section id="featured-products__<?= $productType ?>">
+    <h2 class="product__header"><?= $categories_header ?></h2>
     <div class="product__wrapper">
         <?php 
             foreach ($products as $product) :
@@ -58,13 +58,13 @@ $products = wc_get_products($args2); ?>
                 $image = wp_get_attachment_image_src(get_post_thumbnail_id($productId), 'single-post-thumbnail')[0];
                 $productLink =  $baseLinkUrl . "/" . urldecode($product->get_slug()); ?>
                 <div>
-                    <a id="product__<?= $productType . '-' . $productId; ?>" class="individual-product lazyload blur-up lazy" 
+                    <a id="product__<?= $productType . '-' . $productId ?>" class="individual-product lazyload blur-up lazy" 
                         style="background-image: url('<?= $image; ?>');" 
-                        href="<?= $productLink; ?>"
-                        alt="<?= urldecode($product->get_slug()); ?>" 
-                        title="<?= urldecode($product->get_slug()); ?>"
+                        href="<?= $productLink ?>"
+                        alt="<?= urldecode($product->get_slug()) ?>" 
+                        title="<?= urldecode($product->get_slug()) ?>"
                     >
-                        <div class="product__name"><?= $productName; ?></div>
+                        <div class="product__name"><?= $productName ?></div>
                     </a>
                 </div>
             <?php endforeach;

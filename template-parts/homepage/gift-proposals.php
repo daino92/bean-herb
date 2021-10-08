@@ -42,14 +42,14 @@ $product_categories = get_categories($args); ?>
                 $id = $category->term_id;
                 $catLink =  $baseLinkUrl . "/" . urldecode($category->slug);
                 $thumbnailId = get_term_meta($id, 'thumbnail_id', true);
-                $image = wp_get_attachment_url($thumbnailId); ?>
+                $image = wp_get_attachment_url($thumbnailId) ?>
                 <a class="individual-gift lazyload blur-up lazy" 
-                    style="background-image: url(<?= $image; ?>);" 
-                    href="<?= $catLink; ?>" 
-                    alt="<?= urldecode($category->slug); ?>" 
-                    title="<?= urldecode($category->slug); ?>"
+                    style="background-image: url(<?= $image ?>);" 
+                    href="<?= $catLink ?>" 
+                    alt="<?= urldecode($category->slug) ?>" 
+                    title="<?= urldecode($category->slug) ?>"
                 >
-                    <div class="gift-ideas__name"><?= $catName; ?></div>
+                    <div class="gift-ideas__name"><?= $catName ?></div>
                 </a>
             <?php endforeach;
         ?>

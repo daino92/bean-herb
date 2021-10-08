@@ -14,14 +14,14 @@ if (get_locale() == "en_GB") :
     $newsletter__btn__name = "SIGN UP";
     $accept__terms_part1 = "I have read and accepted the terms of conditions";
     $accept__terms_part2 = "the terms of conditions";
+    $url = "terms-of-use/";
 else :
 	$newsletter__header = "εγγραφείτε στο NEWSLETTER μας!";
     $newsletter__btn__name = "ΕΓΓΡΑΦΗ";
     $accept__terms_part1 = "Έχω διαβάσει και συμφωνώ με τους";
     $accept__terms_part2 = "όρους χρήσης";
-endif; 
-
-?>
+    $url = "όροι-χρήσης/";
+endif; ?>
 
 <section id="instagram">
     <div class="instagram__banner">
@@ -34,16 +34,16 @@ endif;
 <section id="newsletter">
     <div class="newsletter__banner">
         <div class="newsletter__content">
-            <img src="<?= $base_dir; ?>/resources/images/homepage/frame.png" alt="woman-frame" width="184" height="242" />
+            <img src="<?= $base_dir ?>/dist/images/homepage/frame.png" alt="woman-frame" width="184" height="242" />
             <div class="newsletter__signup">
-                <div class="newsletter__header"><?= $newsletter__header; ?></div>
+                <div class="newsletter__header"><?= $newsletter__header ?></div>
                 <div class="newsletter__input">
                     <input class="newsletter__email" type="email" name="email" placeholder="Email" required="">
-                    <input class="newsletter__btn" type="submit" value="<?= $newsletter__btn__name; ?>">
+                    <input class="newsletter__btn" type="submit" value="<?= $newsletter__btn__name ?>">
                     <span>
                         <input id="terms" type="checkbox" value="1" required="">
                         <label for="terms">
-                            <?= $accept__terms_part1; ?> <a href="https://beanandherb.com/%cf%8c%cf%81%ce%bf%ce%b9-%cf%87%cf%81%ce%ae%cf%83%ce%b7%cf%82/"><?= $accept__terms_part2; ?></a>
+                            <?= $accept__terms_part1 ?> <a href="<?= $url ?>"><?= $accept__terms_part2 ?></a>
                         </label>
                     </span>
                 </div>

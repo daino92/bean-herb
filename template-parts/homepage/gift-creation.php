@@ -8,7 +8,7 @@
  */
 
 
-$base_dir = get_template_directory_uri(); ?>
+$base_dir = get_template_directory_uri() ?>
 
 <div class="gift-creation-bg">
     <div class="gift-creation-bg__header">
@@ -21,7 +21,7 @@ $base_dir = get_template_directory_uri(); ?>
     <div class="gift-creation-bg__content">
         <div class="gift-creation-bg__content--inner">
             <div class="gift-num">1</div>
-            <div class="gift-img lazyload blur-up" style="background: url('<?= $base_dir; ?>/resources/images/homepage/gift-box.png')"></div>
+            <div class="gift-img lazyload blur-up" style="background: url('<?= $base_dir ?>/dist/images/homepage/gift-box.png')"></div>
             <div class="content-message">
                 <?php if (get_locale() == "en_GB") : ?>
                     Select the gift package <br> you prefer and <br> cosmetics! <br>add to cart
@@ -32,7 +32,7 @@ $base_dir = get_template_directory_uri(); ?>
         </div>
         <div class="gift-creation-bg__content--inner">
             <div class="gift-num">2</div>
-            <div class="gift-img lazyload blur-up" style="background: url('<?= $base_dir; ?>/resources/images/homepage/bottles.png')"></div>
+            <div class="gift-img lazyload blur-up" style="background: url('<?= $base_dir ?>/dist/images/homepage/bottles.png')"></div>
             <div class="content-message">
                 <?php if (get_locale() == "en_GB") : ?>
                     Add your gifts to the basket<br> <span style="color: #E35205;">after reading the gift<br>package details</span>
@@ -43,7 +43,7 @@ $base_dir = get_template_directory_uri(); ?>
         </div>
         <div class="gift-creation-bg__content--inner">
             <div class="gift-num">3</div>
-            <div class="gift-img lazyload blur-up" style="background: url('<?= $base_dir; ?>/resources/images/homepage/input.png')"></div>
+            <div class="gift-img lazyload blur-up" style="background: url('<?= $base_dir ?>/dist/images/homepage/input.png')"></div>
             <div class="content-message">
                 <?php if (get_locale() == "en_GB") : ?>
                     Add the recipient's<br>address and<br>place the order
