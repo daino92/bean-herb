@@ -27,7 +27,8 @@ const path = {
     scripts: {
         src: 'resources/js/*.js',
         dest: 'dist/scripts',
-        watch: 'resources/js/*.js'
+        watch: 'resources/js/*.js',
+        srcLibs: 'resources/js/**.min.js'
     },
     svg: {
         src: 'resources/svg/*.svg',
@@ -72,7 +73,7 @@ function styles(){
 function scripts(){
     return src([
         path.scripts.src,
-        '!resources/js/**.min.js'
+        `!${path.scripts.srcLibs}`
         ])
         .pipe(dest(path.scripts.dest))
         .pipe(sourcemaps.init())
@@ -172,17 +173,23 @@ function copyFonts() {
         .pipe(dest(path.fonts.dest))
 }
 
+function jsLibs() {
+    return src(path.scripts.srcLibs)
+        .pipe(dest(path.scripts.dest))
+}
+
 exports.clean = clean;
 exports.css = styles;
 exports.js = scripts;
 exports.img = minifyImages;
 exports.svg = svg;
-exports.fonts = copyFonts;
+exports.jsLibs = jsLibs;
 exports.watcher = watcher;
 
 exports.default = series(
     clean,
     parallel(styles, scripts), 
+    jsLibs,
     copyFonts,
     minifyImages,
     svg,
