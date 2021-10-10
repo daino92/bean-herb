@@ -4,8 +4,8 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        padding-left: 2em;
-	    padding-right: 2em;
+        padding-left: 1em;
+	    padding-right: 1em;
         margin: 0 auto;
         max-width: $max__width;
 
@@ -20,7 +20,6 @@
             transition: all .3s ease;
             position: relative;
             text-decoration: none;
-            //border: 1px solid #CCC;
             border-bottom-right-radius: 10px;
 	        border-bottom-left-radius: 10px;
             background-color: transparent;
@@ -60,10 +59,7 @@
         &__wrapper {
             .individual-gift {
                 flex: 1 0 47%;
-
-                &:nth-child(odd) {
-                    margin-right: 10px;
-                }
+                margin-right: 10px;
             }
         }
     }
@@ -74,7 +70,6 @@
         &__wrapper {
             .individual-gift {
                 flex: 1 0 15%;
-                margin-right: 10px;
                 margin-top: 0;
 
                 &:last-child {

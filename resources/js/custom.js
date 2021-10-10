@@ -59,9 +59,8 @@ document.addEventListener('click', function (event) {
 
 	if (event.target.matches("#plus_pieces")) {
 		var nextVal = parseInt(value) + parseInt(step);
-        if (isModal) {
-            var quantity = $(".modal-content #quantity-pieces");
-        } 
+        
+        if (isModal) quantity = $(".modal-content #quantity-pieces");
 
         quantity.attr("value", nextVal);
         value = quantity.attr("value");
@@ -71,9 +70,8 @@ document.addEventListener('click', function (event) {
 		if (value === minQuantity) return;
         var nextVal = parseInt(value) - parseInt(step);
         
-        if (isModal) {
-            var quantity = $(".modal-content #quantity-pieces");
-        } 
+        if (isModal) quantity = $(".modal-content #quantity-pieces");
+
         quantity.attr("value", nextVal);
         value = quantity.attr("value");
 	}
@@ -201,7 +199,7 @@ $(document).mouseup(function(e) {
     }   
 });
 
-// quick view pop-up
+// Quick view pop-up
 $(document).on('click', '.close', function () {
     $('#productModal').fadeOut();
     $('body').removeClass('quick-view__no-scroll');
@@ -212,16 +210,6 @@ $(document).on('click', '#productModal', function (e) {
     $('#productModal').fadeOut();
     $('body').removeClass('quick-view__no-scroll');
 });
-
-// var timeout;
-// $(document).on('change', 'input.qty', function() {
-//     if (timeout !== undefined) clearTimeout(timeout);
-//     console.log(this)
-
-//     timeout = setTimeout(function() {
-//         $("[name='update_cart']").trigger("click");
-//     }, 100);
-// });
 
 $(document).on("click", ".cart-btn__minus", function() {
     var input = $(this).next("input.qty");
@@ -252,24 +240,54 @@ $(document).ready(function() {
     });
 });
 
-// toggle hamburger
+// Toggle hamburger
 $(".hamburger").on("click", function() {
 	$(".hamburger").toggleClass("is-active");
 });
 
 $(".widget_shopping_cart").prependTo('#page');
 
-// shop submenu
+// Inner dropdown menu eventPreventDefault for touch devices
+window.USER_IS_TOUCHING = false;
+window.addEventListener('touchstart', function onFirstTouch() {
+	USER_IS_TOUCHING = true;
+	// we only need to know once that a human touched the screen, so we can stop listening now
+	window.removeEventListener('touchstart', onFirstTouch, false);
+}, false);
+
+function is_touch_device() {
+	return 'ontouchstart' in window		// works on most browsers 
+	|| navigator.maxTouchPoints;		// works on IE10/11 and Surface
+};
+
+$('.main-navigation .big__menu').on('click', function(e) {
+	var target = $(e.target);
+	var parent = target.parent(); // the li
+	if (is_touch_device() || window.USER_IS_TOUCHING) {
+		if (target.hasClass("active")) {
+			//run default action of the link
+		}
+		else {
+			e.preventDefault();
+			//remove class active from all links
+			$('.main-navigation .big__menu.active').removeClass('active');
+			//set class active to current link
+			target.addClass("active");
+			parent.addClass("active");
+		}
+	}
+});
+
+// Remove class active from all links if li was clicked
+$('.big__menu').click(function(e) {
+	if (e.target == this) $(".active").removeClass('active');
+});
+
+// Shop submenu
 $(".big__menu").hover(function () {
-    $(".sub-category").addClass("hovered");
-    $(".big__menu .sub-menu").css("visibility", "visible");
-    $(".big__menu .sub-menu").css("transition", "opacity .6s;");
-    $(".big__menu .sub-menu").css("opacity", "1"); 
+    $(".big__menu .sub-menu").css({"visibility" : "visible", "transition" : "opacity .6s", "opacity" : "1"});
 }, function () {
-    $(".sub-category").removeClass("hovered");
-    $(".big__menu .sub-menu").css("visibility", "hidden");
-    $(".big__menu .sub-menu").css("transition", "opacity .6s;");
-    $(".big__menu .sub-menu").css("opacity", "0");
+    $(".big__menu .sub-menu").css({"visibility" : "hidden", "transition" : "opacity .6s", "opacity" : "0"});
 });
 
 // Custom lazyload script using Intersection Observer
@@ -347,7 +365,7 @@ $('.category__wrapper, .product__wrapper').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
     speed: 2000,
-    autoplay: true,
+    //autoplay: true,
     autoplaySpeed: 2500,
     dots: false,
     arrows: false,

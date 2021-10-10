@@ -4,8 +4,8 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        padding-left: 3em;
-	    padding-right: 3em;
+        padding-left: 1em;
+	    padding-right: 1em;
 
         .individual-product {
             display: flex;
@@ -19,8 +19,6 @@
             position: relative;
             text-decoration: none;
             margin-right: 10px;
-            //border: 1px solid #CCC;
-            //background-color: rgb(242, 229, 229);
             border-bottom-right-radius: 10px;
 	        border-bottom-left-radius: 10px;
             background-color: transparent;
@@ -43,14 +41,24 @@
     &__name {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         font-size: 17px;
         line-height: 1.1;
         text-align: center;
-        color: #FFF;
+        //color: #FFF;
+        color: $secondary;
         height: 3.2em;
-        background: linear-gradient(transparent,rgba(0, 0, 0, .5));
+        //background: linear-gradient(transparent,rgba(0, 0, 0, .5));
         width: 100%;
         padding: .5em;
+    }
+}
+
+@media all and (min-width: 768px) {
+    .product {
+        &__wrapper {
+            padding-left: 3em;
+	        padding-right: 3em;
+        }
     }
 }

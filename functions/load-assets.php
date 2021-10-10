@@ -61,6 +61,9 @@ function load_per_page() {
 	// var_dump($post); 
 	// echo "</pre>";
 
+	//wp_enqueue_script('bean-herb-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
+	if (is_singular() && comments_open() && get_option('thread_comments')) wp_enqueue_script('comment-reply');
+
 	if (!current_user_can('update_core')) {
 		wp_dequeue_style('wp-block-library');	// gutenberg plugin
 		wp_dequeue_style('wc-block-style'); 	// woocommerce block style
