@@ -323,3 +323,6 @@ function wp_kses_allowed_html_fn($allowedposttags, $context) {
     return $allowedposttags;
 }
 add_filter('wp_kses_allowed_html', 'wp_kses_allowed_html_fn', 10, 2);
+
+// Stop add-to-cart redirect
+add_filter('woocommerce_add_to_cart_redirect', 'wp_get_referer' , 100);
