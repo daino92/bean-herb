@@ -12,7 +12,7 @@ $categoryName = $catID[0]->name;
 $categorySlug = $catID[0]->slug; ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
+	<header class="page-header">
 		<?php
 			if (is_singular()) : the_title('<h1 class="entry-title">', '</h1>'); else : 
 				the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>'); endif; 
@@ -63,20 +63,7 @@ $categorySlug = $catID[0]->slug; ?>
 			</div>
 		</div>
 		<div class="single-post__recent">
-			<h3><?php if (get_locale() == "en_GB") : echo "Recent articles"; else : echo "Πρόσφατα άρθρα"; endif; ?></h3>
-			<ul>
-				<?php 
-					$query = new WP_Query(array (
-						'posts_per_page' => 3
-					)); 
-					while ($query->have_posts()) : $query->the_post(); ?>
-					<li>
-						<a href="<?php the_permalink() ?>">
-							<?php the_title(); ?>
-						</a>
-					</li>	
-				<?php endwhile; wp_reset_postdata(); ?>
-			</ul>
+			<?php the_widget('WP_Widget_Recent_Posts'); ?>
 		</div>
 	</div>
 

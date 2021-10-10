@@ -281,21 +281,22 @@ add_action('woocommerce_before_shop_loop_item', 'product_link_open', 10);
 // Modify product thumbail, adding h2 title inside
 function woocommerce_get_product_thumbnail($size = 'shop_catalog') {
 	global $post, $woocommerce;
-	//$output = '<div class="col-lg-4">';
+	$size = 10;
 
 	if (has_post_thumbnail()) {               
 		$backgroundImageUrl = get_the_post_thumbnail_url($post->ID, $size); 
-		$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$backgroundImageUrl.')">';
-		//$output .= get_the_post_thumbnail($post->ID, $size);
+		//$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$backgroundImageUrl.')">';
+		$output = '<div id="product-image-'.$post->ID.'">';
+		$output .= get_the_post_thumbnail($post->ID, $size);
 		$output .= '</div>';
 	} else {
 		$woocoomercePlaceholderUrl = wc_placeholder_img_src($size);
-		$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$woocoomercePlaceholderUrl.')">';
-		//$output = wc_placeholder_img($size);
+		$output = '<div id="product-image-'.$post->ID.'">';
+		//$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$woocoomercePlaceholderUrl.')">';
+		$output = wc_placeholder_img($size);
 		$output .= '</div>';
 	}  
-	$output .= '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';                     
-	//$output .= '</div>';
+	$output .= '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';
 	return $output;
 }
 
