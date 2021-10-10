@@ -365,7 +365,7 @@ $('.category__wrapper, .product__wrapper').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
     speed: 2000,
-    //autoplay: true,
+    autoplay: true,
     autoplaySpeed: 2500,
     dots: false,
     arrows: false,
