@@ -23,6 +23,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        .insta-gallery-feed {
+            max-width: $max__width;
+        }
     }
 }
 

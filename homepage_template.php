@@ -14,6 +14,7 @@ get_header(); ?>
 <div id="primary" class="content-area homepage">
 	<main id="main" class="site-main">
 		<?php if (have_posts()) :
+			bean_herb_post_thumbnail();
 			get_template_part('template-parts/homepage/frontpage-banner', get_post_type());
 			get_template_part('template-parts/homepage/product-categories', get_post_type());
 			get_template_part('template-parts/homepage/purple-banner', get_post_type());

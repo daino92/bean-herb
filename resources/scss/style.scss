@@ -137,6 +137,15 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 # Homepage
 --------------------------------------------------------------*/
 
+.homepage {
+	.post-thumbnail {
+		max-width: $max__width;
+		margin: 1em auto;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+}
+
 /*  Front banners
 --------------------------------------------- */
 @import "homepage/front-banners";
