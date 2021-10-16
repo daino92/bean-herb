@@ -9,8 +9,30 @@
 		flex-direction: column;
 	
 		> a {
-			display: flex;
 			justify-content: space-evenly;
+			padding-top: 3em;
+
+			.featuring__inner-img {
+				background-position: left;
+				padding-top: 5em;
+				padding-bottom: 5em;
+			}
+		}
+
+		> div {
+			justify-content: flex-end;
+			flex-direction: column;
+
+			.featuring__inner-img {
+				background-position: center;
+				padding-top: 3em;
+				padding-bottom: 4em;
+			}
+		}
+
+		> div,
+		> a {
+			display: flex;
 			align-items: center;
 			flex: 0 0 31%;
 			width: 100%;
@@ -18,48 +40,32 @@
 			background-repeat: no-repeat;
 			background-size: contain;
 			text-decoration: none;
-			padding-top: 3em;
 			padding-bottom: 3em;
 			margin-top: 3em;
 			margin-bottom: 3em;
 			
 			&:first-child {
-				background-image: url("../../dist/images/homepage/bag-bg.png");
 				background-color: $secondary;
-
-				.featuring__inner-img {
-					background-image: url("../../dist/images/homepage/bag.png");
-				}
 			}
 	
 			&:nth-child(2) {
-				background-image: url("../../dist/images/homepage/box-bg.png");
 				background-color: $primary;
-
-				.featuring__inner-img {
-					background-image: url("../../dist/images/homepage/box.png");
-				}
 			}
 	
 			&:nth-child(3) {
-				background-image: url("../../dist/images/homepage/flower-bg.png");
 				background-color: #B7BF10;
-
-				.featuring__inner-img {
-					background-image: url("../../dist/images/homepage/flower.png");
-				}
 			}
 
 			.featuring__inner-img {
-				background-position: left;
 				background-repeat: no-repeat;
 				background-size: contain;
 				width: 100%;
-				padding-top: 5em;
-				padding-bottom: 5em;
 			}
 
 			.featuring__inner-content {
+				display: flex;
+                align-items: flex-end;
+                text-align: center;
 				color: #FFF;
 				font-size: 1.2em;
 				line-height: 1.3;

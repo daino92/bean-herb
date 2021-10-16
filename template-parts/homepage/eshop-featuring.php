@@ -7,12 +7,12 @@
  * @package Bean_&_Herb
  */
 
-?>
+$base_dir = get_template_directory_uri() ?>
 
-<section class="eshop-featuring">
-    <div class="eshop-featuring__wrapper">
-        <div>
-            <div class="featuring__inner-img"></div>
+<section class="featuring">
+    <div class="featuring__wrapper">
+        <div class="lazyload blur-up lazy" style="background-image: url(<?= $base_dir .'/dist/images/homepage/mask-bg.png'?>)">
+            <div class="featuring__inner-img lazyload blur-up lazy" style="background-image: url(<?= $base_dir .'/dist/images/homepage/mask.png'?>)"></div>
             <div class="featuring__inner-content">
                 <?php if (get_locale() == "en_GB") : ?>
                     We stay safe!
@@ -21,8 +21,8 @@
                 <?php endif; ?>
             </div>
         </div>
-        <div>
-            <div class="featuring__inner-img"></div>
+        <div class="lazyload blur-up lazy" style="background-image: url(<?= $base_dir .'/dist/images/homepage/van-bg.png'?>)">
+            <div class="featuring__inner-img lazyload blur-up lazy" style="background-image: url(<?= $base_dir .'/dist/images/homepage/van.png'?>)"></div>
             <div class="featuring__inner-content">
                 <?php if (get_locale() == "en_GB") : ?>
                     FREE SHIPPING FOR<br>ORDERS OVER 35€
@@ -31,8 +31,8 @@
                 <?php endif; ?>
             </div>
         </div>
-        <div>
-            <div class="featuring__inner-img"></div>
+        <div class="lazyload blur-up lazy" style="background-image: url(<?= $base_dir .'/dist/images/homepage/van-bg.png'?>)">
+            <div class="featuring__inner-img lazyload blur-up lazy" style="background-image: url(<?= $base_dir .'/dist/images/homepage/leaf.png'?>)"></div>
             <div class="featuring__inner-content">
                 <?php if (get_locale() == "en_GB") : ?>
                     FRESHNESS GUARANTEE<br>for all our products

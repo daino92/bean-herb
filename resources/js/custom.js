@@ -365,10 +365,11 @@ $('.category__wrapper, .product__wrapper').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
     speed: 2000,
-    autoplay: true,
+    //autoplay: true,
     autoplaySpeed: 2500,
     dots: false,
-    arrows: false,
+    prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
+	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
     responsive: [
     {
       breakpoint: 1024,

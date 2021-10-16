@@ -27,7 +27,7 @@
 
     li {
         //height: 475px;
-        height: 255px;
+        //height: 255px;
     }
 }
 
@@ -57,46 +57,46 @@
     //width: calc((1140px /2) - .5em)
 }
 
-.left-column,
-.banner-wrapper .upper-banner,
-.banner-wrapper .lower-banners a {
-	border: 1px solid #CCC;
-}
+// .left-column,
+// .banner-wrapper .upper-banner,
+// .banner-wrapper .lower-banners a {
+// 	border: 1px solid #CCC;
+// }
 
-$max: 100;
-$step: 5;
+// $max: 100;
+// $step: 5;
 
-@for $i from 1 through ceil($max / $step) {
-    $value: ($i - 1) * $step + 1;
+// @for $i from 1 through ceil($max / $step) {
+//     $value: ($i - 1) * $step + 1;
     
-    @media all and (min-width: 766px + ($value * 1.6)) {
-        .left-column {
-            li {
-                height: 305px + ($value + 3px);
-            }
-        }
-    }
-}
+//     @media all and (min-width: 766px + ($value * 1.6)) {
+//         .left-column {
+//             li {
+//                 height: 305px + ($value + 3px);
+//             }
+//         }
+//     }
+// }
 
-@for $i from 1 through ceil($max / $step) {
-    $value: ($i - 1) * $step + 1;
+// @for $i from 1 through ceil($max / $step) {
+//     $value: ($i - 1) * $step + 1;
     
-    @media all and (min-width: 976px + ($value * 2)) {
-        .left-column {
-            li {
-                height: 401px + ($value);
-            }
-        }
-    }
-}
+//     @media all and (min-width: 976px + ($value * 2)) {
+//         .left-column {
+//             li {
+//                 height: 401px + ($value);
+//             }
+//         }
+//     }
+// }
 
-@media all and (min-width: 1115px) {
-    .left-column {
-        li {
-            height: 473px;
-        }
-    }
-}
+// @media all and (min-width: 1115px) {
+//     .left-column {
+//         li {
+//             height: 473px;
+//         }
+//     }
+// }
 
 @media all and (min-width: 768px) {
     .banner-wrapper {

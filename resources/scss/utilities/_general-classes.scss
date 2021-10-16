@@ -132,12 +132,12 @@
             vertical-align: middle;
             width: 28px;
             height: 28px;
-            opacity: 0;
+            opacity: 1;
             transition: all .3s;
 
-            &:hover {
-                opacity: 1;
-            }
+            // &:hover {
+            //     opacity: 1;
+            // }
             
         }
     }

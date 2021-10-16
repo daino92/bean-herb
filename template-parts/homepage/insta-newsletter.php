@@ -34,7 +34,12 @@ endif; ?>
 <section id="newsletter">
     <div class="newsletter__banner">
         <div class="newsletter__content">
-            <img src="<?= $base_dir ?>/dist/images/homepage/frame.png" alt="woman-frame" width="184" height="242" />
+            <img class="lazyload"
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="  
+                data-src="<?= $base_dir ?>/dist/images/homepage/frame.png" 
+                alt="woman-frame" 
+                width="184" 
+                height="242" />
             <div class="newsletter__signup">
                 <div class="newsletter__header"><?= $newsletter__header ?></div>
                 <div class="newsletter__input">

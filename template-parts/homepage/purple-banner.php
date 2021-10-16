@@ -8,15 +8,15 @@
  */
 
 
-$base_dir = get_template_directory_uri(); ?>
+$base_dir = get_template_directory_uri() ?>
 
 <div class="purple-bg">
     <div class="purple-bg__content">
         <div class="purple-bg__content--left">
-            <div class="lazyload blur-up" style="background: url('<?= $base_dir ?>/dist/images/homepage/papas.png')"></div>
+            <div class="lazyload blur-up lazy" style="background: url('<?= $base_dir ?>/dist/images/homepage/papas.png')"></div>
         </div>
         <div class="purple-bg__content--right">
-            <div class="lazyload blur-up" style="background: url('<?= $base_dir ?>/dist/images/logo.png')"></div>
+            <div class="lazyload blur-up lazy" style="background: url('<?= $base_dir ?>/dist/images/logo.png')"></div>
             <div class="content-message">
                 <?php if (get_locale() == "en_GB") : ?>
                     We carefully choose our products <br> from certified producers from <br> Greece and the whole world
