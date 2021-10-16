@@ -22,14 +22,14 @@ if (get_theme_mod("Feature 3 text EN"))  : $textFeature3EN = get_theme_mod("Feat
 
 if (get_locale() == "en_GB") : 
 	$baseLinkUrl = "../product-category";
-    $endLinkURL1 = isset($urlFeature1EN);
-    $endLinkURL2 = isset($urlFeature2EN);
-    $endLinkURL3 = isset($urlFeature3EN);
+    if (isset($urlFeature1EN)) : $endLinkURL1 = $urlFeature1EN; endif;
+    if (isset($urlFeature2EN)) : $endLinkURL2 = $urlFeature2EN; endif;
+    if (isset($urlFeature3EN)) : $endLinkURL2 = $urlFeature3EN; endif;
 else :
 	$baseLinkUrl = "product-category";
-    $endLinkURL1 = isset($urlFeature1);
-    $endLinkURL2 = isset($urlFeature2);
-    $endLinkURL3 = isset($urlFeature3);
+    if (isset($urlFeature1)) : $endLinkURL2 = $urlFeature1; endif;
+    if (isset($urlFeature2)) : $endLinkURL2 = $urlFeature2; endif;
+    if (isset($urlFeature3)) : $endLinkURL2 = $urlFeature3; endif;
 endif; ?>
 
 <section class="featuring">

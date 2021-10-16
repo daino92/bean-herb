@@ -19,14 +19,14 @@ if (get_theme_mod("Banner 3 URL EN"))   : $urlBanner3EN = get_theme_mod("Banner 
 
 if (get_locale() == "en_GB") : 
 	$baseLinkUrl = "../product-category";
-    $endLinkURL1 = isset($urlBanner1EN);
-    $endLinkURL2 = isset($urlBanner2EN);
-    $endLinkURL3 = isset($urlBanner3EN);
+    if (isset($urlBanner1EN)) : $endLinkURL1 = $urlBanner1EN; endif;
+    if (isset($urlBanner2EN)) : $endLinkURL2 = $urlBanner2EN; endif;
+    if (isset($urlBanner3EN)) : $endLinkURL3 = $urlBanner3EN; endif;
 else :
 	$baseLinkUrl = "product-category";
-    $endLinkURL1 = isset($urlBanner1);
-    $endLinkURL2 = isset($urlBanner2);
-    $endLinkURL3 = isset($urlBanner3);
+    if (isset($urlBanner1)) : $endLinkURL1 = $urlBanner1; endif;
+    if (isset($urlBanner2)) : $endLinkURL2 = $urlBanner2; endif;
+    if (isset($urlBanner3)) : $endLinkURL3 = $urlBanner3; endif;
 endif; 
 
 $args = array(
