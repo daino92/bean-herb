@@ -337,7 +337,6 @@ function intersectionObjerver() {
         document.addEventListener("scroll", lazyload, {passive: true});
         window.addEventListener("resize", lazyload, {passive: true});
         window.addEventListener("orientationChange", lazyload, {passive: true});
-        
     }
 }
 
@@ -365,7 +364,7 @@ $('.category__wrapper, .product__wrapper').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
     speed: 2000,
-    //autoplay: true,
+    autoplay: true,
     autoplaySpeed: 2500,
     dots: false,
     prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
