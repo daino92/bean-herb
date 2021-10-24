@@ -178,6 +178,30 @@
         margin-top: 1em;
         position: relative;
 
+        &.sale {
+            border: 2px solid $primary__alt;
+            border-radius: 5px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0; 
+                right: 0;
+                border-top: 80px solid $primary__alt;
+                border-left: 80px solid transparent;
+                width: 0;
+                z-index: 1;
+            }
+
+            .dis {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                z-index: 1;
+                color: #FFF;
+            }
+        }
+
         a {
             text-decoration: none;
 
