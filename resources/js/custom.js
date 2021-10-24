@@ -77,6 +77,32 @@ document.addEventListener('click', function (event) {
 	}
 }, false);
 
+const escapeRegExp = function(strToEscape) {
+    // Escape special characters for use in a regular expression
+    return strToEscape.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+};
+
+const trimChar = function(origString, charToTrim) {
+    charToTrim = escapeRegExp(charToTrim);
+    var regEx = new RegExp("^[" + charToTrim + "]+|[" + charToTrim + "]+$", "g");
+    return origString.replace(regEx, "");
+};
+
+// Figure out curent category from slug in URL and add 'current-cat' class to show it in the categories
+var currentURL = decodeURIComponent($(window.location)[0].href);
+var splitURL = currentURL.split('product-category');
+var slug = splitURL[splitURL.length - 1];
+
+if (slug.includes('page')) {
+    slug = slug.split('/')[1];
+} else if (slug.includes('orderby')) {
+    slug = slug.split('?')[0];
+    slug = trimChar(slug, "/");
+    if (slug.includes('/')) slug = slug.split('/')[1];
+} else {
+    slug = trimChar(slug, "/");
+}
+
 // Toggling child categories in product filters
 $('.cats-toggle').click(function() {
     if ($(this).next().hasClass('active')) {
@@ -121,18 +147,25 @@ $('.cat-item .cats').on('click', function() {
 
         // for active class
         $(this).parent().parent().find('li .cats').removeClass('current-cat');
+        $(this).parent().parent().parent().parent().find('li .cats').removeClass('current-cat');
+
         $(this).addClass('current-cat');
     }
-
-    $(".cat-item .cats").each(function(){
-        if ($(this).siblings('.children').hasClass('active')) {
-            $(this).siblings('.cats-toggle').addClass('active');
-        } else {
-            $(this).siblings('.cats-toggle').removeClass('active');
-        }	
-    });
 });
 
+$(".cat-item .cats").each(function() {
+    if ($(this).siblings('.children').hasClass('active')) {
+        $(this).siblings('.cats-toggle').addClass('active');
+    } else {
+        $(this).siblings('.cats-toggle').removeClass('active');
+    }
+
+    if ($(this).data('slug') === slug) {
+        $(this).addClass('current-cat');
+        $(this).trigger('click');
+        $(this).parent().parent().siblings('.cats').trigger('click');
+    }
+});
 
 // mail subscribe
 const email_regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -142,38 +175,6 @@ const email_regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+
 // 		$(this).click();
 // 	}
 // });
-
-
-const escapeRegExp = function(strToEscape) {
-    // Escape special characters for use in a regular expression
-    return strToEscape.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-};
-
-const trimChar = function(origString, charToTrim) {
-    charToTrim = escapeRegExp(charToTrim);
-    var regEx = new RegExp("^[" + charToTrim + "]+|[" + charToTrim + "]+$", "g");
-    return origString.replace(regEx, "");
-};
-
-// Figure out curent category from slug in URL and add 'current-cat' class to show it in the categories
-var currentURL = decodeURIComponent($(window.location)[0].href);
-var splitURL = currentURL.split('product-category');
-var slug = splitURL[splitURL.length - 1];
-
-if (slug.includes('page')) {
-    slug = slug.split('/')[1];
-} else if (slug.includes('orderby')) {
-    slug = slug.split('?')[0];
-    slug = trimChar(slug, "/");
-} else {
-    slug = trimChar(slug, "/");
-}
-
-$(".cat-item .cats").each(function(){
-    if ($(this).data('slug') === slug) {
-        $(this).addClass('current-cat')
-    }
-});
 
 $('.filters__area__sidebar--toggle').on('click', function() {
     $('.filters__area').toggleClass("filters--active");
