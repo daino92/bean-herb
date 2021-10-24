@@ -144,3 +144,22 @@ function featuring($wp_customize) {
 	endfor;
 }
 add_action('customize_register', 'featuring');
+
+function eshop_featuring($wp_customize) {
+	$wp_customize->add_section('eshop_featuring', array(
+		'title' => 'Eshop featuring'
+	));
+
+	for ($i = 1; $i <= 3; $i++) :
+		$wp_customize->add_setting("Eshop featuring ${i} text", array(
+			"default" => ""
+		));
+
+		$wp_customize->add_control(new WP_Customize_control($wp_customize, "Eshop featuring ${i} text", array(
+			"label" => "Eshop featuring ${i} text",
+			"section" => "eshop_featuring",
+			"settings" => "Eshop featuring ${i} text"
+		)));
+	endfor;
+}
+add_action('customize_register', 'eshop_featuring');
