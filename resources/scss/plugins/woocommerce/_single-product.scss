@@ -60,6 +60,18 @@
                         width: 85%;
                     }
                 }
+
+                .flex-control-nav {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 2em 0 0;
+                    cursor: pointer;
+
+                    li {
+                        list-style: none;
+                    }
+                }
             }
 
             .summary {
@@ -105,6 +117,38 @@
                 form.cart {
                     margin: 1em auto 0;
 	                width: 100%;
+
+                    .variations {
+                        tr {
+                            display: flex;
+                            justify-content: space-evenly;
+                            align-items: baseline;
+                            text-align: center;
+
+                            td.value {
+                                ul {
+                                    display: none;
+                                }
+    
+                                select {
+                                    display: block !important;
+                                    border-radius: 5px;
+                                    padding: .4em;
+                                }
+
+                                .reset_variations {
+                                    color: $primary__alt;
+                                    text-decoration: none;
+                                    display: block;
+                                    margin-top: 1em;
+
+                                    &:hover {
+                                        color: $secondary;
+                                    } 
+                                }
+                            }
+                        }
+                    }
                 }
 
                 #price_calculator {
@@ -321,12 +365,14 @@
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	justify-content: space-evenly;
+	//justify-content: space-evenly;
 	margin-top: 2em;
+    text-align: center;
 
     .individual-icon {
         flex: 0 0 35%;
-        width: calc(100% * (1/4));
+        //width: calc(100% * (1/4));
+        width: calc(100% * (1/2));
     }
 }
 
@@ -334,7 +380,8 @@
     .flex-product-icons {
         .individual-icon {
             flex: 0 0 21%;
-            width: calc(100% * (1/5));
+            //width: calc(100% * (1/5));
+            width: calc(100% * (1/2));
         }
     }
 }
@@ -361,12 +408,12 @@
     height: 42px;
 	width: 80%;
     cursor: pointer;
-	color: #FFF;
-	padding-top: 1em;
-	padding-bottom: 1em;
-	border-radius: 2px;
-	background-color: $primary;
-	border: 1px solid rgba(51, 51, 51, 0.11);
+	color: #FFF !important;
+	padding-top: 1em !important;
+	padding-bottom: 1em !important;
+	border-radius: 2px !important;
+	background-color: $primary !important;
+	border: 1px solid rgba(51, 51, 51, 0.11) !important;
 
     &:hover {
         background-color: $primary__alt;

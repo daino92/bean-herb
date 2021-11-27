@@ -70,6 +70,7 @@
             margin-top: 1em;
             display: inline-block;
             color: #949494;
+            visibility: hidden;
 
             input {
                 cursor: pointer;
@@ -78,6 +79,10 @@
             a {
                 color: #949494;
             }
+        }
+
+        #mc-embedded-subscribe {
+            display: none;
         }
     }
 
@@ -96,19 +101,17 @@
     }
 
     &__btn {
-        background: $primary !important;
-        color: #FFF !important;
+        background: $primary;
+        color: #FFF;
         position: absolute;
-        right: .5px;
+        right: 0;
         top: 0;
-        border: 2px solid $secondary !important;
-        padding-top: 0.75em !important;
-	    padding-bottom: 0.75em !important;
+        border: 2px solid $secondary;
+        padding: .5em;
         cursor: pointer;
-        border-radius: 0 !important;
 
         &:hover {
-            background-color: $primary__alt !important;
+            background-color: $primary__alt;
         }
     }
 }

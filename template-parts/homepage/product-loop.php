@@ -68,7 +68,7 @@ endif; ?>
                                 alt="<?= urldecode($product->get_slug()) ?>" 
                                 title="<?= urldecode($product->get_slug()) ?>"
                             ></a>
-                            <div class="product__name"><?= $productName ?></div>
+                            <a href="<?= $productLink ?>" class="product__name"><?= $productName ?></a>
                         </div>
                     <?php endforeach;
                 ?>

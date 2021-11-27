@@ -169,12 +169,13 @@ $(".cat-item .cats").each(function() {
 
 // mail subscribe
 const email_regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-// var email = $('.newsletter__email').val();
-// $('.newsletter__btn').on('click', function() {
-// 	if(email.length > 0 && email_regex.test(email)) {
-// 		$(this).click();
-// 	}
-// });
+$('.newsletter__btn').on('click', function() {
+    var email = $('#mce-EMAIL').val();
+
+	if(email.length > 0 && email_regex.test(email)) {
+        $('#mc-embedded-subscribe').click();
+	}
+});
 
 $('.filters__area__sidebar--toggle').on('click', function() {
     $('.filters__area').toggleClass("filters--active");
@@ -364,10 +365,11 @@ $('.category__wrapper, .product__wrapper').slick({
     lazyLoad: 'ondemand',
     slidesToShow: 6,
     slidesToScroll: 1,
-    speed: 2000,
+    speed: 1000,
     autoplay: true,
     autoplaySpeed: 2500,
     dots: false,
+    swipeToSlide: true,
     prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
 	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
     responsive: [

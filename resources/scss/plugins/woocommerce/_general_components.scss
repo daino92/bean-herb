@@ -1,3 +1,18 @@
+.woocommerce-notices-wrapper {
+    text-align: center;
+	margin: 2em;
+
+    .woocommerce-info {
+        background-color: #3D9CD2;
+        color: #FFF;
+        text-align: left;
+        margin: 0 auto;
+        width: 50%;
+        padding: 1em;
+        border-radius: 5px;
+    }
+}
+
 .woocommerce__general-bg-header {
     display: flex;
     position: relative;

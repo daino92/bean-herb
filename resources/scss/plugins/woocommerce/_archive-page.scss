@@ -175,7 +175,7 @@
 
     .product {
         text-align: center;
-        margin-top: 1em;
+        margin: 1em 1px 0;
         position: relative;
 
         &.sale {
@@ -266,7 +266,7 @@
     .products {
         &.columns-3 {
             .product {
-                flex: 0 0 33.333333%;
+                flex: 0 0 33%;
             }
         }
     }
