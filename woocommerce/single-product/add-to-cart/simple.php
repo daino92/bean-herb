@@ -39,9 +39,7 @@ if ($resultsProduct) :
 	endif;
 endif;
 
-// echo "<pre>";
-// var_dump($pricingUnit);
-// echo "</pre>";
+// dd($pricingUnit);
 
 if (get_locale() == "en_GB") : 
 	$unit = "gr.";

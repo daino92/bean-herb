@@ -32,7 +32,7 @@ if ($max_value && $min_value === $max_value) { ?>
 		esc_html__('Quantity', 'woocommerce');
 	$qty_minus = '<input type="button" value="-" class="quantity-control cart-btn__minus">'; 
 	$qty_plus = '<input type="button" value="+" class="quantity-control cart-btn__plus">';?>
-	<div class="quantity-section">
+	<div class="flex quantity-section">
 		<?php do_action('woocommerce_before_quantity_input_field'); ?>
 		<label class="screen-reader-text" for="<?php echo esc_attr($input_id); ?>">
 			<?php echo esc_attr($label); ?>

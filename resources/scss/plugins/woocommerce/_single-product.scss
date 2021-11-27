@@ -114,7 +114,7 @@
                     }
                 }
 
-                form.cart {
+                .cart {
                     margin: 1em auto 0;
 	                width: 100%;
 
@@ -145,6 +145,32 @@
                                     &:hover {
                                         color: $secondary;
                                     } 
+                                }
+                            }
+                        }
+                    }
+
+                    .single_variation_wrap {
+                        .variations_button {
+                            display: flex;
+                            flex-flow: column;
+
+                            .single_add_to_cart_button {
+                                justify-content: center;
+                                height: 42px;
+                                width: 75%;
+                                margin: 8px auto;
+                            }
+
+                            .yith-wcwl-add-to-wishlist {
+                                padding: 0 45px;
+
+                                .yith-wcwl-add-button {
+                                    margin-left: 8px;
+
+                                    .fa-heart-o:before {
+                                        padding: 6px 100px;
+                                    }
                                 }
                             }
                         }
@@ -324,37 +350,6 @@
         
             .price:after {
                 content: none;
-            }
-        }
-    }
-}
-
-@media all and (min-width: 768px) {
-    .single-product {
-        .type-product {
-            .single-product__main-body {
-                flex-flow: row wrap;
-
-                .summary {
-                    .product_title {
-                        padding: 0;
-                    }
-
-                    .woocommerce-product-details__short-description {
-                        p {
-                            padding: 0;
-                        }
-                    }
-
-                    .price {
-                        padding: 0 0 .5em;
-                
-                        &:after {
-                            left: 0;
-                            width: 55px;
-                        }
-                    }
-                }
             }
         }
     }
@@ -560,5 +555,60 @@
 
     .cart-wishlist {
         margin-top: 0;
+    }
+
+    .single-product {
+        .product {
+            .single-product__main-body {
+                flex-flow: row wrap;
+                
+                .summary {
+                    .product_title {
+                        padding: 0;
+                    }
+
+                    .woocommerce-product-details__short-description {
+                        p {
+                            padding: 0;
+                        }
+                    }
+
+                    .price {
+                        padding: 0 0 .5em;
+                
+                        &:after {
+                            left: 0;
+                            width: 55px;
+                        }
+                    }
+
+                    .cart {
+                        .single_variation_wrap {
+                            .variations_button {
+                                flex-flow: row nowrap;
+                                align-items: flex-start;
+    
+                                .single_add_to_cart_button {
+                                    width: 6em;
+                                }
+    
+                                .yith-wcwl-add-to-wishlist {
+                                    margin-top: 13px !important;
+                                    padding: 0;
+    
+                                    .yith-wcwl-add-button {
+                                        margin-left: 0;
+    
+                                        .fa-heart-o:before {
+                                            padding: 5px 10px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }   
+        }
     }
 }
