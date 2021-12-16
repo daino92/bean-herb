@@ -1,0 +1,91 @@
+// Accordion
+@media all and (min-width: 640px) {
+    .accordion {
+        display: none
+    }
+}
+
+@media all and (max-width: 640px) {
+    .big__menu {
+        display: none;
+    }
+
+    #shop-menu {
+        list-style: none;
+        padding: 10px;
+        margin: 0 0 10px;
+
+        .sub-menu {
+            display: none;
+            margin: 0;
+            box-shadow: none;
+            //background-color: $primary;
+            background-color: #FFF;
+        }
+   
+        li {
+            //background-color: $primary;
+            padding: 6px 1em 6px;
+            list-style: none;
+
+
+            ul {
+                li {
+                    a {
+                        padding: 0;
+                        text-align: left;
+                    }
+                }
+            }
+
+            a {
+                color: $secondary;
+                text-decoration: none;
+            }
+    
+            .toggle {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-radius: 8px;
+                transition: background .3s ease;
+                cursor: pointer;
+                width: 280px;
+                text-align: left;
+                outline: none;
+                margin: 0 auto;
+                padding: 6px 2em 6px;
+    
+                svg {
+                    width: 23px;
+                    height: 23px;
+                    fill: $secondary;
+                }
+    
+                .minus-svg {
+                    display: none;
+                }
+    
+                .plus-svg {
+                    display: block;
+                }
+    
+                &.active {
+                    .minus-svg {
+                        display: block;
+                    }
+    
+                    .plus-svg {
+                        display: none;
+                    }
+                }
+    
+                // &:hover,
+                // &.active {
+                //     background-color: $primary__alt;
+                //     padding: 4px 9px;
+                // }
+            }
+        }
+    }
+}

@@ -9,7 +9,13 @@
  * @package Bean_&_Herb
  */
 
-global $asset_version; ?>
+global $asset_version; 
+
+if (get_locale() == "en_GB") : 
+	$subMenu = "Shop";
+else: 
+	$subMenu = "Κατάστημα";
+endif; ?>
 
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -59,6 +65,21 @@ global $asset_version; ?>
 		</div>
 
 		<nav id="collapseMenu" class="main-navigation collapse">
-			<?php wp_nav_menu(array('theme_location' => 'menu-1', 'menu_id' => 'primary-menu', 'container' => false)); ?>
+			<?php 
+				wp_nav_menu(array('theme_location' => 'menu-1', 'menu_id' => 'primary-menu')); ?>
+
+				<div id="shop-menu" class="accordion">
+					<?php wp_nav_menu(
+							array(
+								'theme_location' => 'menu-1', 
+								'submenu' => $subMenu,
+								'menu_id' => 'shop-menu', 
+								'menu_class' => 'accordion',
+								'items_wrap' => '%3$s',
+								'container' => ''
+							)
+						); 
+					?>
+				</div>
 		</nav>
 	</header>

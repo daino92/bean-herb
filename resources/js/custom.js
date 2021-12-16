@@ -249,41 +249,76 @@ $(".hamburger").on("click", function() {
 
 $(".widget_shopping_cart").prependTo('#page');
 
+$("#shop-menu")
+    .find("> li > a")
+    .addClass("toggle")
+    .attr('href', 'javascript:void(0);')
+    .append(`
+        <svg class="plus-svg">
+			<use xlink:href="#plus"></use>
+		</svg>
+        <svg class="minus-svg">
+            <use xlink:href="#minus"></use>
+        </svg>
+    `);
+
+$('#shop-menu').appendTo('#primary-menu');
+
+$('.toggle').click(function() {
+    if ($(this).next().hasClass('active')) {
+        $(this).next().removeClass('active');
+        $(this).next().slideUp(600);
+    } else {
+        $(this).parent().parent().find('li .sub-menu').removeClass('active');
+        $(this).parent().parent().find('li .sub-menu').slideUp(600);
+        $(this).next().toggleClass('active');
+        $(this).next().slideToggle(600);
+    }
+
+    $(".toggle").each(function(){
+        if ($(this).siblings('.sub-menu').hasClass('active')) {
+            $(this).parent().find('.toggle').addClass('active');
+        } else {
+            $(this).parent().find('.toggle').removeClass('active');
+        }	
+    });
+});
+
 // Inner dropdown menu eventPreventDefault for touch devices
-window.USER_IS_TOUCHING = false;
-window.addEventListener('touchstart', function onFirstTouch() {
-	USER_IS_TOUCHING = true;
-	// we only need to know once that a human touched the screen, so we can stop listening now
-	window.removeEventListener('touchstart', onFirstTouch, false);
-}, false);
+// window.USER_IS_TOUCHING = false;
+// window.addEventListener('touchstart', function onFirstTouch() {
+// 	USER_IS_TOUCHING = true;
+// 	// we only need to know once that a human touched the screen, so we can stop listening now
+// 	window.removeEventListener('touchstart', onFirstTouch, false);
+// }, false);
 
-function is_touch_device() {
-	return 'ontouchstart' in window		// works on most browsers 
-	|| navigator.maxTouchPoints;		// works on IE10/11 and Surface
-};
+// function is_touch_device() {
+// 	return 'ontouchstart' in window		// works on most browsers 
+// 	|| navigator.maxTouchPoints;		// works on IE10/11 and Surface
+// };
 
-$('.main-navigation .big__menu').on('click', function(e) {
-	var target = $(e.target);
-	var parent = target.parent(); // the li
-	if (is_touch_device() || window.USER_IS_TOUCHING) {
-		if (target.hasClass("active")) {
-			//run default action of the link
-		}
-		else {
-			e.preventDefault();
-			//remove class active from all links
-			$('.main-navigation .big__menu.active').removeClass('active');
-			//set class active to current link
-			target.addClass("active");
-			parent.addClass("active");
-		}
-	}
-});
+// $('.main-navigation .big__menu').on('click', function(e) {
+// 	var target = $(e.target);
+// 	var parent = target.parent(); // the li
+// 	if (is_touch_device() || window.USER_IS_TOUCHING) {
+// 		if (target.hasClass("active")) {
+// 			//run default action of the link
+// 		}
+// 		else {
+// 			e.preventDefault();
+// 			//remove class active from all links
+// 			$('.main-navigation .big__menu.active').removeClass('active');
+// 			//set class active to current link
+// 			target.addClass("active");
+// 			parent.addClass("active");
+// 		}
+// 	}
+// });
 
-// Remove class active from all links if li was clicked
-$('.big__menu').click(function(e) {
-	if (e.target == this) $(".active").removeClass('active');
-});
+// // Remove class active from all links if li was clicked
+// $('.big__menu').click(function(e) {
+// 	if (e.target == this) $(".active").removeClass('active');
+// });
 
 // Shop submenu
 $(".big__menu").hover(function () {
@@ -358,6 +393,17 @@ $('.left-column').slick({
     prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
 	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
 });
+
+// $('.flex-control-thumbs').slick({
+//     infinite: true,
+//     cssEase: 'linear',
+//     lazyLoad: 'ondemand',
+//     slidesToShow: 3,
+//     slidesToScroll: 1,
+//     autoplay: false,
+//     dots: false,
+//     swipeToSlide: true
+// })
 
 $('.category__wrapper, .product__wrapper').slick({
     infinite: true,
