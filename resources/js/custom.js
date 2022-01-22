@@ -394,16 +394,22 @@ $('.left-column').slick({
 	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
 });
 
-// $('.flex-control-thumbs').slick({
-//     infinite: true,
-//     cssEase: 'linear',
-//     lazyLoad: 'ondemand',
-//     slidesToShow: 3,
-//     slidesToScroll: 1,
-//     autoplay: false,
-//     dots: false,
-//     swipeToSlide: true
-// })
+
+$('.flex-control-nav').wrap('<div class="flex-control-nav flex-control-thumbs">').contents().unwrap();
+$('.flex-control-nav li').wrap('<div>').contents().unwrap();
+
+$('.flex-control-nav.flex-control-thumbs').slick({
+    infinite: true,
+    cssEase: 'linear',
+    lazyLoad: 'ondemand',
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: false,
+    dots: false,
+    swipeToSlide: true,
+    prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
+	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
+})
 
 $('.category__wrapper, .product__wrapper').slick({
     infinite: true,
