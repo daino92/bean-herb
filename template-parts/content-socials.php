@@ -21,6 +21,7 @@ endif; ?>
     <div class="top-bar--section partners">
         <a href="<?= $link; ?>/"><?= $associatesHeader; ?></a>
         <span><?= $ordersHeader; ?>: <a href="tel:<?php echo get_theme_mod("Shop phone"); ?>"><?php echo get_theme_mod("Shop phone"); ?></a></span>
+        <a href="mailto:info@beanandherb.com">@ info@beanandherb.com</a>
     </div>
     <div class="top-bar--section socials">
         <a title="Facebook" href="<?php echo get_option('facebook'); ?>" target="_blank" rel="noopener">

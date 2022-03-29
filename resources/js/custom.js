@@ -379,6 +379,20 @@ function intersectionObjerver() {
 
 intersectionObjerver();
 
+$("#search").on('click', function() {
+    $(".search-full-screen").addClass("opened");
+    //$(".search-full-screen").css("top", "181px");
+});
+
+$(".close-search").on('click', function() {
+    $(".search-full-screen").removeClass("opened");
+    $(".search-query").val("");
+    $('[class^="products columns-"]').empty();
+});
+
+const prevArrow = '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>';
+const nextArrow = '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>';
+
 $('.left-column').slick({
     infinite: true,
   	cssEase: 'linear',
@@ -390,8 +404,8 @@ $('.left-column').slick({
   	autoplaySpeed: 4000,
     dots: false,
   	fade: true,
-    prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
-	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
+    prevArrow,
+	nextArrow
 });
 
 
@@ -407,8 +421,8 @@ $('.flex-control-nav.flex-control-thumbs').slick({
     autoplay: false,
     dots: false,
     swipeToSlide: true,
-    prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
-	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
+    prevArrow,
+	nextArrow
 })
 
 $('.category__wrapper, .product__wrapper').slick({
@@ -422,8 +436,8 @@ $('.category__wrapper, .product__wrapper').slick({
     autoplaySpeed: 2500,
     dots: false,
     swipeToSlide: true,
-    prevArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>',
-	nextArrow: '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>',
+    prevArrow,
+	nextArrow,
     responsive: [
     {
       breakpoint: 1024,

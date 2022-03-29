@@ -175,6 +175,13 @@
 	display: none;
 }
 
+.fill-space {
+    position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
 
 /* Custom Spinner */
 .lds-ellipsis {
@@ -244,4 +251,14 @@
     100% {
         transform: translate(24px, 0);
     }
+}
+
+@keyframes wd-fadeInBottomShort {
+	from {
+		transform: translate3d(0,20px,0)
+	}
+
+	to {
+		transform: none
+	}
 }

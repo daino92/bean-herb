@@ -43,12 +43,10 @@ $args = array(
     'include' => $categoryId
 );
 
-$product_categories = get_categories($args);
-
-if (!empty($product_categories)) :
-    $categoryName = $product_categories[0]->cat_name;
-    $args2 = array('category' => array($categoryName));
-    $products = wc_get_products($args2); 
+$productCategories = get_categories($args)[0];
+if (!empty($productCategories)) :
+    $categorySlug = $productCategories->slug;
+    $products = wc_get_products(array('category' => array($categorySlug))); 
 endif; ?>
 
 <?php if (isset($products)) : ?>

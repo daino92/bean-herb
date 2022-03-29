@@ -1,6 +1,20 @@
 var url = ajax.ajaxUrl;
 var baseDir = ajax.baseDir;
 
+function delayEvent(fn, delay) {
+    var timer = null;
+    // this is the actual function that gets run.
+    return function(e) {
+      var self = this;
+      // if the timeout exists clear it
+      timer && clearTimeout(timer);
+      // set a new timout
+      timer = setTimeout(function() {
+        return fn.call(self, e);
+      }, delay || 200);
+    }
+}
+
 // AJAX for SVG sprite
 window.addEventListener('load', function(event) {
     var svgAjax = new XMLHttpRequest();
@@ -251,6 +265,62 @@ jQuery('document').ready(function($) {
             });
         }
     });
+
+    $("#homepage-search").on('keyup', delayEvent(function(e) {
+        var searchField = $('#homepage-search .search-query').val();
+ 
+        if (searchField.length > 2) {
+            switch (e.keyCode) {
+                case 9:
+                case 13:
+                case 16:
+                case 17:
+                case 18:
+                case 20:
+                case 21:
+                case 33:
+                case 34:
+                case 35:
+                case 36:
+                case 37:
+                case 38:
+                case 39:
+                case 40:
+                case 144:
+                case 145:
+                    e.preventDefault();
+                    return;
+                break;
+                default:
+                    $.ajax({
+                        url,
+                        type: 'POST',
+                        data: {
+                            action: 'ajax__searchHome',
+                            searchField
+                        },
+                        beforeSend: function() {
+                            $("#site-overlay").css("display", "block");
+                            $(".lds-ellipsis").css("display", "block");
+        
+                        },
+                    }).then(function(data) {  
+                        $('.search-results__wrapper').css('display', 'block');
+                        $('[class^="products columns-"]').html(data);
+        
+                        intersectionObjerver();
+        
+                        // hide ajax loading
+                        $("#site-overlay").css("display", "none");
+                        $(".lds-ellipsis").css("display", "none");
+                    }).fail(function(data) {
+                        console.log(data.responseText);
+                        console.log('Request failed: ' + data.statusText);
+                    });
+
+            }  
+        }
+    }, 800));
 
     $(document).on('click', '.quick-view__open-single-product', function (e) {
         e.preventDefault();

@@ -55,13 +55,42 @@ endif; ?>
 				<h1 class="site-title"><a href="<?= esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></h1>
 			</div>
 			<nav class="secondary-menu">
-				<div class="account">
-					<a alt="account" title="account" href="<?= urldecode(wc_get_page_permalink('myaccount')); ?>">
+				<div class="item" id="search">
+					<a alt="#" title="Search bar" href="javascript:void(0);">
+						<svg><use xlink:href="#search"></use></svg>
+					</a>
+				</div>
+				<div class="item">
+					<a alt="account" title="Account" href="<?= urldecode(wc_get_page_permalink('myaccount')); ?>">
 						<svg><use xlink:href="#user"></use></svg>
 					</a>
 				</div>
 				<?php if (function_exists('bean_herb_woocommerce_header_cart')) bean_herb_woocommerce_header_cart(); ?>
 			</nav>
+		</div>
+		<div class="search-full-screen fill-space">
+			<span class="close-search">
+				<svg><use xlink:href="#close"></use></svg>
+			</span>
+			<form role="search" method="get" class="searchform" id="homepage-search" action="#" onsubmit="event.preventDefault();">
+				<input type="text" class="search-query" id="myInputID"
+					placeholder="Αναζήτηση προϊόντων" 
+					value="" 
+					name="s" 
+					aria-label="Search" 
+					title="Αναζήτηση προϊόντων" 
+					autocomplete="off">
+			</form>
+			<div class="search-info-text">
+				<span>Πληκτρολογήστε το προϊόν που αναζητάτε. </span>
+			</div>
+			<div class="search-results__wrapper">
+				<div class="products__main-page">
+					<div class="products__area">
+						<div class="products columns-3"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<nav id="collapseMenu" class="main-navigation collapse">
