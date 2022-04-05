@@ -306,7 +306,7 @@ jQuery('document').ready(function($) {
                         },
                     }).then(function(data) {  
                         $('.search-results__wrapper').css('display', 'block');
-                        $('[class^="products columns-"]').html(data);
+                        $('.products__results .the__products').html(data);
         
                         intersectionObjerver();
         

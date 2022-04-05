@@ -565,44 +565,20 @@ add_action('wp_ajax_ajax__searchField', 'ajax__searchField_cb');
 
 /**
  * AJAX Callbacks
- * Ajax search field in archive-page.php
+ * Ajax search bar in header.php
  */
 function ajax__searchHome_cb() {
-    global $wooCatalogColumns, $wooCatalogRows;
-
     $searchField = (!empty($_POST['searchField'])) ? sanitize_text_field($_POST['searchField']) : '';
 
-    $catpage = get_query_var('paged') ? get_query_var('paged') : 1;
-
-    //products per page
-    $catnum = absint($wooCatalogColumns) * absint($wooCatalogRows);
-
-    $offset = ($catnum * $catpage) - $catnum;
-    
     $args = array(
         'post_type' => 'product',
         'post_status' => 'publish',
         'posts_per_page' => -1,
         's' =>  $searchField,
-        'number' => $catnum,
-        'offset' => $offset,
-        'paged' => $catpage
+        //'name' => $searchField
     );
     
     $loop = new WP_Query($args);
-    
-    $productCount = $loop->found_posts;
-
-    //total pages
-    $pages = $productCount / $catnum;
-
-    // Pagination params
-    $total = ceil($pages);
-    $current = max(1, $catpage);
-
-    // echo "<pre>"; 
-    // var_dump($searchField);
-    // echo "</pre>";
 
     if ($loop->have_posts()) :
         while ($loop->have_posts()) : 

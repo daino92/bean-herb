@@ -68,30 +68,7 @@ endif; ?>
 				<?php if (function_exists('bean_herb_woocommerce_header_cart')) bean_herb_woocommerce_header_cart(); ?>
 			</nav>
 		</div>
-		<div class="search-full-screen fill-space">
-			<span class="close-search">
-				<svg><use xlink:href="#close"></use></svg>
-			</span>
-			<form role="search" method="get" class="searchform" id="homepage-search" action="#" onsubmit="event.preventDefault();">
-				<input type="text" class="search-query" id="myInputID"
-					placeholder="Αναζήτηση προϊόντων" 
-					value="" 
-					name="s" 
-					aria-label="Search" 
-					title="Αναζήτηση προϊόντων" 
-					autocomplete="off">
-			</form>
-			<div class="search-info-text">
-				<span>Πληκτρολογήστε το προϊόν που αναζητάτε. </span>
-			</div>
-			<div class="search-results__wrapper">
-				<div class="products__main-page">
-					<div class="products__area">
-						<div class="products columns-3"></div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php get_template_part('template-parts/header-searchbar', get_post_type()); ?>
 
 		<nav id="collapseMenu" class="main-navigation collapse">
 			<?php 
