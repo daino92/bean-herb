@@ -77,7 +77,7 @@ $all_categories = get_categories($cat_args); ?>
                         <ul class="children" style="display: none;">
                             <?php foreach($sub_cats as $sub_category) : ?>
                                 <li class="cat-item cart-item-<?= $sub_category->term_id; ?>">
-                                    <a class="cats" data-product-count="<?= $sub_category->count ?>" data-slug="<?= urldecode($sub_category->slug); ?>" data-category="<?php echo $sub_category->term_id; ?>" href="<?php echo urldecode(get_term_link($sub_category->slug, 'product_cat')) ?>">
+                                    <a class="cat-children cats" data-product-count="<?= $sub_category->count ?>" data-slug="<?= urldecode($sub_category->slug); ?>" data-category="<?php echo $sub_category->term_id; ?>" href="<?php echo urldecode(get_term_link($sub_category->slug, 'product_cat')) ?>">
                                         <?php echo $sub_category->name; echo apply_filters('woocommerce_subcategory_count_html', ' <span class="cat-count">' . $sub_category->count . '</span>', $categoryId); ?> 
                                     </a>
                                 </li>

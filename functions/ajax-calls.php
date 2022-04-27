@@ -568,7 +568,27 @@ add_action('wp_ajax_ajax__searchField', 'ajax__searchField_cb');
  * Ajax search bar in header.php
  */
 function ajax__searchHome_cb() {
+    global $wpdb;
     $searchField = (!empty($_POST['searchField'])) ? sanitize_text_field($_POST['searchField']) : '';
+
+    // $productQuery = $wpdb->query( 
+	// 	$wpdb->prepare( 
+	// 		"SELECT * FROM $wpdb->posts 
+    //             WHERE post_type = 'product' 
+    //             AND post_status = 'publish' 
+    //             AND post_title 
+    //             LIKE '%${searchField}%'",
+	// 		$expiredTimestamp,
+	// 		$wpdb->esc_like($transient_name_prefix) . '%'
+	// 	)
+	// );
+    
+    //$productQuery = "SELECT * FROM $wpdb->posts WHERE post_type = 'product' AND post_status = 'publish' AND post_title LIKE '%${searchField}%'";
+    //$resultsProduct = $wpdb->get_results($productQuery, OBJECT); 
+    
+    // foreach ($resultsProduct as $product) {
+    //     $productName = $product->post_title;
+    // }   
 
     $args = array(
         'post_type' => 'product',
@@ -576,6 +596,7 @@ function ajax__searchHome_cb() {
         'posts_per_page' => -1,
         's' =>  $searchField,
         //'name' => $searchField
+        //'post_title' => `%${searchField}%`
     );
     
     $loop = new WP_Query($args);

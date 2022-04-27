@@ -93,7 +93,7 @@
 .products__main-page {
     display: flex; 
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     max-width: $max__width + 200;
     margin: 0 auto;
     padding-top: 4em;
