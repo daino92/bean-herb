@@ -7,12 +7,21 @@
  * @package Bean_&_Herb
  */
 
-?>
+if (get_locale() == "en_GB") : 
+    $associatesHeader = "Wholesale";
+    $ordersHeader = "Order by phone";
+    $link = "wholesale";
+else :
+    $associatesHeader = "Συνεργάτες χονδρικής";
+    $ordersHeader = "Τηλ. παραγγελίες";
+    $link = "sinergates";
+endif; ?>
 
 <div class="top-bar">
     <div class="top-bar--section partners">
-        <a href="https://beanandherb.com/sinergates/" class="">ΣΥΝΕΡΓΑΤΕΣ ΧΟΝΔΡΙΚΗΣ</a>
-        <span>ΤΗΛ. ΠΑΡΑΓΓΕΛΙΕΣ: <a href="tel:2114175770">2114175770</a></span>
+        <a href="<?= $link; ?>/"><?= $associatesHeader; ?></a>
+        <span><?= $ordersHeader; ?>: <a href="tel:<?php echo get_theme_mod("Shop phone"); ?>"><?php echo get_theme_mod("Shop phone"); ?></a></span>
+        <a href="mailto:info@beanandherb.com">@ info@beanandherb.com</a>
     </div>
     <div class="top-bar--section socials">
         <a title="Facebook" href="<?php echo get_option('facebook'); ?>" target="_blank" rel="noopener">

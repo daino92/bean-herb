@@ -6,10 +6,9 @@
  *
  * @package Bean_&_Herb
  */
-
 if (!defined('_S_VERSION')) {
 	// Replace the version number of the theme on each release.
-	define('_S_VERSION', '1.0.0');
+	define('_S_VERSION', '1.0.25');
 }
 
 if (!function_exists('bean_herb_setup')) :
@@ -52,7 +51,8 @@ if (!function_exists('bean_herb_setup')) :
 			array(
 				'menu-1' => esc_html__('Header', 'bean-herb'),
 				'menu-2' => esc_html__('Footer', 'bean-herb'),
-				'menu-3' => esc_html__('Categories', 'bean-herb')
+				'menu-3' => esc_html__('Categories', 'bean-herb'),
+				'menu-4' => esc_html__('Footer-submenu', 'bean-herb')
 			)
 		);
 
@@ -153,17 +153,14 @@ add_action('widgets_init', 'bean_herb_widgets_init');
 /**
  * Enqueue scripts and styles.
  */
-function bean_herb_scripts() {
-	wp_enqueue_style('bean-herb-style', get_template_directory_uri() . '/dist/styles/style.css', array(), _S_VERSION);
+//function bean_herb_scripts() {
+	//wp_enqueue_style('bean-herb-style', get_template_directory_uri() . '/dist/styles/style.css', array(), _S_VERSION);
 	//wp_style_add_data('bean-herb-style', 'rtl', 'replace');
+	//wp_enqueue_script('bean-herb-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 
-	wp_enqueue_script('bean-herb-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
-
-	if (is_singular() && comments_open() && get_option('thread_comments')) {
-		wp_enqueue_script('comment-reply');
-	}
-}
-add_action('wp_enqueue_scripts', 'bean_herb_scripts');
+	//if (is_singular() && comments_open() && get_option('thread_comments')) wp_enqueue_script('comment-reply');
+//}
+//add_action('wp_enqueue_scripts', 'bean_herb_scripts');
 
 /**
  * Implement the Custom Header feature.
@@ -242,11 +239,3 @@ function custom_search_field(){
     }
 }
 add_action('wp_loaded','custom_search_field');
-
-function ddump($args) {
-	$dumped .= "<pre>"; 
-	$dumped .= var_dump($args);
-	$dumped .= "</pre>";
-
-	return $dumped;
-}

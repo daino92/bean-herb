@@ -86,6 +86,103 @@
     }
 }
 
+#site-overlay {
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 9999;
+	background-color: rgba(0, 0, 0, .7);
+}
+
+#site-overlay.blurry {
+	display: block;
+	filter: blur(8px);
+}
+
+.blurry {
+	filter: blur(8px);
+}
+
+.visually-hidden {
+	background: #E60000;
+	border: none;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+.carousel-slick__control {
+    &--circle {
+        top: 50%;
+        display: block;
+        z-index: 1;
+        cursor: pointer;
+        position: absolute;
+        color: $primary__alt;
+
+        .icon {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 8px;
+            vertical-align: middle;
+            width: 28px;
+            height: 28px;
+            opacity: 1;
+            transition: all .3s;
+
+            // &:hover {
+            //     opacity: 1;
+            // }
+            
+        }
+    }
+
+    &--right {
+        right: 0;
+    }
+    
+    &--left {
+        left: 0;
+    }
+}
+
+.full-width {
+	padding: 12em 4% 5em;
+
+	article {
+		max-width: $max__width;
+		margin: 0 auto;
+	}
+
+    p {
+        color: #8B8D94;
+    }
+}
+
+.full-screen {
+	min-height: 150vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.hidden {
+	display: none;
+}
+
+.fill-space {
+    position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
 /* Custom Spinner */
 .lds-ellipsis {
     display: none;
@@ -94,9 +191,7 @@
 	top: 0;
 	left: 0;
 	position: fixed;
-	opacity: 0.7;
 	z-index: 99;
-	background-color: #000;
 
     div {
         top: 50%;
@@ -156,4 +251,14 @@
     100% {
         transform: translate(24px, 0);
     }
+}
+
+@keyframes wd-fadeInBottomShort {
+	from {
+		transform: translate3d(0,20px,0)
+	}
+
+	to {
+		transform: none
+	}
 }

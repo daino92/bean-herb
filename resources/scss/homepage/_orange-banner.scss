@@ -1,0 +1,70 @@
+.orange-bg {
+	width: 100%;
+	background-image: url("../../dist/images/homepage/orange-banner-mob.png");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding-top: 7em;
+	padding-bottom: 7em;
+	margin-top: 3em;
+	margin-bottom: 3em;
+
+	&__content {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		margin: 0 auto;
+		padding-top: 3em;
+		padding-bottom: 3em;
+
+		&--left {
+			div {
+				background-color: transparent !important;
+				background-size: contain !important;
+				background-repeat: no-repeat !important;
+				background-position: center !important;
+				width: 14em;
+				padding-top: 11em;
+			}
+		}
+
+		&--right {
+			flex-direction: column;
+			padding-top: 2em;
+		}
+
+		.content-message {
+			line-height: 1.4;
+			font-size: 1.4em;
+			color: #FFF;
+
+			a {
+				display: inline-block;
+				color: #FFF;
+				text-decoration: none;
+				margin-top: 1em;
+			}
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.orange-bg {
+		background-image: url("../../dist/images/homepage/orange-banner.png");
+		
+		&__content {
+			flex-direction: row;
+			
+			&--right {
+				padding-top: 0;
+			}
+	
+			&--left {
+				display: none;
+			}
+		}
+	}
+}

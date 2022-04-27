@@ -562,6 +562,63 @@ function ajax__searchField_cb() {
 }
 add_action('wp_ajax_nopriv_ajax__searchField', 'ajax__searchField_cb');
 add_action('wp_ajax_ajax__searchField', 'ajax__searchField_cb');
+
+/**
+ * AJAX Callbacks
+ * Ajax search bar in header.php
+ */
+function ajax__searchHome_cb() {
+    global $wpdb;
+    $searchField = (!empty($_POST['searchField'])) ? sanitize_text_field($_POST['searchField']) : '';
+
+    // $productQuery = $wpdb->query( 
+	// 	$wpdb->prepare( 
+	// 		"SELECT * FROM $wpdb->posts 
+    //             WHERE post_type = 'product' 
+    //             AND post_status = 'publish' 
+    //             AND post_title 
+    //             LIKE '%${searchField}%'",
+	// 		$expiredTimestamp,
+	// 		$wpdb->esc_like($transient_name_prefix) . '%'
+	// 	)
+	// );
+    
+    //$productQuery = "SELECT * FROM $wpdb->posts WHERE post_type = 'product' AND post_status = 'publish' AND post_title LIKE '%${searchField}%'";
+    //$resultsProduct = $wpdb->get_results($productQuery, OBJECT); 
+    
+    // foreach ($resultsProduct as $product) {
+    //     $productName = $product->post_title;
+    // }   
+
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        's' =>  $searchField,
+        //'name' => $searchField
+        //'post_title' => `%${searchField}%`
+    );
+    
+    $loop = new WP_Query($args);
+
+    if ($loop->have_posts()) :
+        while ($loop->have_posts()) : 
+            $loop->the_post();
+            remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+            $products = wc_get_template_part('content', 'product');
+        endwhile;
+    else :
+        $products =  __('<div class="no-products">Sorry, no products matched your search criteria</div>');
+    endif;
+
+    wp_reset_postdata();
+
+    echo $products;
+
+    wp_die();
+}
+add_action('wp_ajax_nopriv_ajax__searchHome', 'ajax__searchHome_cb');
+add_action('wp_ajax_ajax__searchHome', 'ajax__searchHome_cb');
         
 function QuickView__add_to_cart_cb() {
     $productId = apply_filters('woocommerce_add_to_cart_product_id', absint($_POST['productId']));

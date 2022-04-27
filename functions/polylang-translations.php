@@ -15,5 +15,13 @@ add_action('init', function() {
 
 		pll_register_string('Shop info', get_theme_mod('Shop info'), 'Footer Section', false);
 		pll_register_string('Working Times info', get_theme_mod('Working Times info'), 'Footer Section', false);
+
+		// General information
+		pll_register_string('Shop email', get_theme_mod('Shop email'), 'General Information', false);
+
+		// Eshop featuring
+		for ($i = 1; $i <= 3; $i++) :
+			pll_register_string("Eshop featuring ${i} text", get_theme_mod("Eshop featuring ${i} text"), 'Eshop featuring', false);
+		endfor;
 	}
 });

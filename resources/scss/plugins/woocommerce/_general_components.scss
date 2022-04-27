@@ -1,0 +1,61 @@
+.woocommerce-notices-wrapper {
+    text-align: center;
+	margin: 2em;
+
+    .woocommerce-info {
+        background-color: #3D9CD2;
+        color: #FFF;
+        text-align: left;
+        margin: 0 auto;
+        width: 50%;
+        padding: 1em;
+        border-radius: 5px;
+    }
+}
+
+.woocommerce__general-bg-header {
+    display: flex;
+    position: relative;
+    background-image: url("../../dist/images/shared/header-bg.png");
+	background-position: center;
+	background-size: cover;
+    min-height: 85px;
+
+    .woocommerce__general-bg-header__title {
+        font-size: 18px;
+        color: #FFF;
+        bottom: 1em;
+        text-transform: uppercase;
+        position: absolute;
+        text-align: center;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.page-header {
+    padding: 30px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column wrap;
+    background-color: rgba(0, 0, 0, .04);
+
+    .entry-title {
+        max-width: 1140px;
+        font-family: Roboto, Helvetica, Arial, Verdana, sans-serif;
+        font-size: 1.5em;
+        line-height: 1.4;
+    }
+}
+
+@media all and (min-width: 768px) {
+    .page-header {
+        .entry-title {
+            font-size: 2.1em;
+            line-height: 1.3;
+        }
+    }
+}

@@ -1,0 +1,107 @@
+/*** Hamburger ***/
+
+.hamburger {
+	transition-property: opacity, filter;
+	transition-duration: 0.15s;
+	transition-timing-function: linear;
+	background-color: transparent;
+	font: inherit;
+	color: inherit;
+	border: 0; 
+	order: 0;
+	padding: 1px 6px;
+
+	&.is-active {
+		.hamburger-inner,
+		.hamburger-inner::before,
+		.hamburger-inner::after {
+			background-color: $secondary; 
+		}
+	}
+
+	.hamburger-box {
+		height: 5px;
+		display: inline-block;
+		position: relative; 
+		width: 25px;
+		vertical-align: middle;
+	
+		
+		.hamburger-inner {
+			display: block;
+	
+			&::before, 
+			&::after {
+				content: "";
+				display: block; 
+			}
+			
+			&::before {
+				top: -8px; 
+			}
+			
+			&::after {
+				bottom: -8px; 
+			}
+		}
+	}
+}
+
+.hamburger:hover, 
+.hamburger.is-active:hover {
+	opacity: 0.7; 
+}
+
+.hamburger-inner, 
+.hamburger-inner::before, 
+.hamburger-inner::after {
+	width: 100%;
+	height: 0.1em;
+	background-color: $secondary;
+	position: absolute;
+	transition-property: transform;
+	transition-duration: 0.15s;
+	transition-timing-function: ease; 
+}
+
+/*** Spin ***/
+.hamburger--spin {
+	.hamburger-inner {
+		transition-duration: 0.22s;
+		transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); 
+
+		&::before {
+			transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in; 
+		}
+
+		&::after {
+			transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19); 
+		}
+	}
+
+	&.is-active {
+		.hamburger-inner {
+			transform: rotate(225deg);
+			transition-delay: 0.12s;
+			transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+			&::before {
+				top: 0;
+				opacity: 0;
+				transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out; 
+			}
+
+			&::after {
+				bottom: 0;
+				transform: rotate(-90deg);
+				transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); 
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: 640px) {
+	.hamburger {
+		display: none !important;
+	}
+}

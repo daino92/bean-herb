@@ -11,18 +11,25 @@
 if (get_locale() == "en_GB") : 
 	$all_products = 'All products';
     $product_cat_title = "Product Categories";
+    $uncategorized = 15;
+    $gift_card = 8491;
+    $exclude = array($uncategorized, $gift_card);
 else :
-	$all_products = 'Όλα τα προϊόντα';
+    $all_products = 'Όλα τα προϊόντα';
     $product_cat_title = "Κατηγορίες προϊόντων";
+    $no_category = 6770;
+    $uncategorized = 35;
+    $gift_card = 8489;
+    $exclude = array($no_category, $uncategorized, $gift_card);
 endif; 
 
 $cat_args = array(
-    'taxonomy'     => 'product_cat',
-    'orderby'      => 'name',
-    'show_count'   => 1,
-    'pad_counts'   => 1,
-    'hierarchical' => 1,
-    'hide_empty'   => 1
+    'taxonomy'      => 'product_cat',
+    'show_count'    => 1,
+    'pad_counts'    => 1,
+    'hierarchical'  => 1,
+    'hide_empty'    => 1,
+    'exclude'       => $exclude
 );
 $all_categories = get_categories($cat_args); ?>
 
@@ -45,7 +52,6 @@ $all_categories = get_categories($cat_args); ?>
                     'parent'       => $categoryId,
                     'child_of'     => 0,
                     'taxonomy'     => 'product_cat',
-                    'orderby'      => 'name',
                     'show_count'   => 1,
                     'pad_counts'   => 1,
                     'hierarchical' => 1,
@@ -71,7 +77,7 @@ $all_categories = get_categories($cat_args); ?>
                         <ul class="children" style="display: none;">
                             <?php foreach($sub_cats as $sub_category) : ?>
                                 <li class="cat-item cart-item-<?= $sub_category->term_id; ?>">
-                                    <a class="cats" data-product-count="<?= $sub_category->count ?>" data-slug="<?= urldecode($sub_category->slug); ?>" data-category="<?php echo $sub_category->term_id; ?>" href="<?php echo urldecode(get_term_link($sub_category->slug, 'product_cat')) ?>">
+                                    <a class="cat-children cats" data-product-count="<?= $sub_category->count ?>" data-slug="<?= urldecode($sub_category->slug); ?>" data-category="<?php echo $sub_category->term_id; ?>" href="<?php echo urldecode(get_term_link($sub_category->slug, 'product_cat')) ?>">
                                         <?php echo $sub_category->name; echo apply_filters('woocommerce_subcategory_count_html', ' <span class="cat-count">' . $sub_category->count . '</span>', $categoryId); ?> 
                                     </a>
                                 </li>

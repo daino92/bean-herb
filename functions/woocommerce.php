@@ -164,7 +164,7 @@ if (!function_exists('bean_herb_woocommerce_cart_link_fragment')) {
 	function bean_herb_woocommerce_cart_link_fragment($fragments) {
 		ob_start();
 		bean_herb_woocommerce_cart_link();
-		$fragments['a.cart-contents'] = ob_get_clean();
+		$fragments['.cart-contents'] = ob_get_clean();
 		return $fragments;
 	}
 }
@@ -179,16 +179,12 @@ if (!function_exists('bean_herb_woocommerce_cart_link')) {
 	 * @return void
 	 */
 	function bean_herb_woocommerce_cart_link() { ?>
-		<a class="cart-contents" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php esc_attr_e('View your shopping cart', 'bean-herb'); ?>">
+		<div class="cart-contents" title="<?php esc_attr_e('View your shopping cart', 'bean-herb'); ?>">
 			<svg>
 				<use xlink:href="#cart"></use>
 			</svg>
-			<span class="count">
-				<?php echo esc_html(WC()->cart->get_cart_contents_count()); ?>
-			</span>
-		</a>
-		<?php
-	}
+		</div>
+	<?php }
 }
 
 if (!function_exists('bean_herb_woocommerce_header_cart')) {
@@ -198,25 +194,14 @@ if (!function_exists('bean_herb_woocommerce_header_cart')) {
 	 * @return void
 	 */
 	function bean_herb_woocommerce_header_cart() {
-		if (is_cart()) {
-			$class = 'current-menu-item';
-		} else {
-			$class = '';
-		} ?>
-		<ul id="site-header-cart" class="site-header-cart">
-			<li class="<?php echo esc_attr($class); ?>">
-				<?php bean_herb_woocommerce_cart_link(); ?>
-			</li>
-			<li>
-				<?php
-					$instance = array(
-						'title' => '',
-					);
-
-					the_widget('WC_Widget_Cart', $instance); 
-				?>
-			</li>
-		</li>
+		if (is_cart()) : $class = 'current-menu-item'; else : $class = ''; endif; ?>
+		<div class="site-header-cart">
+			<?php 
+				bean_herb_woocommerce_cart_link();
+				$instance = array('title' => ''); 
+				the_widget('WC_Widget_Cart', $instance); 
+			?>
+		</div>
 		<?php
 	}
 }
@@ -295,22 +280,17 @@ add_action('woocommerce_before_shop_loop_item', 'product_link_open', 10);
 
 // Modify product thumbail, adding h2 title inside
 function woocommerce_get_product_thumbnail($size = 'shop_catalog') {
-	global $post, $woocommerce;
-	//$output = '<div class="col-lg-4">';
+	global $post;
+	$size = 10;
 
-	if (has_post_thumbnail()) {               
-		$backgroundImageUrl = get_the_post_thumbnail_url($post->ID, $size); 
-		$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$backgroundImageUrl.')">';
-		//$output .= get_the_post_thumbnail($post->ID, $size);
-		$output .= '</div>';
-	} else {
-		$woocoomercePlaceholderUrl = wc_placeholder_img_src($size);
-		$output = '<div id="archive-image-'.$post->ID.'" class="lazy blur-up" style="background: url('.$woocoomercePlaceholderUrl.')">';
-		//$output = wc_placeholder_img($size);
-		$output .= '</div>';
-	}  
-	$output .= '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';                     
-	//$output .= '</div>';
+	$output = '<div id="product-image-'.$post->ID.'">';
+		$output .= has_post_thumbnail() ? get_the_post_thumbnail($post->ID, $size) : wc_placeholder_img($post->ID, $size);
+	$output .= '</div>';
+	$output .= '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';
+	
+	//	$backgroundImageUrl = get_the_post_thumbnail_url($post->ID, $size); 
+	//	$woocoomercePlaceholderUrl = wc_placeholder_img_src($post->ID, $size);
+	
 	return $output;
 }
 
@@ -337,3 +317,6 @@ function wp_kses_allowed_html_fn($allowedposttags, $context) {
     return $allowedposttags;
 }
 add_filter('wp_kses_allowed_html', 'wp_kses_allowed_html_fn', 10, 2);
+
+// Stop add-to-cart redirect
+add_filter('woocommerce_add_to_cart_redirect', 'wp_get_referer' , 100);

@@ -1,0 +1,111 @@
+.homepage {
+    padding-bottom: 2em;
+}
+
+.banner-wrapper {
+    max-width: $max__width;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 2em auto;
+    padding-left: 1em;
+	padding-right: 1em;
+
+    img {
+        height: 100%;
+        width: 100%;
+        display: block;
+    }
+}
+
+.left-column {
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    overflow: hidden;
+
+    li {
+        //height: 475px;
+        //height: 255px;
+    }
+}
+
+.right-column {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-direction: column;
+    padding-top: .5em;
+}
+
+.lower-banners {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding-top: .5em;
+
+    a:nth-child(2) {
+        margin-left: .5em
+    }
+} 
+
+.left-column,
+.right-column {
+	flex: 0 1 100%;
+    //width: calc((1140px /2) - .5em)
+}
+
+// .left-column,
+// .banner-wrapper .upper-banner,
+// .banner-wrapper .lower-banners a {
+// 	border: 1px solid #CCC;
+// }
+
+// $max: 100;
+// $step: 5;
+
+// @for $i from 1 through ceil($max / $step) {
+//     $value: ($i - 1) * $step + 1;
+    
+//     @media all and (min-width: 766px + ($value * 1.6)) {
+//         .left-column {
+//             li {
+//                 height: 305px + ($value + 3px);
+//             }
+//         }
+//     }
+// }
+
+// @for $i from 1 through ceil($max / $step) {
+//     $value: ($i - 1) * $step + 1;
+    
+//     @media all and (min-width: 976px + ($value * 2)) {
+//         .left-column {
+//             li {
+//                 height: 401px + ($value);
+//             }
+//         }
+//     }
+// }
+
+// @media all and (min-width: 1115px) {
+//     .left-column {
+//         li {
+//             height: 473px;
+//         }
+//     }
+// }
+
+@media all and (min-width: 768px) {
+    .banner-wrapper {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .right-column {
+        padding-left: .5em;
+        padding-top: 0;
+    }
+}

@@ -1,0 +1,45 @@
+/**
+ * WooCommerce Wishlist
+ */
+
+.wishlist_table tfoot td, 
+.wishlist_table tr td.product-name, 
+.wishlist_table tr td.product-thumbnail, 
+.wishlist_table tr td.wishlist-name, 
+.wishlist_table tr td.wishlist-privacy {
+	text-align: center !important;
+}
+
+.wishlist_table {
+    width: 80%;
+    margin: 0 auto;
+
+    .product-name {
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+    }
+
+    .product-add-to-cart {
+        a.button {
+            display: flex !important;
+            order: 3;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            color: #FFF;
+            cursor: pointer;
+            width: 6em;
+            border-radius: 2px !important;
+            background-color: $primary !important;
+            padding: .7em .5em !important;
+            text-decoration: none;
+
+            &:hover {
+                background-color: $primary__alt !important;
+            }
+        }
+    }
+}
+

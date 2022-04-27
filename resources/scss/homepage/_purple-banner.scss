@@ -1,0 +1,80 @@
+.purple-bg {
+	width: 100%;
+	background-image: url("../../dist/images/homepage/purple-banner.png");
+	background-position: 50% 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding-top: 9em;
+	padding-bottom: 9em;
+	margin-top: 5em;
+	margin-bottom: 5em;
+
+	&__content {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		max-width: 750px;
+		margin: 0 auto;
+
+		&--left {
+			div {
+				background-color: transparent !important;
+				background-size: contain !important;
+				background-repeat: no-repeat !important;
+				background-position: center !important;
+				width: 10em;
+				padding-top: 10em;
+			}
+		}
+
+		&--right {
+			flex-direction: column;
+			padding-top: 2em;
+
+			div:first-child {
+				background-color: transparent !important;
+				background-size: contain !important;
+				background-repeat: no-repeat !important;
+				background-position: center !important;
+				width: 12em;
+				padding-top: 3em;
+			}
+			.logo-wrapper {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 15em;
+				margin: 0 auto;
+			}
+		}
+
+		&--left,
+		&--right {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex: 1 0 45%;
+		}
+
+		.content-message {
+			line-height: 1.4;
+			font-size: 1.4em;
+			margin-top: 1em;
+			color: #FFF;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.purple-bg {
+		&__content {
+			flex-direction: row;
+
+			&--right {
+				padding-top: 0;
+			}
+		}
+	}
+}

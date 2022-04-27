@@ -15,17 +15,12 @@ $woocommerce__color-info: #3d9cd2;
 /**
  * General WooCommerce components
  */
- @import "plugins/woocommerce/components";
+@import "plugins/woocommerce/components";
 
 /**
  * WooCommerce widgets
  */
 //@import "plugins/woocommerce/widgets";
-
-/**
- * Shop tables
- */
-@import "plugins/woocommerce/tables";
 
 /**
  * Products
@@ -35,17 +30,17 @@ $woocommerce__color-info: #3d9cd2;
 /**
  * Single product
  */
- @import "plugins/woocommerce/single-product";
+@import "plugins/woocommerce/single-product";
 
 /**
  * WooCommerce archive page
  */
- @import "plugins/woocommerce/archive-page";
+@import "plugins/woocommerce/archive-page";
 
 /**
  * WooCommerce archive filters
  */
- @import "plugins/woocommerce/archive-filters";
+@import "plugins/woocommerce/archive-filters";
 
 /**
  * WooCommerce pagination
@@ -56,6 +51,11 @@ $woocommerce__color-info: #3d9cd2;
  * WooCommerce Quick view
  */
 @import "plugins/woocommerce/quick-view";
+
+/**
+ * WooCommerce Quick view
+ */
+@import "plugins/woocommerce/wishlist";
 
 /**
  * WooCommerce Mini basket
@@ -75,9 +75,14 @@ $woocommerce__color-info: #3d9cd2;
 /**
  * Checkout
  */
- @import "plugins/woocommerce/checkout";
+@import "plugins/woocommerce/checkout";
 
  /**
   * Thank you
   */
-  @import "plugins/woocommerce/thankyou";
+@import "plugins/woocommerce/thankyou";
+
+/**
+  * General components
+  */
+@import "plugins/woocommerce/general_components";

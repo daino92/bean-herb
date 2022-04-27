@@ -1,0 +1,96 @@
+.gift-creation-bg {
+	width: 100%;
+	background-image: url("../../dist/images/homepage/gift-banner.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-top: 5em;
+	margin-bottom: 5em;
+
+    &__header {
+        font-size: 1.5em;
+        text-align: center;
+        color: #FFF;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    &__footer {
+        font-size: 1.5em;
+        text-align: center;
+        padding-top: 1em;
+
+        a {
+            text-decoration: none;
+            color: #FFF;
+            background-color: $primary;
+            padding: .5em 1.2em;
+            font-size: 20px;
+
+            &:hover {
+                background-color: $primary__alt;
+            }
+        }
+    }
+
+	&__content {
+		display: flex;
+		flex-wrap: wrap;
+        flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		max-width: 850px;
+		margin: 0 auto;
+        padding-bottom: 3em;
+
+        &--inner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .gift-num {
+                background: $primary;
+                color: #FFF;
+                border-radius: 100%;
+                width: 1.3em;
+                height: 1.3em;
+                font-size: 3em;
+                margin: 0 auto;
+                position: relative;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .gift-img {
+                background-color: transparent !important;
+				background-size: contain !important;
+				background-repeat: no-repeat !important;
+				background-position: center !important;
+				width: 10em;
+                padding-top: 5em;
+                margin-top: 2em;
+            }
+        }
+
+		.content-message {
+            font-size: 18px;
+			line-height: 1.4;
+            text-align: center;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            color: $secondary;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.gift-creation-bg {
+		&__content {
+			flex-direction: row;
+            align-items: flex-start;
+		}
+	}
+}

@@ -1,6 +1,20 @@
 var url = ajax.ajaxUrl;
 var baseDir = ajax.baseDir;
 
+function delayEvent(fn, delay) {
+    var timer = null;
+    // this is the actual function that gets run.
+    return function(e) {
+      var self = this;
+      // if the timeout exists clear it
+      timer && clearTimeout(timer);
+      // set a new timout
+      timer = setTimeout(function() {
+        return fn.call(self, e);
+      }, delay || 200);
+    }
+}
+
 // AJAX for SVG sprite
 window.addEventListener('load', function(event) {
     var svgAjax = new XMLHttpRequest();
@@ -39,7 +53,8 @@ jQuery('document').ready(function($) {
                 productCount
             },
             beforeSend: function() {
-               $(".lds-ellipsis").css("display", "block");
+                $("#site-overlay").css("display", "block");
+                $(".lds-ellipsis").css("display", "block");
             },
         }).then(function(data) {
             $('[class^="products columns-"]').html(data);
@@ -55,6 +70,7 @@ jQuery('document').ready(function($) {
             $('.products__ordering').prependTo('.products__area');
 
             // hide ajax loading
+            $("#site-overlay").css("display", "none");
             $(".lds-ellipsis").css("display", "none");
 
             window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}`);
@@ -103,7 +119,8 @@ jQuery('document').ready(function($) {
                 currentURL
             },
             beforeSend: function() {
-               $(".lds-ellipsis").css("display", "block");
+                $("#site-overlay").css("display", "block");
+                $(".lds-ellipsis").css("display", "block");
             },
         }).then(function(data) {    
             $('html, body').animate({
@@ -123,6 +140,7 @@ jQuery('document').ready(function($) {
             $('.products__ordering').prependTo('.products__area');
 
             // hide ajax loading
+            $("#site-overlay").css("display", "none");
             $(".lds-ellipsis").css("display", "none");
             
             if (searchField) {
@@ -163,7 +181,8 @@ jQuery('document').ready(function($) {
                 currentURL
             },
             beforeSend: function() {
-               $(".lds-ellipsis").css("display", "block");
+                $("#site-overlay").css("display", "block");
+                $(".lds-ellipsis").css("display", "block");
             },
         }).then(function(data) {  
             $('html, body').animate({
@@ -183,7 +202,8 @@ jQuery('document').ready(function($) {
             $('.products__ordering').prependTo('.products__area');
 
             // hide ajax loading
-            $(".lds-ellipsis").css("display", "none");;
+            $("#site-overlay").css("display", "none");
+            $(".lds-ellipsis").css("display", "none");
             
             if (searchField) {
                 window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
@@ -214,7 +234,8 @@ jQuery('document').ready(function($) {
                     orderby
                 },
                 beforeSend: function() {
-                $(".lds-ellipsis").css("display", "block");
+                    $("#site-overlay").css("display", "block");
+                    $(".lds-ellipsis").css("display", "block");
                 },
             }).then(function(data) {  
                 $('html, body').animate({
@@ -234,6 +255,7 @@ jQuery('document').ready(function($) {
                 $('.products__ordering').prependTo('.products__area');
 
                 // hide ajax loading
+                $("#site-overlay").css("display", "none");
                 $(".lds-ellipsis").css("display", "none");
                 
                 window.history.pushState("", "", link + `?paged=${pageNumber}&orderby=${orderby}&search=search-products&search-input=${searchField}`);
@@ -243,6 +265,62 @@ jQuery('document').ready(function($) {
             });
         }
     });
+
+    $("#homepage-search").on('keyup', delayEvent(function(e) {
+        var searchField = $('#homepage-search .search-query').val();
+ 
+        if (searchField.length > 2) {
+            switch (e.keyCode) {
+                case 9:
+                case 13:
+                case 16:
+                case 17:
+                case 18:
+                case 20:
+                case 21:
+                case 33:
+                case 34:
+                case 35:
+                case 36:
+                case 37:
+                case 38:
+                case 39:
+                case 40:
+                case 144:
+                case 145:
+                    e.preventDefault();
+                    return;
+                break;
+                default:
+                    $.ajax({
+                        url,
+                        type: 'POST',
+                        data: {
+                            action: 'ajax__searchHome',
+                            searchField
+                        },
+                        beforeSend: function() {
+                            $("#site-overlay").css("display", "block");
+                            $(".lds-ellipsis").css("display", "block");
+        
+                        },
+                    }).then(function(data) {  
+                        $('.search-results__wrapper').css('display', 'block');
+                        $('.products__results .the__products').html(data);
+        
+                        intersectionObjerver();
+        
+                        // hide ajax loading
+                        $("#site-overlay").css("display", "none");
+                        $(".lds-ellipsis").css("display", "none");
+                    }).fail(function(data) {
+                        console.log(data.responseText);
+                        console.log('Request failed: ' + data.statusText);
+                    });
+
+            }  
+        }
+    }, 800));
 
     $(document).on('click', '.quick-view__open-single-product', function (e) {
         e.preventDefault();
@@ -258,9 +336,11 @@ jQuery('document').ready(function($) {
                 id
             },
             beforeSend: function() {
+                $("#site-overlay").css("display", "block");
                 $(".lds-ellipsis").css("display", "block");
             }
         }).done(function (result) {
+            $("#site-overlay").css("display", "none");
             $(".lds-ellipsis").css("display", "none");
             $('#productModal > .modal-content').html(result + '<span class="close">&times;</span>');
             $('#productModal').fadeIn();
@@ -269,112 +349,130 @@ jQuery('document').ready(function($) {
         return false;
     });
 
-    $(document).on('click', '.modal-content .single_add_to_cart_button', function(e) {
-        e.preventDefault();
+    // $(document).on('click', '.modal-content .single_add_to_cart_button', function(e) {
+    //     e.preventDefault();
 
-        var $thisbutton = $(this),
-            $form = $thisbutton.closest('form.cart'),
-            id = $thisbutton.val(),
-            quantity = $form.find('input[name=quantity]').val() || 1,
-            productId = $form.find('input[name=product_id]').val() || id,
-            variationId = $form.find('input[name=variation_id]').val() || 0,
-            carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
-            currentLang = $('html')[0].getAttribute('lang');
-            productName = $('.single-product__main-body .product_title').text();
+    //     var $thisbutton = $(this),
+    //         $form = $thisbutton.closest('form.cart'),
+    //         id = $thisbutton.val(),
+    //         quantity = $form.find('input[name=quantity]').val() || 1,
+    //         productId = $form.find('input[name=product_id]').val() || id,
+    //         variationId = $form.find('input[name=variation_id]').val() || 0,
+    //         carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
+    //         currentLang = $('html')[0].getAttribute('lang');
+    //         productName = $('.single-product__main-body .product_title').text();
         
-        var displayCart, message; 
+    //     var displayCart, message; 
 
-        if (currentLang === "el") {
-            displayCart = "Προβολή καλαθιού";
-            message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
-        } else {
-            displayCart = "View basket";
-            message = `${productName} has been added to your basket.`;
-        }
+    //     if (currentLang === "el") {
+    //         displayCart = "Προβολή καλαθιού";
+    //         message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
+    //     } else {
+    //         displayCart = "View basket";
+    //         message = `${productName} has been added to your basket.`;
+    //     }
 
-        var successMessage = `<div class="woocommerce-message" role="alert">`;
-            successMessage += `<svg><use xlink:href="#check"></use></svg>`;
-            successMessage += `<div class="woocommerce-message-text">`;
-            successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
-            successMessage += `${message}</div></div>`;
+    //     var successMessage = `<div class="woocommerce-message" role="alert">`;
+    //         successMessage += `<svg><use xlink:href="#check"></use></svg>`;
+    //         successMessage += `<div class="woocommerce-message-text">`;
+    //         successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
+    //         successMessage += `${message}</div></div>`;
 
-        var data = {
-            action: 'add_to_cart',
-            productId,
-            productSku: "",
-            quantity,
-            variationId,
-        };
+    //     var data = {
+    //         action: 'add_to_cart',
+    //         productId,
+    //         productSku: "",
+    //         quantity,
+    //         variationId,
+    //     };
 
-        $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
+    //     $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
 
-        $.ajax({
-            url,
-            type: 'POST',
-            data,
-        }).done(function (response) {
-            $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
-            $('#productModal').fadeOut();
-            $(successMessage).appendTo('.woocommerce-notices-wrapper');
-        }).fail(function(response) {
-            console.log(response.responseText);
-            console.log('Request failed: ' + response.statusText);
-        });
-    });
+    //     $.ajax({
+    //         url,
+    //         type: 'POST',
+    //         data,
+    //     }).done(function (response) {
+    //         $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
+    //         $('#productModal').fadeOut();
+    //         $(successMessage).appendTo('.woocommerce-notices-wrapper');
+    //     }).fail(function(response) {
+    //         console.log(response.responseText);
+    //         console.log('Request failed: ' + response.statusText);
+    //     });
+    // });
 
-    $(document).on('click', '.single .single_add_to_cart_button', function(e) {
-        e.preventDefault();
+    // $(document).on('click', '.single .single_add_to_cart_button', function(e) {
+    //     e.preventDefault();
 
-        var $thisbutton = $(this),
-            $form = $thisbutton.closest('form.cart'),
-            id = $thisbutton.val(),
-            quantity = $form.find('input[name=quantity]').val() || 1,
-            productId = $form.find('input[name=product_id]').val() || id,
-            variationId = $form.find('input[name=variation_id]').val() || 0,
-            carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
-            currentLang = $('html')[0].getAttribute('lang');
-            productName = $('.single-product__main-body .product_title').text();
+    //     var $thisbutton = $(this),
+    //         $form = $thisbutton.closest('form.cart'),
+    //         id = $thisbutton.val(),
+    //         quantity = $form.find('input[name=quantity]').val() || 1,
+    //         productId = $form.find('input[name=product_id]').val() || id,
+    //         variationId = $form.find('input[name=variation_id]').val() || 0,
+    //         carUrl = decodeURIComponent(wc_add_to_cart_params.cart_url),
+    //         currentLang = $('html')[0].getAttribute('lang');
+    //         productName = $('.single-product__main-body .product_title').text();
+
+    //     var weightNeeded = $('input[name=weight_needed]').val(),
+    //     minimumWeight = $('input[name=minimum__weight]').val(),
+    //     pricingUnit = $('input[name=pricingUnit]').val(),
+    //     unit = $('input[name=unit]').val(),
+    //     measurementWeededUnit = $('input[name=_measurement_needed_unit]').val(),
+    //     measurementNeeded = $('input[name=_measurement_needed]').val();
         
-        var displayCart, message; 
+        
+        
+    //     var displayCart, message; 
 
-        if (currentLang === "el") {
-            displayCart = "Προβολή καλαθιού";
-            message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
-        } else {
-            displayCart = "View basket";
-            message = `${productName} has been added to your basket.`;
-        }
+    //     if (currentLang === "el") {
+    //         displayCart = "Προβολή καλαθιού";
+    //         message = `Το προϊόν ${productName} έχει προστεθεί στο καλάθι σας.`;
+    //     } else {
+    //         displayCart = "View basket";
+    //         message = `${productName} has been added to your basket.`;
+    //     }
 
-        var successMessage = `<div class="woocommerce-message" role="alert">`;
-            successMessage += `<svg><use xlink:href="#check"></use></svg>`;
-            successMessage += `<div class="woocommerce-message-text">`;
-            successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
-            successMessage += `${message}</div></div>`;
+    //     var successMessage = `<div class="woocommerce-message" role="alert">`;
+    //         successMessage += `<svg><use xlink:href="#check"></use></svg>`;
+    //         successMessage += `<div class="woocommerce-message-text">`;
+    //         successMessage += `<a href="${carUrl}" tabindex="1" class="button wc-forward">${displayCart}</a>`;
+    //         successMessage += `${message}</div></div>`;
 
-        var data = {
-            action: 'add_to_cart',
-            productId,
-            productSku: "",
-            quantity,
-            variationId,
-        };
+    //     var data = {
+    //         action: 'add_to_cart',
+    //         productId,
+    //         productSku: "",
+    //         quantity,
+    //         variationId,
+    //         weightNeeded,
+    //         minimumWeight,
+    //         weightNeeded,
+    //         pricingUnit,
+    //         unit,
+    //         measurementWeededUnit,
+    //         measurementNeeded
+    //     };
 
-        $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
+    //     $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
 
-        $.ajax({
-            url,
-            type: 'POST',
-            data,
-            beforeSend: function () {
-                $(".lds-ellipsis").css("display", "block");
-            },
-        }).done(function (response) {
-            $(".lds-ellipsis").css("display", "none");
-            $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
-            $(successMessage).appendTo('.woocommerce-notices-wrapper');
-        }).fail(function(response) {
-            console.log(response.responseText);
-            console.log('Request failed: ' + response.statusText);
-        });
-    });
+    //     $.ajax({
+    //         url,
+    //         type: 'POST',
+    //         data,
+    //         beforeSend: function () {
+    //             $("#site-overlay").css("display", "block");
+    //             $(".lds-ellipsis").css("display", "block");
+    //         },
+    //     }).done(function (response) {
+    //         $("#site-overlay").css("display", "none");
+    //         $(".lds-ellipsis").css("display", "none");
+    //         $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
+    //         $(successMessage).appendTo('.woocommerce-notices-wrapper');
+    //     }).fail(function(response) {
+    //         console.log(response.responseText);
+    //         console.log('Request failed: ' + response.statusText);
+    //     });
+    // });
 });

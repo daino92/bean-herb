@@ -109,6 +109,10 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------- */
 @import "utilities/lazyload";
 
+/* Accordion
+--------------------------------------------- */
+@import "utilities/accordion";
+
 /*--------------------------------------------------------------
 # Core
 --------------------------------------------------------------*/
@@ -120,3 +124,89 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /* Footer
 --------------------------------------------- */
 @import "core/footer";
+
+/* Hamburger
+--------------------------------------------- */
+@import "core/hamburger";
+
+/* Grid system
+--------------------------------------------- */
+@import "core/grid-system";
+
+/* Forms
+--------------------------------------------- */
+@import "core/forms";
+
+/*--------------------------------------------------------------
+# Homepage
+--------------------------------------------------------------*/
+
+.homepage {
+	.post-thumbnail {
+		max-width: $max__width;
+		margin: 1em auto;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+}
+
+/*  Search bar
+--------------------------------------------- */
+@import "homepage/search-bar";
+
+/*  Front banners
+--------------------------------------------- */
+@import "homepage/front-banners";
+
+/* Instagram feed - newsletter
+--------------------------------------------- */
+@import "homepage/insta-newsletter";
+
+
+/* Product categories
+--------------------------------------------- */
+@import "homepage/product-categories";
+
+/* Product loop
+--------------------------------------------- */
+@import "homepage/product_loop";
+
+/* Purple banner
+--------------------------------------------- */
+@import "homepage/purple-banner";
+
+/* Orange banner
+--------------------------------------------- */
+@import "homepage/orange-banner";
+
+/* Featuring
+--------------------------------------------- */
+@import "homepage/featuring";
+
+/* Gift ideas
+--------------------------------------------- */
+@import "homepage/gift-ideas";
+
+/* Gift creation
+--------------------------------------------- */
+@import "homepage/gift-creation";
+
+/* eshop featuring
+--------------------------------------------- */
+//@import "homepage/eshop-featuring";
+
+a[id*="product__cat-"].lazy,
+a[id*="product-"].lazy {
+	background-image: none !important;
+   	background-color: #FFF !important;
+}
+
+/*--------------------------------------------------------------
+# Contact page
+--------------------------------------------------------------*/
+@import "pages/contact";
+
+/*--------------------------------------------------------------
+# 404 page
+--------------------------------------------------------------*/
+@import "pages/404";
