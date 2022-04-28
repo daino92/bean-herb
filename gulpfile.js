@@ -1,6 +1,6 @@
 const { src, dest, watch, series, parallel } = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
-    sass = require('gulp-sass'),
+    sass = require('gulp-dart-sass'),
     postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
     cssnano = require('cssnano'),
