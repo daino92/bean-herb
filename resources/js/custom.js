@@ -1,266 +1,303 @@
-document.addEventListener('click', function (event) {
-    var isModal = $("#productModal").is(":visible");
-    
+document.addEventListener(
+  "click",
+  function (event) {
+    const isModal = $("#productModal").is(":visible");
+
     // weight inits
-    var initialPrice = $("#initial__price").val();
-    var minimumWeight = parseInt($("input[name='minimum__weight']").val());
-    var price = isModal ? $("#productModal #weight_needed") : $("#weight_needed");
-    var initialStep = parseInt(price.attr("data-step"));
-    var currentStep = parseInt(price.attr("data-current-step"));
-    var pricingUnit = $("input[name='pricingUnit']").val();
-    var unit = $("input[name='unit']").val();
-    
-    function findDenominator(unit, initialStep) {
-        if (unit === "g") return initialStep;
-        return 1000;
+    const initialPrice = $("#initial__price").val();
+    const minimumWeight = parseInt($("input[name='minimum__weight']").val());
+    let price = isModal
+      ? $("#productModal #weight_needed")
+      : $("#weight_needed");
+    const initialStep = parseInt(price.attr("data-step"));
+    let currentStep = parseInt(price.attr("data-current-step"));
+    const pricingUnit = $("input[name='pricingUnit']").val();
+    const unit = $("input[name='unit']").val();
+
+    let denominator = 1000;
+
+    if (pricingUnit === "g") {
+      denominator = initialStep;
     }
-    var denominator = findDenominator(pricingUnit, initialStep);
-    
     // pieces inits
-    var quantity = isModal ? $("#productModal #quantity-pieces") : $("#quantity-pieces");
+    var quantity = isModal
+      ? $("#productModal #quantity-pieces")
+      : $("#quantity-pieces");
     var minQuantity = quantity.attr("min");
     var step = quantity.attr("step");
     var value = quantity.attr("value");
 
     // weight funcs
     if (event.target.matches("#minus")) {
-        if (currentStep === minimumWeight) return;
-        
-        var stepper = currentStep - initialStep;
-        price.attr("data-current-step", stepper);
-        currentStep = parseInt(price.attr("data-current-step"));
-        var shownPrice = (initialPrice * stepper) / denominator;
-        shownPrice = shownPrice.toFixed(2);
+      if (currentStep === minimumWeight) return;
 
-        if (isModal) {
-            $(".modal-content input[name='weight_needed']").val(currentStep);
-            $(".modal-content #weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
-        } else {
-            $("input[name='weight_needed']").val(currentStep);
-            $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
-        }
+      let stepper = currentStep - initialStep;
+      price.attr("data-current-step", stepper);
+      currentStep = parseInt(price.attr("data-current-step"));
+      let shownPrice = initialPrice * (stepper / denominator);
+      shownPrice = shownPrice.toFixed(2);
+
+      if (isModal) {
+        $(".modal-content input[name='weight_needed']").val(currentStep);
+        $(".modal-content #weight_needed").val(
+          `${shownPrice}€ / ${currentStep}${unit}`
+        );
+      } else {
+        $("input[name='weight_needed']").val(currentStep);
+        $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+      }
     }
 
     if (event.target.matches("#plus")) {
-        var stepper = currentStep + initialStep;
-        price.attr("data-current-step", stepper);
-        currentStep = parseInt(price.attr("data-current-step"));
-        var shownPrice = (initialPrice * stepper) / denominator;
-        shownPrice = shownPrice.toFixed(2);
+      let stepper = currentStep + initialStep;
+      price.attr("data-current-step", stepper);
+      currentStep = parseInt(price.attr("data-current-step"));
+      let shownPrice = initialPrice * (stepper / denominator);
+      shownPrice = shownPrice.toFixed(2);
 
-        if (isModal) {
-            $(".modal-content input[name='weight_needed']").val(currentStep);
-            $(".modal-content #weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
-        } else {
-            $("input[name='weight_needed']").val(currentStep);
-            $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
-        }
+      if (isModal) {
+        $(".modal-content input[name='weight_needed']").val(currentStep);
+        $(".modal-content #weight_needed").val(
+          `${shownPrice}€ / ${currentStep}${unit}`
+        );
+      } else {
+        $("input[name='weight_needed']").val(currentStep);
+        $("#weight_needed").val(`${shownPrice}€ / ${currentStep}${unit}`);
+      }
     }
 
-	if (event.target.matches("#plus_pieces")) {
-		var nextVal = parseInt(value) + parseInt(step);
-        
-        if (isModal) quantity = $(".modal-content #quantity-pieces");
+    if (event.target.matches("#plus_pieces")) {
+      let nextVal = parseInt(value) + parseInt(step);
 
-        quantity.attr("value", nextVal);
-        value = quantity.attr("value");
-	}
+      if (isModal) quantity = $(".modal-content #quantity-pieces");
 
-	if (event.target.matches("#minus_pieces")) {
-		if (value === minQuantity) return;
-        var nextVal = parseInt(value) - parseInt(step);
-        
-        if (isModal) quantity = $(".modal-content #quantity-pieces");
+      quantity.attr("value", nextVal);
+      value = quantity.attr("value");
+    }
 
-        quantity.attr("value", nextVal);
-        value = quantity.attr("value");
-	}
-}, false);
+    if (event.target.matches("#minus_pieces")) {
+      if (value === minQuantity) return;
+      let nextVal = parseInt(value) - parseInt(step);
 
-const escapeRegExp = function(strToEscape) {
-    // Escape special characters for use in a regular expression
-    return strToEscape.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      if (isModal) quantity = $(".modal-content #quantity-pieces");
+
+      quantity.attr("value", nextVal);
+      value = quantity.attr("value");
+    }
+
+    if (event.target.matches("button[name='add-to-cart']")) {
+      _tfa.push({
+        notify: "event",
+        name: "add-to-cart",
+        id: 1456793,
+        revenue: "",
+        currency: "EUR",
+        productid: wc_price_calculator_params.product_id,
+        quantity: quantity.val(),
+      });
+    }
+  },
+  false
+);
+
+const escapeRegExp = function (strToEscape) {
+  // Escape special characters for use in a regular expression
+  return strToEscape.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 };
 
-const trimChar = function(origString, charToTrim) {
-    charToTrim = escapeRegExp(charToTrim);
-    var regEx = new RegExp("^[" + charToTrim + "]+|[" + charToTrim + "]+$", "g");
-    return origString.replace(regEx, "");
+const trimChar = function (origString, charToTrim) {
+  charToTrim = escapeRegExp(charToTrim);
+  let regEx = new RegExp("^[" + charToTrim + "]+|[" + charToTrim + "]+$", "g");
+  return origString.replace(regEx, "");
 };
 
 // Figure out curent category from slug in URL and add 'current-cat' class to show it in the categories
-var currentURL = decodeURIComponent($(window.location)[0].href);
-var splitURL = currentURL.split('product-category');
-var slug = splitURL[splitURL.length - 1];
+let currentURL = decodeURIComponent($(window.location)[0].href);
+let splitURL = currentURL.split("product-category");
+let slug = splitURL[splitURL.length - 1];
 
 function cleanSlug(slug) {
-    if (slug.includes('orderby')) {
-        slug = slug.split('?')[0];
-    }
+  if (slug.includes("orderby")) {
+    slug = slug.split("?")[0];
+  }
 
-    if (slug.includes('/page')) {
-        slug = slug.split('/page')[0];
-    }
+  if (slug.includes("/page")) {
+    slug = slug.split("/page")[0];
+  }
 
-    slug = trimChar(slug, "/");
-    if (slug.includes('/')) {
-        slug = slug.split('/');
-        slug = slug[slug.length - 1];
-    }
+  slug = trimChar(slug, "/");
+  if (slug.includes("/")) {
+    slug = slug.split("/");
+    slug = slug[slug.length - 1];
+  }
 
-    return slug;
+  return slug;
 }
 
-var parentCat = "cat-parent";
-var childCat = "cat-children";
+const parentCat = "cat-parent";
+const childCat = "cat-children";
 
 // Toggling child categories in product filters
-$('.cats-toggle').click(function() {
-    if ($(this).next().hasClass('active')) {
-        $(this).next().removeClass('active').slideUp(600);
-    } else {
-        $(this).parents().find('li .children').removeClass('active').slideUp(600);
-        $(this).next().toggleClass('active').slideToggle(600);
-    }
+$(".cats-toggle").click(function () {
+  if ($(this).next().hasClass("active")) {
+    $(this).next().removeClass("active").slideUp(600);
+  } else {
+    $(this).parents().find("li .children").removeClass("active").slideUp(600);
+    $(this).next().toggleClass("active").slideToggle(600);
+  }
 
-    $(".cats-toggle").each(function(){
-        $(this).siblings('.children').hasClass('active') ? 
-            $(this).addClass('active') : 
-            $(this).removeClass('active');
-    });
+  $(".cats-toggle").each(function () {
+    $(this).siblings(".children").hasClass("active")
+      ? $(this).addClass("active")
+      : $(this).removeClass("active");
+  });
 });
 
-$('.cat-item .cats').on('click', function() {
-    var currentCat = $(this);
-    let situation;
-    if ($(this).parent().hasClass(parentCat)) {
-        situation = "parent";
-    } else if ($(this).hasClass(childCat)) {
-        situation = "child";
-    } else {
-        situation = "childless";
-    }
-    if ($(".filters__area").hasClass("filters--active")) $(".filters__area").removeClass("filters--active");
+$(".cat-item .cats").on("click", function () {
+  let currentCat = $(this);
+  let situation;
+  if ($(this).parent().hasClass(parentCat)) {
+    situation = "parent";
+  } else if ($(this).hasClass(childCat)) {
+    situation = "child";
+  } else {
+    situation = "childless";
+  }
+  if ($(".filters__area").hasClass("filters--active"))
+    $(".filters__area").removeClass("filters--active");
 
-    // toggling arrows while toggling categories
-    $(".cats-toggle").each(function(){
-        $(this).parents(".product__categories").find(".cat-parent .cats-toggle").removeClass("active");
-        currentCat.siblings(".cats-toggle").addClass("active");
-    });
+  // toggling arrows while toggling categories
+  $(".cats-toggle").each(function () {
+    $(this)
+      .parents(".product__categories")
+      .find(".cat-parent .cats-toggle")
+      .removeClass("active");
+    currentCat.siblings(".cats-toggle").addClass("active");
+  });
 
-    $(this).parents(".product__categories").find('li .cats').removeClass('current-cat');
-    $(this).addClass('current-cat');
+  $(this)
+    .parents(".product__categories")
+    .find("li .cats")
+    .removeClass("current-cat");
+  $(this).addClass("current-cat");
 
-    if (situation === "parent" || situation === "childless") {
-        $(this).parents(".product__categories").find('li .children').removeClass('active').slideUp(600);
-    }
+  if (situation === "parent" || situation === "childless") {
+    $(this)
+      .parents(".product__categories")
+      .find("li .children")
+      .removeClass("active")
+      .slideUp(600);
+  }
 
-    if (situation === "parent") {
-        $(this).siblings('.children').addClass('active').slideDown(600);
-    }
+  if (situation === "parent") {
+    $(this).siblings(".children").addClass("active").slideDown(600);
+  }
 });
 
 // pre-select category, expand if child and toggle arrow
-$(".cat-item .cats").each(function() {
-    if ($(this).data('slug') === cleanSlug(slug)) {
-        $(this).parents().siblings('.cats').trigger('click');
-        $(this).addClass('current-cat').trigger('click');
-        if ($(this).parent().hasClass(parentCat)) {
-            $(this).siblings('.cats-toggle').addClass('active');
-        } 
-        if ($(this).hasClass(childCat)) {
-            $(this).parents().siblings('.cats-toggle').addClass('active');
-        }
+$(".cat-item .cats").each(function () {
+  if ($(this).data("slug") === cleanSlug(slug)) {
+    $(this).parents().siblings(".cats").trigger("click");
+    $(this).addClass("current-cat").trigger("click");
+    if ($(this).parent().hasClass(parentCat)) {
+      $(this).siblings(".cats-toggle").addClass("active");
     }
+    if ($(this).hasClass(childCat)) {
+      $(this).parents().siblings(".cats-toggle").addClass("active");
+    }
+  }
 });
 
 // mail subscribe
-const email_regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-$('.newsletter__btn').on('click', function() {
-    var email = $('#mce-EMAIL').val();
+const email_regex =
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+$(".newsletter__btn").on("click", function () {
+  let email = $("#mce-EMAIL").val();
 
-	if(email.length > 0 && email_regex.test(email)) {
-        $('#mc-embedded-subscribe').click();
-	}
+  if (email.length > 0 && email_regex.test(email)) {
+    $("#mc-embedded-subscribe").click();
+  }
 });
 
-$('.filters__area__sidebar--toggle').on('click', function() {
-    $('.filters__area').toggleClass("filters--active");
+$(".filters__area__sidebar--toggle").on("click", function () {
+  $(".filters__area").toggleClass("filters--active");
 });
 
-$('.site-header-cart').on('click', function() {
-    $('.mini__cart--wrapper').addClass("cart--open");
-    $('#site-overlay').css("display", "block");
-    $('#site-overlay').addClass("blurry");
+$(".site-header-cart").on("click", function () {
+  $(".mini__cart--wrapper").addClass("cart--open");
+  $("#site-overlay").css("display", "block");
+  $("#site-overlay").addClass("blurry");
 });
 
-$(document).on('click', '.mini__cart--close', function() {
-    $('.mini__cart--wrapper').removeClass("cart--open");
-    $('#site-overlay').css("display", "none");
-    $('#site-overlay').removeClass("blurry");
+$(document).on("click", ".mini__cart--close", function () {
+  $(".mini__cart--wrapper").removeClass("cart--open");
+  $("#site-overlay").css("display", "none");
+  $("#site-overlay").removeClass("blurry");
 });
 
-$(document).mouseup(function(e) {    
-    if (!$('.mini__cart--wrapper').is(e.target) && $('.mini__cart--wrapper').has(e.target).length === 0) {
-        $('.mini__cart--wrapper').removeClass("cart--open");
-        $('#site-overlay').css("display","none");
-        $('#site-overlay').removeClass("blurry");
-    }   
+$(document).mouseup(function (e) {
+  if (
+    !$(".mini__cart--wrapper").is(e.target) &&
+    $(".mini__cart--wrapper").has(e.target).length === 0
+  ) {
+    $(".mini__cart--wrapper").removeClass("cart--open");
+    $("#site-overlay").css("display", "none");
+    $("#site-overlay").removeClass("blurry");
+  }
 });
 
 // Quick view pop-up
-$(document).on('click', '.close', function () {
-    $('#productModal').fadeOut();
-    $('body').removeClass('quick-view__no-scroll');
+$(document).on("click", ".close", function () {
+  $("#productModal").fadeOut();
+  $("body").removeClass("quick-view__no-scroll");
 });
 
-$(document).on('click', '#productModal', function (e) {
-    if (e.target !== this) return;
-    $('#productModal').fadeOut();
-    $('body').removeClass('quick-view__no-scroll');
+$(document).on("click", "#productModal", function (e) {
+  if (e.target !== this) return;
+  $("#productModal").fadeOut();
+  $("body").removeClass("quick-view__no-scroll");
 });
 
-$(document).on("click", ".cart-btn__minus", function() {
-    var input = $(this).next("input.qty");
-	var inputVal = parseInt(input.val());
-	var updatedVal = inputVal - 1;
-    if (input.val() == 1) return;
-	input.val(updatedVal);
-    $("[name='update_cart']").removeAttr("disabled");
-    $("[name='update_cart']").trigger('click');
+$(document).on("click", ".cart-btn__minus", function () {
+  let input = $(this).next("input.qty");
+  let inputVal = parseInt(input.val());
+  let updatedVal = inputVal - 1;
+  if (input.val() == 1) return;
+  input.val(updatedVal);
+  $("[name='update_cart']").removeAttr("disabled");
+  $("[name='update_cart']").trigger("click");
 });
 
-$(document).on("click", ".cart-btn__plus", function() {
-    var input = $(this).prev("input.qty");
-	var inputVal = parseInt(input.val());
-	var updatedVal = inputVal + 1;
-	input.val(updatedVal);
-    $("[name='update_cart']").removeAttr("disabled");
-    $("[name='update_cart']").trigger('click');
+$(document).on("click", ".cart-btn__plus", function () {
+  let input = $(this).prev("input.qty");
+  let inputVal = parseInt(input.val());
+  let updatedVal = inputVal + 1;
+  input.val(updatedVal);
+  $("[name='update_cart']").removeAttr("disabled");
+  $("[name='update_cart']").trigger("click");
 });
 
-$(document).ready(function() {
-   $(".insta-gallery-link").each(function() {
-        $(this).attr('rel', 'noopener');
-    });
+$(document).ready(function () {
+  $(".insta-gallery-link").each(function () {
+    $(this).attr("rel", "noopener");
+  });
 
-    $(".insta-gallery-icon").each(function() {
-        $(this).attr('rel', 'noopener');
-    });
+  $(".insta-gallery-icon").each(function () {
+    $(this).attr("rel", "noopener");
+  });
 });
 
 // Toggle hamburger
-$(".hamburger").on("click", function() {
-	$(".hamburger").toggleClass("is-active");
+$(".hamburger").on("click", function () {
+  $(".hamburger").toggleClass("is-active");
 });
 
-$(".widget_shopping_cart").prependTo('#page');
+$(".widget_shopping_cart").prependTo("#page");
 
 $("#shop-menu")
-    .find("> li > a")
-    .addClass("toggle")
-    .attr('href', 'javascript:void(0);')
-    .append(`
+  .find("> li > a")
+  .addClass("toggle")
+  .attr("href", "javascript:void(0);").append(`
         <svg class="plus-svg">
 			<use xlink:href="#plus"></use>
 		</svg>
@@ -269,27 +306,44 @@ $("#shop-menu")
         </svg>
     `);
 
-$('#shop-menu').appendTo('#primary-menu');
+$("#shop-menu").appendTo("#primary-menu");
 
-$('.toggle').click(function() {
-    if ($(this).next().hasClass('active')) {
-        $(this).next().removeClass('active');
-        $(this).next().slideUp(600);
+$(".toggle").click(function () {
+  if ($(this).next().hasClass("active")) {
+    $(this).next().removeClass("active");
+    $(this).next().slideUp(600);
+  } else {
+    $(this).parent().parent().find("li .sub-menu").removeClass("active");
+    $(this).parent().parent().find("li .sub-menu").slideUp(600);
+    $(this).next().toggleClass("active");
+    $(this).next().slideToggle(600);
+  }
+
+  $(".toggle").each(function () {
+    if ($(this).siblings(".sub-menu").hasClass("active")) {
+      $(this).parent().find(".toggle").addClass("active");
     } else {
-        $(this).parent().parent().find('li .sub-menu').removeClass('active');
-        $(this).parent().parent().find('li .sub-menu').slideUp(600);
-        $(this).next().toggleClass('active');
-        $(this).next().slideToggle(600);
+      $(this).parent().find(".toggle").removeClass("active");
     }
-
-    $(".toggle").each(function(){
-        if ($(this).siblings('.sub-menu').hasClass('active')) {
-            $(this).parent().find('.toggle').addClass('active');
-        } else {
-            $(this).parent().find('.toggle').removeClass('active');
-        }	
-    });
+  });
 });
+
+if (currentURL.includes("checkout") && currentURL.includes("wc_order")) {
+  let cartValue = $(".woocommerce-order-overview__total bdi").text();
+
+  if (cartValue.includes("€")) cartValue = cartValue.replace(/€/g, "");
+
+  const splitOrder = currentURL.split("?")[0];
+  let order = trimChar(splitOrder, "/").split("/");
+  order = order[order.length - 1];
+
+  gtag("event", "conversion", {
+    send_to: "AW-10895649924/QJO2COyyhroDEITZucso",
+    value: cartValue,
+    currency: "EUR",
+    transaction_id: order,
+  });
+}
 
 // Inner dropdown menu eventPreventDefault for touch devices
 // window.USER_IS_TOUCHING = false;
@@ -300,7 +354,7 @@ $('.toggle').click(function() {
 // }, false);
 
 // function is_touch_device() {
-// 	return 'ontouchstart' in window		// works on most browsers 
+// 	return 'ontouchstart' in window		// works on most browsers
 // 	|| navigator.maxTouchPoints;		// works on IE10/11 and Surface
 // };
 
@@ -328,153 +382,170 @@ $('.toggle').click(function() {
 // });
 
 // Shop submenu
-$(".big__menu").hover(function () {
-    $(".big__menu .sub-menu").css({"visibility" : "visible", "transition" : "opacity .6s", "opacity" : "1"});
-}, function () {
-    $(".big__menu .sub-menu").css({"visibility" : "hidden", "transition" : "opacity .6s", "opacity" : "0"});
-});
+$(".big__menu").hover(
+  function () {
+    $(".big__menu .sub-menu").css({
+      visibility: "visible",
+      transition: "opacity .6s",
+      opacity: "1",
+    });
+  },
+  function () {
+    $(".big__menu .sub-menu").css({
+      visibility: "hidden",
+      transition: "opacity .6s",
+      opacity: "0",
+    });
+  }
+);
 
 // Custom lazyload script using Intersection Observer
 function intersectionObjerver() {
-    var lazyloadImages;    
-    if ("IntersectionObserver" in window) {
-        lazyloadImages = document.querySelectorAll(".lazy");
-        var imageObserver = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    var image = entry.target;
-                    image.src = image.dataset.src;
-                    image.classList.remove("lazy");
-                    imageObserver.unobserve(image);
-                }
-            });
-        });
-
-        lazyloadImages.forEach(function(image) {
-            imageObserver.observe(image);
-        });
-    } else {  
-        var lazyloadThrottleTimeout;
-        lazyloadImages = document.querySelectorAll(".lazy");
-        
-        function lazyload () {
-            if(lazyloadThrottleTimeout) {
-                clearTimeout(lazyloadThrottleTimeout);
-            }    
-
-            lazyloadThrottleTimeout = setTimeout(function() {
-                var scrollTop = window.pageYOffset;
-                lazyloadImages.forEach(function(img) {
-                    if(img.offsetTop < (window.innerHeight + scrollTop)) {
-                        img.src = img.dataset.src;
-                        img.classList.remove('lazy');
-                    }
-                });
-                if(lazyloadImages.length == 0) { 
-                    document.removeEventListener("scroll", lazyload, {passive: true});
-                    window.removeEventListener("resize", lazyload, {passive: true});
-                    window.removeEventListener("orientationChange", lazyload, {passive: true});
-                }
-            }, 20);
+  let lazyloadImages;
+  if ("IntersectionObserver" in window) {
+    lazyloadImages = document.querySelectorAll(".lazy");
+    let imageObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          let image = entry.target;
+          image.src = image.dataset.src;
+          image.classList.remove("lazy");
+          imageObserver.unobserve(image);
         }
+      });
+    });
 
-        document.addEventListener("scroll", lazyload, {passive: true});
-        window.addEventListener("resize", lazyload, {passive: true});
-        window.addEventListener("orientationChange", lazyload, {passive: true});
+    lazyloadImages.forEach(function (image) {
+      imageObserver.observe(image);
+    });
+  } else {
+    let lazyloadThrottleTimeout;
+    lazyloadImages = document.querySelectorAll(".lazy");
+
+    function lazyload() {
+      if (lazyloadThrottleTimeout) {
+        clearTimeout(lazyloadThrottleTimeout);
+      }
+
+      lazyloadThrottleTimeout = setTimeout(function () {
+        let scrollTop = window.pageYOffset;
+        lazyloadImages.forEach(function (img) {
+          if (img.offsetTop < window.innerHeight + scrollTop) {
+            img.src = img.dataset.src;
+            img.classList.remove("lazy");
+          }
+        });
+        if (lazyloadImages.length == 0) {
+          document.removeEventListener("scroll", lazyload, { passive: true });
+          window.removeEventListener("resize", lazyload, { passive: true });
+          window.removeEventListener("orientationChange", lazyload, {
+            passive: true,
+          });
+        }
+      }, 20);
     }
+
+    document.addEventListener("scroll", lazyload, { passive: true });
+    window.addEventListener("resize", lazyload, { passive: true });
+    window.addEventListener("orientationChange", lazyload, { passive: true });
+  }
 }
 
 intersectionObjerver();
 
-$("#search").on('click', function() {
-    $(".search-full-screen").addClass("opened");
-    //$(".search-full-screen").css("top", "181px");
+$("#search").on("click", function () {
+  $(".search-full-screen").addClass("opened");
+  //$(".search-full-screen").css("top", "181px");
 });
 
-$(".close-search").on('click', function() {
-    $(".search-full-screen").removeClass("opened");
-    $(".search-query").val("");
-    $('[class^="products columns-"]').empty();
+$(".close-search").on("click", function () {
+  $(".search-full-screen").removeClass("opened");
+  $(".search-query").val("");
+  $('[class^="products columns-"]').empty();
 });
 
-const prevArrow = '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>';
-const nextArrow = '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>';
+const prevArrow =
+  '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--left" data-carousel-direction="-1"><span class="visually-hidden">Previous</span><svg class="icon"><use xlink:href="#arrow-left"></use></svg></p>';
+const nextArrow =
+  '<p class="js-carousel-control carousel-slick__control--circle carousel-slick__control--right" data-carousel-direction="1"><span class="visually-hidden">Next</span><svg class="icon"><use xlink:href="#arrow-right"></use></svg></p>';
 
-$('.left-column').slick({
-    infinite: true,
-  	cssEase: 'linear',
-    lazyLoad: 'ondemand',
-  	slidesToShow: 1,
-  	slidesToScroll: 1,
-  	speed: 500,
-  	autoplay: true,
-  	autoplaySpeed: 4000,
-    dots: false,
-  	fade: true,
-    prevArrow,
-	nextArrow
+$(".left-column").slick({
+  infinite: true,
+  cssEase: "linear",
+  lazyLoad: "ondemand",
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  speed: 500,
+  autoplay: true,
+  autoplaySpeed: 4000,
+  dots: false,
+  fade: true,
+  prevArrow,
+  nextArrow,
 });
 
+$(".flex-control-nav")
+  .wrap('<div class="flex-control-nav flex-control-thumbs">')
+  .contents()
+  .unwrap();
+$(".flex-control-nav li").wrap("<div>").contents().unwrap();
 
-$('.flex-control-nav').wrap('<div class="flex-control-nav flex-control-thumbs">').contents().unwrap();
-$('.flex-control-nav li').wrap('<div>').contents().unwrap();
+$(".flex-control-nav.flex-control-thumbs").slick({
+  infinite: true,
+  cssEase: "linear",
+  lazyLoad: "ondemand",
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: false,
+  dots: false,
+  swipeToSlide: true,
+  prevArrow,
+  nextArrow,
+});
 
-$('.flex-control-nav.flex-control-thumbs').slick({
-    infinite: true,
-    cssEase: 'linear',
-    lazyLoad: 'ondemand',
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: false,
-    dots: false,
-    swipeToSlide: true,
-    prevArrow,
-	nextArrow
-})
-
-$('.category__wrapper, .product__wrapper').slick({
-    infinite: true,
-    cssEase: 'linear',
-    lazyLoad: 'ondemand',
-    slidesToShow: 6,
-    slidesToScroll: 1,
-    speed: 1000,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    dots: false,
-    swipeToSlide: true,
-    prevArrow,
-	nextArrow,
-    responsive: [
+$(".category__wrapper, .product__wrapper").slick({
+  infinite: true,
+  cssEase: "linear",
+  lazyLoad: "ondemand",
+  slidesToShow: 6,
+  slidesToScroll: 1,
+  speed: 1000,
+  autoplay: true,
+  autoplaySpeed: 2500,
+  dots: false,
+  swipeToSlide: true,
+  prevArrow,
+  nextArrow,
+  responsive: [
     {
       breakpoint: 1024,
       settings: {
         slidesToShow: 4,
-        slidesToScroll: 1
-      }
+        slidesToScroll: 1,
+      },
     },
     {
       breakpoint: 860,
       settings: {
         slidesToShow: 3,
-        slidesToScroll: 1
-      }
+        slidesToScroll: 1,
+      },
     },
     {
       breakpoint: 600,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
-        dots: false
-      }
+        dots: false,
+      },
     },
     {
       breakpoint: 480,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
-        dots: false
-      }
-    }
-  ]
+        dots: false,
+      },
+    },
+  ],
 });
